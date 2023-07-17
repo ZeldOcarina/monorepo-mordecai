@@ -1,0 +1,15 @@
+.container {
+  @extend .container;
+
+  @media only screen and (max-width: 780px) {
+    max-width: 650px;
+  }
+
+  @media only screen and (max-width: 450px) {
+    max-width: 400px;
+  }
+
+  @media only screen and (min-width: 2560px) {
+    max-width: 80%;
+  }
+}

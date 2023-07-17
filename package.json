@@ -1,0 +1,24 @@
+{
+  "name": "gatsby-theme-wintergreen",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Yarn workspace for mantaining gatsby-theme-wintergreen",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "clean": "turbo clean",
+    "start-midway": "doppler run -c mordecai_midway-dental-group -p mordecai -- turbo start --filter midway-dental-group",
+    "start-dnt": "doppler run -c mordecai_dnt-dental-lab -p mordecai -- turbo start --filter dnt-dental-lab"
+  },
+  "author": "Mattia Rasulo <mattia@monarchy.io>",
+  "workspaces": [
+    "@zeldocarina/gatsby-theme-mordecai",
+    "@zeldocarina/gatsby-helpers",
+    "midway-dental-group",
+    "dnt-dental-lab"
+  ],
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "turbo": "^1.10.6"
+  }
+}

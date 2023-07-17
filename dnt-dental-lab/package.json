@@ -1,0 +1,26 @@
+{
+  "name": "dnt-dental-lab",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "develop": "gatsby develop",
+    "prebuild": "NODE_ENV=production node gatsby-prebuild.js",
+    "build": "gatsby build",
+    "start:dev": "npm-run-all -p dev:*",
+    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
+    "start": "NODE_ENV=development node gatsby-prebuild.js && gatsby develop",
+    "serve": "gatsby serve",
+    "clean": "gatsby clean"
+  },
+  "author": "Mattia Rasulo <mattia@monarchy.io>",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "gatsby": "^5.11.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "sass": "^1.55.0",
+    "@zeldocarina/gatsby-helpers": "*",
+    "@zeldocarina/gatsby-theme-mordecai": "*"
+  }
+}

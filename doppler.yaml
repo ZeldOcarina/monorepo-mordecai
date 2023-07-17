@@ -1,0 +1,7 @@
+setup:
+  - project: mordecai
+    config: mordecai_midway-dental-group
+    path: midway-dental-group
+  - project: mordecai
+    config: mordecai_dnt-dental-lab
+    path: dnt-dental-lab
