@@ -111,7 +111,7 @@ const InnerPageTemplate = ({
       // keep adding to the array until the next pingPongItem.data.rowNumber is not consecutive to the previous one.
       const currentTitleRowNumber = pingPongTitleData.data.rowNumber
       const pingPongItemsFirstRow = pingPongItemsData.pingPongItemsData.find(
-        item => item.data.rowNumber > currentTitleRowNumber
+        item => item.data.rowNumber > currentTitleRowNumber,
       )
 
       if (!pingPongItemsFirstRow) return ""
@@ -125,7 +125,7 @@ const InnerPageTemplate = ({
         findNextItem(pingPongItemsData.pingPongItemsData, currentRowNumber)
       ) {
         pingPongItemsArray.push(
-          findNextItem(pingPongItemsData.pingPongItemsData, currentRowNumber)
+          findNextItem(pingPongItemsData.pingPongItemsData, currentRowNumber),
         )
         currentRowNumber++
       }
@@ -421,7 +421,7 @@ const InnerPageTemplate = ({
     })
   }
 
-  console.log(pageComponents)
+  // console.log(pageComponents)
 
   // Sort array by inner objects index property
   const sortedPageComponents = pageComponents.sort((a, b) => a.index - b.index)

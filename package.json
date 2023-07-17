@@ -8,7 +8,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "clean": "turbo clean",
     "start-midway": "doppler run -c mordecai_midway-dental-group -p mordecai -- turbo start --filter midway-dental-group",
-    "start-dnt": "doppler run -c mordecai_dnt-dental-lab -p mordecai -- turbo start --filter dnt-dental-lab"
+    "start-dnt": "doppler run -c mordecai_dnt-dental-lab -p mordecai -- turbo start --filter dnt-dental-lab",
+    "build-dnt": "doppler run -c mordecai_dnt-dental-lab -p mordecai -- turbo build --filter dnt-dental-lab"
   },
   "author": "Mattia Rasulo <mattia@monarchy.io>",
   "workspaces": [

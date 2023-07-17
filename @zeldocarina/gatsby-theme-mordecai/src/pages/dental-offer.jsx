@@ -36,7 +36,7 @@ const StyledDentalOffer = styled.main`
         924,
         css`
           margin-top: 0;
-        `
+        `,
       )}
     }
   }
@@ -66,25 +66,25 @@ const StyledDentalOffer = styled.main`
         max-width: 80%;
         padding-top: 15rem;
         padding-bottom: var(--section-gutter);
-      `
+      `,
     )}
     ${respond(
       834,
       css`
         max-width: 70%;
-      `
+      `,
     )}
     ${respond(
       500,
       css`
         max-width: 95%;
-      `
+      `,
     )}
     ${respond(
       "big-desktop",
       css`
         max-width: 45%;
-      `
+      `,
     )}
   }
 `
@@ -93,7 +93,7 @@ const DentalOffer = ({
   location,
   data: {
     businessNameData: { businessNameData },
-    dentalOfferSeoData: { dentalOfferSeoData },
+    dentalOfferSeoData,
     dentalOfferTitleData: { dentalOfferTitleData },
     dentalOfferServicesTitle: { dentalOfferServicesTitle },
     dentalOfferServiceItems: { dentalOfferServiceItems },
@@ -114,7 +114,7 @@ const DentalOffer = ({
     const correctItem = sitemapOffersData.find(item => {
       const parsedUrl = buildLink(
         item.data.Permalink,
-        shortcodesData.cityState.value
+        shortcodesData.cityState.value,
       )
       return parsedUrl === location.state?.fromPage.replace(/(\/?\s*)$/, "/")
     })
@@ -148,10 +148,14 @@ const DentalOffer = ({
   return (
     <Layout>
       <Seo
-        title={`${businessNameData.Value} | ${dentalOfferSeoData.Page_Title}`}
-        description={dentalOfferSeoData.description}
-        mainKeyword={dentalOfferSeoData.Main_Keyword}
-        relativeKeywords={dentalOfferSeoData.Relative_Keywords}
+        title={`${businessNameData.Value} | ${
+          dentalOfferSeoData?.dentalOfferSeoData?.Page_Title || ""
+        }`}
+        description={dentalOfferSeoData?.dentalOfferSeoData?.description || ""}
+        mainKeyword={dentalOfferSeoData?.dentalOfferSeoData?.Main_Keyword || ""}
+        relativeKeywords={
+          dentalOfferSeoData?.dentalOfferSeoData?.Relative_Keywords || ""
+        }
         origin={location.origin}
         pathname={location.pathname}
       />
@@ -171,7 +175,7 @@ const DentalOffer = ({
             defaultService={offersData.service}
             privacyLabel={new ShortcodesParser(
               dentalOfferTitleData.privacyLabel,
-              shortcodesData
+              shortcodesData,
             ).parseShortcodes()}
           />
         </div>
