@@ -18,7 +18,7 @@ const StyledBlog = styled.main`
     500,
     css`
       padding: var(--gutter) 0;
-    `
+    `,
   )}
 
   .blog-title {
@@ -30,7 +30,7 @@ const StyledBlog = styled.main`
       500,
       css`
         font-size: 4rem;
-      `
+      `,
     )}
   }
 `
@@ -39,7 +39,7 @@ const Blog = ({
   location,
   data: {
     businessNameData: { businessNameData },
-    blogSeoData: { blogSeoData },
+    blogSeoData,
     blogData: { blogData },
     allCategoriesData: { allCategoriesData },
   },
@@ -57,7 +57,7 @@ const Blog = ({
             ref: createRef(null),
           }
         })
-        .slice(0, 3)
+        .slice(0, 3),
     )
 
     // Flatten the array and remove duplicates or nullish values
@@ -89,7 +89,7 @@ const Blog = ({
           ])
         }
       },
-      { threshold: 1 }
+      { threshold: 1 },
     )
 
     if (
@@ -98,7 +98,7 @@ const Blog = ({
       currentShownBlogs[currentShownBlogs.length - 1].ref.current
     ) {
       observer.observe(
-        currentShownBlogs[currentShownBlogs.length - 1].ref.current
+        currentShownBlogs[currentShownBlogs.length - 1].ref.current,
       )
     }
 
@@ -112,10 +112,12 @@ const Blog = ({
   return (
     <Layout>
       <Seo
-        title={`${businessNameData.Value} | ${blogSeoData.Page_Title}`}
-        description={blogSeoData.description}
-        mainKeyword={blogSeoData.Main_Keyword}
-        relativeKeywords={blogSeoData.Relative_Keywords}
+        title={`${businessNameData.Value} | ${
+          blogSeoData?.blogSeoData?.Page_Title || ""
+        }`}
+        description={blogSeoData?.blogSeoData?.description || ""}
+        mainKeyword={blogSeoData?.blogSeoData?.Main_Keyword || ""}
+        relativeKeywords={blogSeoData?.blogSeoData?.Relative_Keywords || ""}
         origin={location.origin}
         pathname={location.pathname}
       />
