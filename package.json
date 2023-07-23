@@ -17,7 +17,7 @@
     "@zeldocarina/gatsby-helpers",
     "midway-dental-group",
     "dnt-dental-lab"
-  ],
+  ], 
   "license": "UNLICENSED",
   "devDependencies": {
     "turbo": "^1.10.6"
