@@ -15,20 +15,20 @@ const StyledCardsContainer = styled.div`
     1680,
     css`
       grid-template-columns: repeat(auto-fit, 500px);
-    `
+    `,
   )}
 
   ${respond(
     1194,
     css`
       grid-template-columns: repeat(auto-fit, 450px);
-    `
+    `,
   )}
   ${respond(
     834,
     css`
       grid-template-columns: repeat(auto-fit, 620px);
-    `
+    `,
   )}
   ${respond(
     500,
@@ -37,13 +37,13 @@ const StyledCardsContainer = styled.div`
       max-width: 90%;
       margin: 0 auto;
       padding: 0;
-    `
+    `,
   )}
   ${respond(
     "big-desktop",
     css`
       grid-template-columns: repeat(auto-fit, 655px);
-    `
+    `,
   )}
 `
 

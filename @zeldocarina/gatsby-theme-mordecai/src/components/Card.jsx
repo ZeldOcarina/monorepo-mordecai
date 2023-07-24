@@ -21,7 +21,7 @@ const StyledCard = styled.article`
 
   .title-container {
     display: grid;
-    grid-template-columns: 20rem 1fr;
+    grid-template-columns: 20rem 25rem;
     align-items: center;
     justify-content: center;
     width: max-content;
@@ -33,31 +33,26 @@ const StyledCard = styled.article`
       css`
         grid-template-columns: 1fr;
         text-align: center;
-      `
-    )}
-    ${respond(
-      "big-desktop",
-      css`
-        grid-template-columns: 30rem 1fr;
-      `
+      `,
     )}
 
     .intro-section {
       margin: 0;
       padding: 0;
-      max-width: 100%;
+      /* max-width: 100%; */
 
       .heading {
         text-align: left;
         font-size: 2rem;
         font-weight: 700;
         margin: 0;
+        max-width: 100%;
 
         ${respond(
           500,
           css`
             text-align: center;
-          `
+          `,
         )}
       }
 
@@ -71,7 +66,7 @@ const StyledCard = styled.article`
           500,
           css`
             text-align: center;
-          `
+          `,
         )}
       }
 
@@ -91,7 +86,7 @@ const StyledCard = styled.article`
       css`
         width: 15rem;
         margin: 0 auto;
-      `
+      `,
     )}
   }
 
@@ -104,7 +99,7 @@ const StyledCard = styled.article`
         display: flex;
         flex-direction: column;
         align-items: center;
-      `
+      `,
     )}
   }
 `
