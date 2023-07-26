@@ -27,7 +27,8 @@ function organizeMenu(categoriesData, cityState) {
 
   sortedCategoriesData.forEach(category => {
     //if (category.data.Parent === "Home") return
-    categories.add(category.data.Parent)
+    if (category.data.Parent && category.data.Permalink)
+      categories.add(category.data.Parent)
   })
 
   // // Inspect categories and console log each item
@@ -41,6 +42,7 @@ function organizeMenu(categoriesData, cityState) {
 
   sortedCategoriesData.forEach(navItem => {
     //if (navItem.data.Parent === "Home") return
+    if (!organizedMenuData[navItem.data.Parent]) return
     organizedMenuData[navItem.data.Parent].push({
       link: buildLink(navItem.data.Permalink, cityState),
       name: navItem.data.Child,
@@ -225,7 +227,7 @@ const query = graphql`
     categoriesData: allAirtable(
       filter: {
         table: { eq: "Menu" }
-        data: { Parent: { nin: ["QuickMenu", "AuxLinks"] } }
+        data: { Parent: { nin: ["QuickMenu", "AuxLinks", ""] } }
       }
     ) {
       categoriesData: nodes {
