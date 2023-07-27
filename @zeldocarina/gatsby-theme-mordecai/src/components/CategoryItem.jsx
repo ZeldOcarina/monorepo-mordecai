@@ -20,14 +20,14 @@ const StyledCategoryItem = styled.div`
     "no-hover",
     css`
       display: none;
-    `
+    `,
   )}
-  ${({ mobileNavbarBreakpoint }) => {
+  ${({ $mobileNavbarBreakpoint }) => {
     return respond(
-      mobileNavbarBreakpoint,
+      $mobileNavbarBreakpoint,
       css`
         display: none;
-      `
+      `,
     )
   }}
   ${respond(
@@ -35,14 +35,14 @@ const StyledCategoryItem = styled.div`
     css`
       font-size: 3rem;
       height: 80%;
-    `
+    `,
   )}
 
   span {
     font-family: var(--heading-font);
     &:hover {
-      color: ${({ isHomePage }) =>
-        isHomePage ? `var(--color-primary)` : `var(--color-secondary)`};
+      color: ${({ $isHomePage }) =>
+        $isHomePage ? `var(--color-primary)` : `var(--color-secondary)`};
     }
   }
 
@@ -82,8 +82,8 @@ const CategoryItem = ({ category, categoryItems, isHomePage }) => {
     <StyledCategoryItem
       onMouseEnter={() => handleMouseEnter(category)}
       onMouseLeave={() => handleMouseLeave(category)}
-      isHomePage={isHomePage}
-      mobileNavbarBreakpoint={appVariables.mobileNavbarBreakpoint}
+      $isHomePage={isHomePage}
+      $mobileNavbarBreakpoint={appVariables.mobileNavbarBreakpoint}
       ref={categoryItemRef}
     >
       {category === "Home" ? (
@@ -125,7 +125,7 @@ const CategoryItem = ({ category, categoryItems, isHomePage }) => {
               <Link
                 to={buildLink(
                   item.data.Permalink,
-                  shortcodesData.cityState.value
+                  shortcodesData.cityState.value,
                 )}
                 key={i}
                 onClick={handleClick}

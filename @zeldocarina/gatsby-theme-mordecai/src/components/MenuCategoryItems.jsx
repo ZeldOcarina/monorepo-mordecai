@@ -7,12 +7,12 @@ import respond from "../styles/abstracts/mediaqueries"
 const StyledMenuCategoryItems = styled.div`
   position: absolute;
   min-width: max-content;
-  top: ${({ top }) => {
+  top: ${({ $top }) => {
     // console.log(top)
-    return top
+    return $top
   }}px;
   left: 50%;
-  background-color: ${({ colors }) => hexToRGB(colors.white, 0.9)};
+  background-color: ${({ $colors }) => hexToRGB($colors.white, 0.9)};
   z-index: 200;
   padding: 4rem;
   transform: translateX(-50%);
@@ -36,7 +36,7 @@ const StyledMenuCategoryItems = styled.div`
       "big-desktop",
       css`
         font-size: 2rem;
-      `
+      `,
     )}
   }
 `
@@ -51,7 +51,7 @@ const MenuCategoryItems = ({
   const { setHoveredCategory, colors } = useContext(AppContext)
 
   useLayoutEffect(() => {
-    setCategoryItemTop(navbarOffsetTop => {
+    setCategoryItemTop(() => {
       return categoryItemRef?.current?.offsetHeight - 20
     })
   }, [navbarRef, categoryItemRef])
@@ -71,8 +71,8 @@ const MenuCategoryItems = ({
     <StyledMenuCategoryItems
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      colors={colors}
-      top={categoryItemTop}
+      $colors={colors}
+      $top={categoryItemTop}
     >
       {children}
     </StyledMenuCategoryItems>

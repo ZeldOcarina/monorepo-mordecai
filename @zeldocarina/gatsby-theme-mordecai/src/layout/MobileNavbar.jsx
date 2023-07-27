@@ -19,7 +19,7 @@ const StyledMobileNavbar = styled.div`
   right: 0;
   bottom: 0;
   z-index: 200;
-  background-color: ${({ colors }) => hexToRGB(colors.mobileMenuColor, 0.9)};
+  background-color: ${({ $colors }) => hexToRGB($colors.mobileMenuColor, 0.9)};
   backdrop-filter: blur(10px);
   transform: translateX(200vw);
   transition: all 0.3s ease-in-out;
@@ -30,11 +30,11 @@ const StyledMobileNavbar = styled.div`
   align-items: flex-start;
   justify-content: center;
 
-  ${({ open }) => {
+  ${({ $open }) => {
     //console.log(open);
 
     return (
-      open &&
+      $open &&
       css`
         transform: translateX(0);
       `
@@ -58,26 +58,26 @@ const StyledMobileNavbar = styled.div`
       768,
       css`
         right: 6rem;
-      `
+      `,
     )}
     ${respond(
       "phone-land",
       css`
         width: 5%;
-      `
+      `,
     )}
     ${respond(
       "phone-port",
       css`
         width: 3rem;
-      `
+      `,
     )}
     ${respond(
       "iphone-12-mini",
       css`
         top: 3rem;
         right: 3rem;
-      `
+      `,
     )}
   }
 
@@ -91,7 +91,7 @@ const StyledMobileNavbar = styled.div`
     flex-direction: column;
     align-items: center;
     gap: 6rem;
-    //overflow-y: scroll;
+    /* overflow-y: scroll; */
     margin: 5rem 0;
     padding: 0;
 
@@ -99,20 +99,20 @@ const StyledMobileNavbar = styled.div`
       834,
       css`
         margin: 15rem 0 5rem 0;
-      `
+      `,
     )}
     ${respond(
       768,
       css`
         margin: 5rem 0 5rem 0;
-      `
+      `,
     )}
     ${respond(
       "phone-land",
       css`
         font-size: 2.5rem;
         gap: 4rem;
-      `
+      `,
     )}
     ${respond(
       "phone-port",
@@ -121,7 +121,7 @@ const StyledMobileNavbar = styled.div`
         width: 85%;
         gap: var(--gutter);
         margin: 4rem auto;
-      `
+      `,
     )}
 
     &__top-ul {
@@ -156,7 +156,7 @@ const StyledMobileNavbar = styled.div`
         "phone-port",
         css`
           font-size: 2rem;
-        `
+        `,
       )}
     }
   }
@@ -218,7 +218,7 @@ const StyledMobileNavbar = styled.div`
       css`
         padding: 1.3rem 1.5rem;
         font-size: 1.4rem;
-      `
+      `,
     )}
   }
 
@@ -227,7 +227,7 @@ const StyledMobileNavbar = styled.div`
       450,
       css`
         font-size: 1.4rem;
-      `
+      `,
     )}
   }
 `
@@ -274,7 +274,7 @@ const MobileNavbar = ({
   }
 
   return (
-    <StyledMobileNavbar open={isMobileMenuOpen} colors={colors}>
+    <StyledMobileNavbar $open={isMobileMenuOpen} $colors={colors}>
       <nav className="mobile-navbar">
         <Link to="/" className="logo" onClick={closeMenu}>
           <img src={logo} alt="logo" />
@@ -291,7 +291,7 @@ const MobileNavbar = ({
         <ul className="mobile-navbar__top-ul">
           {categories.map((category, i) => {
             const categoryItems = menuData.filter(
-              item => item.data.Parent === category
+              item => item.data.Parent === category,
             )
             return (
               <li className="mobile-navbar__top-li" key={i}>
@@ -308,7 +308,7 @@ const MobileNavbar = ({
                                 className="categories-subitems__link"
                                 to={buildLink(
                                   item.data.Permalink,
-                                  cityState.value
+                                  cityState.value,
                                 )}
                                 onClick={closeMenu}
                               >

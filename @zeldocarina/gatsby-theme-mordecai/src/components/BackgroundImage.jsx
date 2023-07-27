@@ -12,8 +12,8 @@ const StyledBackgroundImage = styled.div`
   object-position: top left;
 
   .overlay {
-    ${({ background, isCards }) => {
-      if (background) {
+    ${({ $background, $isCards }) => {
+      if ($background) {
         let css = `
         width: 100%;
         height: 100%;
@@ -22,16 +22,16 @@ const StyledBackgroundImage = styled.div`
         left: 0;
       `
 
-        if (!isCards) {
+        if (!$isCards) {
           css += `
-          background: ${background};
+          background: ${$background};
         `
         } else {
           css += `
         background: linear-gradient(
             -45deg,
-            ${background[0]},
-            ${background[1]}
+            ${$background[0]},
+            ${$background[1]}
           );`
         }
         return css
@@ -46,8 +46,8 @@ const StyledBackgroundImage = styled.div`
     position: absolute;
     object-fit: cover;
     object-position: top left;
-    // Blur slightly the image if blur is true
-    filter: ${({ blur }) => (blur ? "blur(4px)" : "none")};
+    /* Blur slightly the image if blur is true */
+    filter: ${({ $blur }) => ($blur ? "blur(4px)" : "none")};
 
     &--has-mobile {
       @media (max-width: 768px) {
@@ -76,9 +76,9 @@ const BackgroundImage = ({
 }) => {
   return (
     <StyledBackgroundImage
-      background={overlay}
-      blur={blur}
-      isCards={isCards}
+      $background={overlay}
+      $blur={blur}
+      $isCards={isCards}
       className="bg-image"
     >
       {overlay && <div className="overlay" />}

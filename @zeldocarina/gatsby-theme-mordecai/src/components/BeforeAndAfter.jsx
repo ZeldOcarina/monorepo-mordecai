@@ -7,8 +7,8 @@ import respond from "../styles/abstracts/mediaqueries"
 //import handle from "../images/icons/handle.svg"
 
 const StyledBeforeAndAfter = styled.section`
-  background: ${({ backgroundOverride }) => {
-    return backgroundOverride || "var(--white)"
+  background: ${({ $backgroundOverride }) => {
+    return $backgroundOverride || "var(--white)"
   }};
 
   .intro-section {
@@ -16,13 +16,13 @@ const StyledBeforeAndAfter = styled.section`
       1366,
       css`
         margin-bottom: var(--gutter);
-      `
+      `,
     )}
     ${respond(
       834,
       css`
         margin-bottom: var(--big-gutter);
-      `
+      `,
     )}
     }
 
@@ -34,7 +34,7 @@ const StyledBeforeAndAfter = styled.section`
           margin: var(--gutter) 0;
           margin-right: 0;
           width: 100%;
-        `
+        `,
       )}
     }
   }
@@ -63,19 +63,19 @@ const StyledBeforeAndAfter = styled.section`
       1366,
       css`
         height: 370px !important;
-      `
+      `,
     )}
     ${respond(
       1194,
       css`
         height: 450px !important;
-      `
+      `,
     )}
     ${respond(
       834,
       css`
         height: 550px !important;
-      `
+      `,
     )}
     ${respond(
       500,
@@ -84,13 +84,13 @@ const StyledBeforeAndAfter = styled.section`
         aspect-ratio: 1/1;
         object-fit: cover;
         object-position: center;
-      `
+      `,
     )}
     ${respond(
       "big-desktop",
       css`
         height: 655px !important;
-      `
+      `,
     )}
   }
 
@@ -121,32 +121,32 @@ const StyledBeforeAndAfter = styled.section`
       css`
         max-width: 90%;
         grid-template-columns: repeat(auto-fit, 370px);
-      `
+      `,
     )}
     ${respond(
       1194,
       css`
         grid-template-columns: repeat(auto-fit, 450px);
-      `
+      `,
     )}
     ${respond(
       834,
       css`
         grid-template-columns: repeat(auto-fit, 550px);
-      `
+      `,
     )}
     ${respond(
       500,
       css`
         grid-template-columns: 1fr;
-      `
+      `,
     )}
     ${respond(
       "big-desktop",
       css`
         grid-template-columns: repeat(auto-fit, 655px);
         gap: 4rem;
-      `
+      `,
     )}
   }
 
@@ -169,7 +169,7 @@ const BeforeAndAfter = ({
   return (
     <StyledBeforeAndAfter
       id="before-and-after"
-      backgroundOverride={backgroundOverride}
+      $backgroundOverride={backgroundOverride}
     >
       <div className="container">
         <IntroSection

@@ -14,32 +14,32 @@ function setBackgroundColor({ backgroundOverride }) {
 }
 
 const StyledTextSection = styled.section`
-  min-height: ${({ imageHeight }) => {
-    if (imageHeight) return imageHeight + 100 + "px"
+  min-height: ${({ $imageHeight }) => {
+    if ($imageHeight) return $imageHeight + 100 + "px"
     return "max-content"
   }};
   padding: 12rem 0;
-  background: ${({ backgroundOverride }) => {
-    return setBackgroundColor({ backgroundOverride })
+  background: ${({ $backgroundOverride }) => {
+    return setBackgroundColor({ $backgroundOverride })
   }};
 
   ${respond(
     1194,
     css`
       padding: 10rem 0;
-    `
+    `,
   )}
   ${respond(
     500,
     css`
       padding: var(--section-gutter) 0;
-    `
+    `,
   )}
   ${respond(
     "big-desktop",
     css`
       padding: 20rem 0;
-    `
+    `,
   )}
 
   ul {
@@ -51,15 +51,15 @@ const StyledTextSection = styled.section`
   .text-container {
     line-height: 2;
 
-    ${({ isTextJustified }) => {
-      if (isTextJustified) return "text-align: justify;"
+    ${({ $isTextJustified }) => {
+      if ($isTextJustified) return "text-align: justify;"
       return "text-align: left;"
     }}
 
     .copy-section {
       width: 100%;
-      ${({ isTextJustified }) => {
-        if (isTextJustified) return "text-align: justify;"
+      ${({ $isTextJustified }) => {
+        if ($isTextJustified) return "text-align: justify;"
         return "text-align: left;"
       }}
     }
@@ -77,22 +77,22 @@ const StyledTextSection = styled.section`
             float: unset;
             margin-left: 0;
             width: 100%;
-          `
+          `,
         )}
         ${respond(
           "big-desktop",
           css`
             width: 80rem;
             margin-left: 10rem;
-          `
+          `,
         )}
       }
 
       .copy-section {
         color: var(--body-color);
 
-        ${({ isTextJustified }) => {
-          if (isTextJustified) return "text-align: justify;"
+        ${({ $isTextJustified }) => {
+          if ($isTextJustified) return "text-align: justify;"
           return "text-align: left;"
         }}
 
@@ -107,8 +107,8 @@ const StyledTextSection = styled.section`
         width: 100%;
         .heading,
         .subheading {
-          color: ${({ whiteBackground }) =>
-            whiteBackground ? css`var(--body-color)` : css`var(--white)`};
+          color: ${({ $whiteBackground }) =>
+            $whiteBackground ? css`var(--body-color)` : css`var(--white)`};
         }
       }
     }
@@ -122,7 +122,7 @@ const StyledTextSection = styled.section`
       500,
       css`
         padding: 0;
-      `
+      `,
     )}
 
     .subheading {
@@ -131,7 +131,7 @@ const StyledTextSection = styled.section`
         css`
           margin-left: 0;
           padding: 0;
-        `
+        `,
       )}
     }
   }
@@ -143,7 +143,7 @@ const StyledTextSection = styled.section`
         margin: 0 auto;
         padding: 0;
         //max-width: unset;
-      `
+      `,
     )}
   }
 
@@ -153,7 +153,7 @@ const StyledTextSection = styled.section`
       500,
       css`
         padding: 0;
-      `
+      `,
     )}
   }
 
@@ -217,11 +217,11 @@ const TextSection = ({
   return (
     <StyledTextSection
       id={sectionId || "text"}
-      whiteBackground={!!image}
+      $whiteBackground={!!image}
       className="text-section"
-      backgroundOverride={backgroundOverride}
-      imageHeight={imageHeight}
-      isTextJustified={isTextJustified}
+      $backgroundOverride={backgroundOverride}
+      $imageHeight={imageHeight}
+      $isTextJustified={isTextJustified}
     >
       <div className="container">
         <div

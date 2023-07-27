@@ -10,11 +10,11 @@ import { buildLink } from "../helpers/helpers"
 import AppContext from "../context/AppContext"
 
 const StyledFooter = styled.footer`
-  background-image: ${({ colors }) => {
+  background-image: ${({ $colors }) => {
     return `linear-gradient(to bottom, ${hexToRGB(
-      colors.colorSecondary,
-      1
-    )} 0%, ${hexToRGB(colors.colorSecondary, 0.4)} 100%)`
+      $colors.colorSecondary,
+      1,
+    )} 0%, ${hexToRGB($colors.colorSecondary, 0.4)} 100%)`
   }};
 
   padding: var(--section-gutter) 0;
@@ -25,13 +25,13 @@ const StyledFooter = styled.footer`
     1440,
     css`
       font-size: 2.5rem;
-    `
+    `,
   )}
   ${respond(
     500,
     css`
       font-size: 2rem;
-    `
+    `,
   )}
 
   a {
@@ -52,12 +52,12 @@ const StyledFooter = styled.footer`
       1440,
       css`
         display: block;
-      `
+      `,
     )}
   }
 
   .column {
-    //background-color: var(--color-tertiary);
+    /* background-color: var(--color-tertiary); */
     padding: 3rem;
 
     &--quick-links {
@@ -73,7 +73,7 @@ const StyledFooter = styled.footer`
           1440,
           css`
             text-align: center;
-          `
+          `,
         )}
       }
     }
@@ -96,7 +96,7 @@ const StyledFooter = styled.footer`
           1440,
           css`
             text-align: center;
-          `
+          `,
         )}
       }
     }
@@ -106,7 +106,7 @@ const StyledFooter = styled.footer`
     412,
     css`
       padding: 3rem 0;
-    `
+    `,
   )}
 
   &--location {
@@ -119,13 +119,13 @@ const StyledFooter = styled.footer`
     margin-left: 50%;
     margin-bottom: var(--big-gutter);
     transform: translateX(-50%);
-    width: 35rem;
+    width: ${({ $whiteLogoSize }) => $whiteLogoSize || "35rem"};
 
     ${respond(
       1440,
       css`
         width: 30rem;
-      `
+      `,
     )}
   }
 
@@ -142,13 +142,15 @@ const StyledFooter = styled.footer`
   }
   .copyright {
     text-align: center;
+    color: var(--white);
+
     ${respond(
       1440,
       css`
         text-align: center;
         max-width: 90%;
         margin: 0 auto;
-      `
+      `,
     )}
   }
 
@@ -159,13 +161,13 @@ const StyledFooter = styled.footer`
       1440,
       css`
         font-size: 4rem;
-      `
+      `,
     )}
     ${respond(
       500,
       css`
         font-size: 3rem;
-      `
+      `,
     )}
   }
 
@@ -175,13 +177,13 @@ const StyledFooter = styled.footer`
       1440,
       css`
         text-align: center;
-      `
+      `,
     )}
     ${respond(
       500,
       css`
         padding-left: 0;
-      `
+      `,
     )}
 
     ul {
@@ -211,7 +213,7 @@ const StyledFooter = styled.footer`
       1440,
       css`
         text-align: center;
-      `
+      `,
     )}
     &:not(:last-child) {
       margin-bottom: 1rem;
@@ -221,6 +223,7 @@ const StyledFooter = styled.footer`
 
 const Footer = ({
   logo,
+  whiteLogoSize,
   socialLinks,
   businessName,
   quickLinks,
@@ -234,7 +237,7 @@ const Footer = ({
 }) => {
   const { colors, shortcodesData } = useContext(AppContext)
   return (
-    <StyledFooter colors={colors}>
+    <StyledFooter $colors={colors} $whiteLogoSize={whiteLogoSize}>
       <Link to="/">
         <img className="logo" src={logo} alt={`${businessName} logo`} />
       </Link>
@@ -258,16 +261,20 @@ const Footer = ({
           <nav className="quick-links">
             <ul>
               {quickLinks.map(quickLink => {
+                const link = buildLink(
+                  quickLink.data.Permalink,
+                  shortcodesData.cityState.value,
+                )
+                const linkTitle = quickLink.data.Child
+                const isExternalLink = link.startsWith("http")
+
                 return (
                   <li className="quick-link" key={quickLink.id}>
-                    <Link
-                      to={buildLink(
-                        quickLink.data.Permalink,
-                        shortcodesData.cityState.value
-                      )}
-                    >
-                      {quickLink.data.Child}
-                    </Link>
+                    {isExternalLink ? (
+                      <a href={link}>{linkTitle}</a>
+                    ) : (
+                      <Link to={link}>{linkTitle}</Link>
+                    )}
                   </li>
                 )
               })}

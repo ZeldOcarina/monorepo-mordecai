@@ -70,8 +70,8 @@ const StyledSlider = styled.div`
       height: 30%;
       background: linear-gradient(
         to bottom,
-        ${({ colors }) => hexToRGB(colors.bodyBackground, 1)} 0%,
-        ${({ colors }) => hexToRGB(colors.bodyBackground, 0)} 100%
+        ${({ $colors }) => hexToRGB($colors.bodyBackground, 1)} 0%,
+        ${({ $colors }) => hexToRGB($colors.bodyBackground, 0)} 100%
       );
       z-index: 1;
     }
@@ -104,7 +104,7 @@ const Slider = ({ images }) => {
 
   return (
     <>
-      <StyledSlider colors={colors}>
+      <StyledSlider $colors={colors}>
         <Swiper
           modules={[Pagination, Autoplay, Navigation]}
           spaceBetween={isBigDesktop ? 20 : 10}

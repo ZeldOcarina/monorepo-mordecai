@@ -10,7 +10,7 @@ const StyledGradient = styled.div`
   width: 100%;
   height: 100%;
   z-index: 1;
-  background: ${({ background }) => background};
+  background: ${({ $background }) => $background};
   display: none;
 `
 
@@ -23,7 +23,7 @@ const Gradient = () => {
     ${hexToRGB(colors.colorTertiary, 0)} 40%, 
   ${hexToRGB(colors.bodyBackground, 0)} 100%);
   `
-  return <StyledGradient background={background} />
+  return <StyledGradient $background={background} />
 }
 
 export default Gradient

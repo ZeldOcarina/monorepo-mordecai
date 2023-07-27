@@ -14,8 +14,8 @@ const StyledCard = styled.article`
   display: grid;
   gap: var(--big-gutter);
   grid-auto-rows: max-content;
-  ${({ isTextJustified }) => {
-    if (isTextJustified) return "text-align: justify;"
+  ${({ $isTextJustified }) => {
+    if ($isTextJustified) return "text-align: justify;"
     return "text-align: left;"
   }}
 
@@ -24,7 +24,7 @@ const StyledCard = styled.article`
     grid-template-columns: 20rem 25rem;
     align-items: center;
     justify-content: center;
-    width: max-content;
+
     margin: 0 auto;
     gap: var(--gutter);
 
@@ -39,7 +39,6 @@ const StyledCard = styled.article`
     .intro-section {
       margin: 0;
       padding: 0;
-      /* max-width: 100%; */
 
       .heading {
         text-align: left;
@@ -77,9 +76,10 @@ const StyledCard = styled.article`
   }
 
   .image {
-    flex: 0.8;
     width: 100%;
-    height: auto;
+    object-fit: none;
+    object-position: unset;
+    max-height: 20rem;
 
     ${respond(
       500,
@@ -119,7 +119,7 @@ const Card = ({
   } = useContext(AppContext)
 
   return (
-    <StyledCard isTextJustified={isTextJustified}>
+    <StyledCard $isTextJustified={isTextJustified}>
       <div className="title-container">
         <img
           className="image"

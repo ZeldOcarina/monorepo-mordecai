@@ -6,7 +6,7 @@ import AppContext from "../context/AppContext"
 import Navbar from "./Navbar"
 import MobileNavbar from "./MobileNavbar"
 import Footer from "./Footer"
-import AlertMessage from "../components/AlertMessage"
+
 import SliderSection from "../components/SliderSection"
 import ContactsSection from "../components/ContactsSection"
 import Map from "../components/Map"
@@ -61,6 +61,7 @@ function organizeMenu(categoriesData, cityState) {
 const Layout = ({ children }) => {
   const {
     whiteLogoData: { whiteLogoData },
+    whiteLogoSizeData,
     addressData: { addressData },
     allAddressedData: { allAddressedData },
     cityData: { cityData },
@@ -93,7 +94,6 @@ const Layout = ({ children }) => {
     beforeAfterItemsData,
   } = useStaticQuery(query)
 
-  const { alertState, setAlertState } = useContext(AppContext)
   const organizedMenuData = organizeMenu(categoriesData, cityStateData.Value)
 
   return (
@@ -111,6 +111,11 @@ const Layout = ({ children }) => {
       <Navbar
         menuData={organizedMenuData}
         logo={whiteLogoData.File.localFiles[0].publicURL}
+        whiteLogoSize={
+          whiteLogoSizeData
+            ? whiteLogoSizeData.whiteLogoSizeData.Value
+            : undefined
+        }
         darkLogo={darkLogoData.File.localFiles[0].publicURL}
         phone={phoneData.Value}
         tel={telData.Value}
@@ -187,6 +192,11 @@ const Layout = ({ children }) => {
 
       <Footer
         logo={whiteLogoData.File.localFiles[0].publicURL}
+        whiteLogoSize={
+          whiteLogoSizeData
+            ? whiteLogoSizeData.whiteLogoSizeData.Value
+            : undefined
+        }
         addresses={allAddressedData}
         mainAddress={addressData.Value}
         city={cityData.Value}
@@ -211,12 +221,6 @@ const Layout = ({ children }) => {
         logo={whiteLogoData.File.localFiles[0].publicURL}
         phone={phoneData.Value}
         tel={telData.Value}
-      />
-      <AlertMessage
-        message={alertState.message}
-        successful={alertState.successful}
-        shown={alertState.shown}
-        setAlertState={setAlertState}
       />
     </>
   )
@@ -249,6 +253,14 @@ const query = graphql`
             publicURL
           }
         }
+      }
+    }
+    whiteLogoSizeData: airtable(
+      table: { eq: "Config" }
+      data: { Category: { eq: "Media" }, Label: { eq: "Logo Light" } }
+    ) {
+      whiteLogoSizeData: data {
+        Value
       }
     }
     darkLogoData: airtable(

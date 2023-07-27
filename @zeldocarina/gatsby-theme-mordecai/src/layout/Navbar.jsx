@@ -35,8 +35,8 @@ const Wrapper = styled.nav`
   color: var(--white);
   padding: 2rem 0;
 
-  ${({ isHomePage }) => {
-    if (!isHomePage) {
+  ${({ $isHomePage }) => {
+    if (!$isHomePage) {
       return css`
         background-color: var(--color-primary);
       `
@@ -51,17 +51,17 @@ const Wrapper = styled.nav`
       768,
       css`
         max-width: 100%;
-      `
+      `,
     )}
 
-    ${({ mobileNavbarBreakpoint }) => {
+    ${({ $mobileNavbarBreakpoint }) => {
       return respond(
-        mobileNavbarBreakpoint,
+        $mobileNavbarBreakpoint,
         css`
           display: grid;
           grid-template-columns: 1fr max-content;
           max-width: 85%;
-        `
+        `,
       )
     }}
   }
@@ -86,7 +86,7 @@ const Wrapper = styled.nav`
       "tab-port",
       css`
         display: none;
-      `
+      `,
     )}
   }
 
@@ -104,59 +104,68 @@ const Wrapper = styled.nav`
     font-family: var(--heading-font);
 
     &:hover {
-      color: ${({ isHomePage }) =>
-        isHomePage ? `var(--body-color)` : `var(--white)`};
+      color: ${({ $isHomePage }) =>
+        $isHomePage ? `var(--body-color)` : `var(--white)`};
     }
 
     ${respond(
       "big-desktop",
       css`
         font-size: 2.1rem;
-      `
+      `,
     )}
   }
 
   .mobile-menu-activator {
     display: none;
 
-    ${({ mobileNavbarBreakpoint }) => {
+    ${({ $mobileNavbarBreakpoint }) => {
       return css`
         ${respond("no-hover", mobileMenuActivatorStyles)}
-        ${respond(mobileNavbarBreakpoint, mobileMenuActivatorStyles)}
+        ${respond($mobileNavbarBreakpoint, mobileMenuActivatorStyles)}
       `
     }}
   }
 
   .logo {
     transition: all 0.3s ease-in-out;
-    ${({ isHomePage }) => {
-      return isHomePage
+    height: auto;
+    ${({ $isHomePage, $whiteLogoSize }) => {
+      const sizeValue = $whiteLogoSize ? parseFloat($whiteLogoSize) : null
+      const sizeUnit = $whiteLogoSize
+        ? $whiteLogoSize.replace(sizeValue, "")
+        : null
+
+      console.log($whiteLogoSize, sizeUnit, sizeValue)
+      return $isHomePage
         ? css`
-            width: 22rem;
+            width: ${$whiteLogoSize ? $whiteLogoSize : "22rem"};
           `
         : css`
-            width: 17rem;
+            width: ${$whiteLogoSize
+              ? `${sizeValue * (17 / 22)}${sizeUnit}`
+              : "17rem"};
           `
-    }};
+    }}
 
     ${respond(
       850,
       css`
         width: 15rem;
         margin-right: auto;
-      `
+      `,
     )}
     ${respond(
       "iphone-5",
       css`
         width: 5rem;
-      `
+      `,
     )}
     ${respond(
       "big-desktop",
       css`
         width: 32rem;
-      `
+      `,
     )}
   }
 
@@ -167,7 +176,15 @@ const Wrapper = styled.nav`
   }
 `
 
-const Navbar = ({ innerPage, innerLayout, menuData, logo, phone, tel }) => {
+const Navbar = ({
+  innerPage,
+  innerLayout,
+  menuData,
+  logo,
+  phone,
+  tel,
+  whiteLogoSize,
+}) => {
   const [isHomePage, setIsHomePage] = useState(false)
 
   const {
@@ -187,10 +204,11 @@ const Navbar = ({ innerPage, innerLayout, menuData, logo, phone, tel }) => {
 
   return (
     <Wrapper
-      innerLayout={innerLayout}
-      isHomePage={isHomePage}
+      $innerLayout={innerLayout}
+      $isHomePage={isHomePage}
       ref={navbarRef}
-      mobileNavbarBreakpoint={appVariables.mobileNavbarBreakpoint}
+      $mobileNavbarBreakpoint={appVariables.mobileNavbarBreakpoint}
+      $whiteLogoSize={whiteLogoSize}
     >
       <div className="navbar-container">
         <div

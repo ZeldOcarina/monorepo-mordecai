@@ -18,7 +18,7 @@ const mobileStyles = css`
 `
 const StyledFloatingButtons = styled.div`
   position: fixed;
-  top: ${({ isWindowScrolled }) => (isWindowScrolled ? "15rem" : "30rem")};
+  top: ${({ $isWindowScrolled }) => ($isWindowScrolled ? "15rem" : "30rem")};
   right: 0;
   transform: translateY(-50%);
   display: grid;
@@ -27,8 +27,8 @@ const StyledFloatingButtons = styled.div`
   transition: top 0.3s ease-in-out;
 
   ${respond("no-hover", mobileStyles)}
-  ${({ mobileNavbarBreakpoint }) => {
-    return respond(mobileNavbarBreakpoint, mobileStyles)
+  ${({ $mobileNavbarBreakpoint }) => {
+    return respond($mobileNavbarBreakpoint, mobileStyles)
   }}
   
   ${respond(
@@ -36,20 +36,20 @@ const StyledFloatingButtons = styled.div`
     css`
       right: 5rem;
       bottom: 20rem;
-    `
+    `,
   )}
   ${respond(
     844,
     css`
       display: none;
-    `
+    `,
   )}
 
   ${respond(
     "big-desktop",
     css`
       top: 25rem;
-    `
+    `,
   )}
 
   .phone-link {
@@ -62,7 +62,7 @@ const StyledFloatingButtons = styled.div`
       "big-desktop",
       css`
         font-size: 3rem;
-      `
+      `,
     )}
   }
 `
@@ -78,8 +78,6 @@ const FloatingButtons = ({
   const { colors, appVariables } = useContext(AppContext)
 
   const location = useLocation()
-
-  debugger
 
   useEffect(() => {
     // If it's the home page return
@@ -103,8 +101,8 @@ const FloatingButtons = ({
 
   return (
     <StyledFloatingButtons
-      mobileNavbarBreakpoint={appVariables.mobileNavbarBreakpoint}
-      isWindowScrolled={isWindowScrolled}
+      $mobileNavbarBreakpoint={appVariables.mobileNavbarBreakpoint}
+      $isWindowScrolled={isWindowScrolled}
     >
       <FloatingButton
         bgColor={hexToRGB(colors.appointmentButtonColor, 0.8)}

@@ -8,8 +8,8 @@ import Card from "./Card"
 
 const StyledCardsSection = styled.section`
   padding-top: 12rem;
-  background: ${({ backgroundOverride }) => {
-    return backgroundOverride || css`var(--body-background)`
+  background: ${({ $backgroundOverride }) => {
+    return $backgroundOverride || css`var(--body-background)`
   }};
 
   h2,
@@ -25,19 +25,19 @@ const StyledCardsSection = styled.section`
       1280,
       css`
         max-width: 89%;
-      `
+      `,
     )}
     ${respond(
       768,
       css`
         max-width: 90%;
-      `
+      `,
     )}
     ${respond(
       "big-desktop",
       css`
         max-width: 80%;
-      `
+      `,
     )}
 
     .intro-section {
@@ -46,13 +46,13 @@ const StyledCardsSection = styled.section`
         1366,
         css`
           padding-top: 0;
-        `
+        `,
       )}
       ${respond(
         500,
         css`
           margin-left: 0;
-        `
+        `,
       )}
       .heading {
         color: var(--body-color);
@@ -72,7 +72,7 @@ const CardsSection = ({
   return (
     <StyledCardsSection
       id={sectionId || "cards"}
-      backgroundOverride={backgroundOverride}
+      $backgroundOverride={backgroundOverride}
     >
       <div className="container">
         <IntroSection

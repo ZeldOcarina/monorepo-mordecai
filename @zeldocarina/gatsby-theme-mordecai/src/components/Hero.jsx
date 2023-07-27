@@ -19,12 +19,12 @@ import ShortcodeParser from "../helpers/ShortcodesParser"
 import { hexToRGB } from "../helpers/helpers"
 
 const StyledHero = styled.header`
-  min-height: ${({ heroSize }) => heroSize}px;
+  min-height: ${({ $heroSize }) => $heroSize}px;
   display: grid;
   align-items: center;
   justify-items: center;
-  position: ${({ isHomePage }) => (isHomePage ? "static" : "relative")};
-  background-color: ${({ backgroundColor }) => backgroundColor};
+  position: ${({ $isHomePage }) => ($isHomePage ? "static" : "relative")};
+  background-color: ${({ $backgroundColor }) => $backgroundColor};
 
   .text-content {
     position: absolute;
@@ -39,14 +39,14 @@ const StyledHero = styled.header`
       css`
         bottom: 3rem;
         left: 15%;
-      `
+      `,
     )}
     ${respond(
       500,
       css`
         max-width: 85%;
         left: 10%;
-      `
+      `,
     )}
   }
 
@@ -72,14 +72,14 @@ const StyledHero = styled.header`
     left: 0;
     width: 100%;
     height: 101%;
-    background-image: ${({ colors, isHomePage, backgroundColor }) => {
-      if (!isHomePage) return "none"
+    background-image: ${({ $colors, $isHomePage, $backgroundColor }) => {
+      if (!$isHomePage) return "none"
       return css`linear-gradient(
       to bottom,
-      ${hexToRGB(colors.colorSecondary, 1)} 0%,
+      ${hexToRGB($colors.colorSecondary, 1)} 0%,
       transparent 25%,
       transparent 70%,
-      ${backgroundColor} 100%
+      ${$backgroundColor} 100%
     );`
     }};
   }
@@ -131,7 +131,7 @@ const Hero = ({
       if (window.matchMedia("(max-height: 428px)").matches) {
         if (isHomePage) {
           return setHeroSize(
-            window.innerHeight - navbarRef.current.offsetHeight
+            window.innerHeight - navbarRef.current.offsetHeight,
           )
         }
         return setHeroSize(700)
@@ -153,16 +153,16 @@ const Hero = ({
 
   const parsedAltText = new ShortcodeParser(
     altText,
-    shortcodesData
+    shortcodesData,
   ).parseShortcodes()
 
   return (
     <StyledHero
-      colors={colors}
-      isHomePage={isHomePage}
-      heroSize={heroSize}
+      $colors={colors}
+      $isHomePage={isHomePage}
+      $heroSize={heroSize}
       ref={heroRef}
-      backgroundColor={heroBackground}
+      $backgroundColor={heroBackground}
     >
       <div className="text-content">
         <IntroSection

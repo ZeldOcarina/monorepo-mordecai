@@ -13,12 +13,12 @@ const StyledFloatingButton = styled.div`
     css`
       border-top-left-radius: 60px;
       border-bottom-left-radius: 60px;
-    `
+    `,
   )}
 
   .button {
-    background-color: ${({ bgColor }) => bgColor};
-    color: ${({ color }) => color};
+    background-color: ${({ $bgColor }) => $bgColor};
+    color: ${({ $color }) => $color};
     padding: 2rem 3rem;
     display: block;
     border-top-left-radius: 35px;
@@ -32,11 +32,11 @@ const StyledFloatingButton = styled.div`
         font-size: 3rem;
         border-top-left-radius: 60px;
         border-bottom-left-radius: 60px;
-      `
+      `,
     )}
 
     &:hover {
-      background-color: ${({ hoverBgColor }) => hoverBgColor};
+      background-color: ${({ $hoverBgColor }) => $hoverBgColor};
     }
   }
 `
@@ -63,9 +63,9 @@ const FloatingButton = ({
   )
   return (
     <StyledFloatingButton
-      bgColor={bgColor}
-      color={color}
-      hoverBgColor={hoverBgColor}
+      $bgColor={bgColor}
+      $color={color}
+      $hoverBgColor={hoverBgColor}
     >
       {linkComponent}
     </StyledFloatingButton>
