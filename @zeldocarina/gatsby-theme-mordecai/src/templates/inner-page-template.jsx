@@ -57,7 +57,7 @@ const InnerPageTemplate = ({
     businessNameData: { businessNameData },
   },
 }) => {
-  //console.log({ pageContext, testimonialsTitleData, testimonialsData })
+  console.log({ ctaData })
 
   const pageComponents = []
 
@@ -284,6 +284,7 @@ const InnerPageTemplate = ({
           alternativeText={ctaData.ctaData.AltText}
           logo={ctaIconData.File.localFiles[0].publicURL}
           bgColorOverride={ctaData.ctaData.BgColorOverride}
+          textColorOverride={ctaData.ctaData.TextColorOverride}
           logoAlt={`${businessNameData.Value} logo`}
           image={ctaData?.ctaData?.Media?.localFiles[0]?.publicURL}
         />
@@ -720,6 +721,7 @@ export const query = graphql`
         Overlay
         rowNumber
         BgColorOverride
+        TextColorOverride
         Media {
           localFiles {
             publicURL

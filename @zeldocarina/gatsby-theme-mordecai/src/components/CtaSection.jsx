@@ -23,15 +23,23 @@ const StyledCtaSection = styled.section`
   .intro-section {
     margin-bottom: var(--gutter);
     max-width: 80%;
+    color: ${({ $textColorOverride }) =>
+      $textColorOverride ? `${$textColorOverride} !important` : "inherit"};
 
     ${respond(
       500,
       css`
         max-width: 100%;
-      `
+      `,
     )}
 
-    .superheading, .heading {
+    .superheading, .heading, .subheading {
+      color: ${({ $textColorOverride }) =>
+        $textColorOverride ? `${$textColorOverride} !important` : "inherit"};
+    }
+
+    .superheading,
+    .heading {
       word-break: break-word;
     }
 
@@ -67,13 +75,13 @@ const StyledCtaSection = styled.section`
       "phone-port",
       css`
         grid-template-columns: 1fr;
-      `
+      `,
     )}
     ${respond(
       500,
       css`
         margin-top: 4rem;
-      `
+      `,
     )}
   }
 
@@ -98,7 +106,7 @@ const StyledCtaSection = styled.section`
       834,
       css`
         max-width: 100%;
-      `
+      `,
     )}
   }
 
@@ -120,23 +128,32 @@ const StyledCtaSection = styled.section`
       500,
       css`
         width: 15rem;
-      `
+      `,
     )}
   }
 
   .copy-section {
-    color: var(--body-color);
+    color: ${({ $textColorOverride }) =>
+      $textColorOverride
+        ? `${$textColorOverride} !important`
+        : "var(--body-color)"};
     line-height: 2;
+
+    h2,
+    p {
+      color: ${({ $textColorOverride }) =>
+        $textColorOverride ? `${$textColorOverride} !important` : "inherit"};
+    }
 
     ${respond(
       834,
       css`
         max-width: 90%;
-      `
+      `,
     )}
 
     ul {
-      //list-style: "> ";
+      /* list-style: "> "; */
       text-align: left;
       width: max-content;
       margin: 0 auto;
@@ -159,6 +176,7 @@ const CtaSection = ({
   logo,
   logoAlt,
   bgColorOverride,
+  textColorOverride,
   image,
 }) => {
   const { colors, shortcodesData, businessPhoneData } = useContext(AppContext)
@@ -167,7 +185,7 @@ const CtaSection = ({
     if (bgColorOverride) {
       return `linear-gradient(to right, ${hexToRGB(
         bgColorOverride.split(",")[0],
-        1
+        1,
       )}, ${hexToRGB(bgColorOverride.split(", ")[1], 0.5)});`
     } else {
       return `
@@ -183,7 +201,7 @@ const CtaSection = ({
 
   return (
     <>
-      <StyledCtaSection id="cta">
+      <StyledCtaSection id="cta" $textColorOverride={textColorOverride}>
         <div className="container cta-container">
           <img src={logo} alt={logoAlt} className="logo" />
           <IntroSection

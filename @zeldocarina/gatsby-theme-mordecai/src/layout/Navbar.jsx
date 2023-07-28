@@ -136,7 +136,6 @@ const Wrapper = styled.nav`
         ? $whiteLogoSize.replace(sizeValue, "")
         : null
 
-      console.log($whiteLogoSize, sizeUnit, sizeValue)
       return $isHomePage
         ? css`
             width: ${$whiteLogoSize ? $whiteLogoSize : "22rem"};
