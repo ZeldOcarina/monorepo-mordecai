@@ -20,6 +20,14 @@ const FreeGiftForm = styled(formStyles)`
   input:disabled {
     color: #b9b9b9;
   }
+
+  .privacy-container {
+    p {
+      color: var(--body-color);
+      text-align: left;
+      margin-bottom: 0;
+    }
+  }
 `
 
 interface FormProps {
