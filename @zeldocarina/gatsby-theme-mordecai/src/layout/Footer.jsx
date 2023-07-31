@@ -119,7 +119,10 @@ const StyledFooter = styled.footer`
     margin-left: 50%;
     margin-bottom: var(--big-gutter);
     transform: translateX(-50%);
-    width: ${({ $whiteLogoSize }) => $whiteLogoSize || "35rem"};
+    width: ${({ $whiteLogoSize }) => {
+      console.log($whiteLogoSize)
+      return `${$whiteLogoSize} !important` || "35rem"
+    }};
 
     ${respond(
       1440,
@@ -208,6 +211,7 @@ const StyledFooter = styled.footer`
 
   .location-item {
     text-align: left;
+    color: var(--white);
 
     ${respond(
       1440,

@@ -16,6 +16,7 @@ import BeforeAndAfter from "../components/BeforeAndAfter"
 import ImagesSection from "../components/ImagesSection"
 import SocialFeed from "../components/SocialFeed"
 import LocationBanner from "./LocationBanner"
+import TestimonialsSlider from "../components/TestimonialsSlider"
 
 function organizeMenu(categoriesData, cityState) {
   const categories = new Set()
@@ -72,15 +73,15 @@ const Layout = ({ children }) => {
     phoneData: { phoneData },
     telData: { telData },
     darkLogoData: { darkLogoData },
-    sliderTitleData: { sliderTitleData },
-    sliderImagesData: { sliderImagesData },
+    sliderTitleData,
+    sliderImagesData,
     contactsTitleData,
     contactsBigCardTitleData,
     officeHoursData: { officeHoursData },
-    contactItemsData: { contactItemsData },
-    generalMapData: { generalMapData },
+    contactItemsData,
+    generalMapData,
     mapPinData: { mapPinData },
-    mapMarkersData: { mapMarkersData },
+    mapMarkersData,
     imagesTitleData,
     imageItemsData,
     socialFeedTitleData,
@@ -92,9 +93,175 @@ const Layout = ({ children }) => {
     businessNameData: { businessNameData },
     beforeAfterTitleData,
     beforeAfterItemsData,
+    testimonialsTitleData,
+    testimonialsData,
   } = useStaticQuery(query)
 
   const organizedMenuData = organizeMenu(categoriesData, cityStateData.Value)
+
+  const globalFooterItems = []
+
+  if (
+    sliderTitleData &&
+    sliderTitleData.sliderTitleData &&
+    sliderImagesData &&
+    sliderImagesData.sliderImagesData &&
+    sliderImagesData.sliderImagesData.length > 0
+  ) {
+    globalFooterItems.push({
+      component: (
+        <SliderSection
+          superheading={sliderTitleData.sliderTitleData.Superheading}
+          heading={sliderTitleData.sliderTitleData.Heading}
+          subheading={sliderTitleData.sliderTitleData.Subheading}
+          images={sliderImagesData.sliderImagesData}
+          key={sliderTitleData.id}
+        />
+      ),
+      index: sliderTitleData.sliderTitleData.rowNumber,
+    })
+  }
+
+  if (
+    generalMapData &&
+    generalMapData.generalMapData &&
+    generalMapData.generalMapData.Latitude &&
+    generalMapData.generalMapData.Longitude &&
+    generalMapData.generalMapData.zoomLevel &&
+    mapMarkersData &&
+    mapMarkersData.mapMarkersData &&
+    mapMarkersData.mapMarkersData.length > 0
+  ) {
+    globalFooterItems.push({
+      component: (
+        <Map
+          lat={generalMapData.generalMapData.Latitude}
+          long={generalMapData.generalMapData.Longitude}
+          zoom={generalMapData.generalMapData.zoomLevel}
+          markers={mapMarkersData.mapMarkersData}
+          pin={mapPinData.File.localFiles[0].publicURL}
+          mapName="map"
+          key={generalMapData.id}
+          id="map"
+        />
+      ),
+      index: generalMapData.generalMapData.rowNumber,
+    })
+  }
+
+  if (
+    contactsTitleData &&
+    contactsTitleData.contactsTitleData &&
+    contactItemsData &&
+    contactItemsData.contactItemsData &&
+    contactItemsData.contactItemsData.length > 0
+  )
+    globalFooterItems.push({
+      component: (
+        <ContactsSection
+          superheading={contactsTitleData?.contactsTitleData.Superheading}
+          heading={contactsTitleData?.contactsTitleData.Heading}
+          bigCardHeading={
+            contactsBigCardTitleData?.contactsBigCardTitleData.Superheading
+          }
+          bgImage={
+            contactsTitleData?.contactsTitleData?.Media?.localFiles[0].publicURL
+          }
+          items={contactItemsData.contactItemsData}
+          officeHours={officeHoursData}
+          phone={phoneData.Value}
+          tel={telData.Value}
+          key={contactsTitleData.id}
+        />
+      ),
+      index: contactsTitleData.contactsTitleData.rowNumber,
+    })
+
+  if (
+    beforeAfterTitleData &&
+    beforeAfterItemsData &&
+    beforeAfterItemsData.beforeAfterItemsData &&
+    beforeAfterItemsData.beforeAfterItemsData.length > 0
+  ) {
+    globalFooterItems.push({
+      component: (
+        <BeforeAndAfter
+          superheading={beforeAfterTitleData.beforeAfterTitleData.Superheading}
+          heading={beforeAfterTitleData.beforeAfterTitleData.Heading}
+          subheading={beforeAfterTitleData.beforeAfterTitleData.Subheading}
+          backgroundOverride={
+            beforeAfterTitleData.beforeAfterTitleData.BgColorOverride
+          }
+          images={beforeAfterItemsData.beforeAfterItemsData}
+          key={beforeAfterTitleData.id}
+        />
+      ),
+      index: beforeAfterTitleData.beforeAfterTitleData.rowNumber,
+    })
+  }
+
+  if (
+    imagesTitleData &&
+    imagesTitleData.imagesTitleData &&
+    imageItemsData &&
+    imageItemsData.imageItemsData
+  ) {
+    globalFooterItems.push({
+      component: (
+        <ImagesSection
+          superheading={imagesTitleData.imagesTitleData.Superheading}
+          heading={imagesTitleData.imagesTitleData.Heading}
+          subheading={imagesTitleData.imagesTitleData.Subheading}
+          images={imageItemsData.imageItemsData}
+          key={imagesTitleData.id}
+        />
+      ),
+      index: imagesTitleData.imagesTitleData.rowNumber,
+    })
+  }
+
+  if (
+    socialFeedTitleData &&
+    socialFeedTitleData.socialFeedTitleData &&
+    socialFeedItemsData &&
+    socialFeedItemsData.socialFeedItemsData &&
+    socialFeedItemsData.socialFeedItemsData.length > 0
+  ) {
+    globalFooterItems.push({
+      component: (
+        <SocialFeed
+          superheading={socialFeedTitleData.socialFeedTitleData.Superheading}
+          heading={socialFeedTitleData.socialFeedTitleData.Heading}
+          subheading={socialFeedTitleData.socialFeedTitleData.Subheading}
+          images={socialFeedItemsData.socialFeedItemsData}
+          key={socialFeedTitleData.id}
+        />
+      ),
+      index: socialFeedTitleData.socialFeedTitleData.rowNumber,
+    })
+  }
+
+  if (
+    testimonialsTitleData &&
+    testimonialsData &&
+    testimonialsData.testimonialsData &&
+    testimonialsData.testimonialsData.length > 0
+  ) {
+    globalFooterItems.push({
+      component: (
+        <TestimonialsSlider
+          superheading={
+            testimonialsTitleData.testimonialsTitleData.Superheading
+          }
+          heading="Hear what our customers have to say"
+          subheading={testimonialsTitleData.testimonialsTitleData.Subheading}
+          testimonials={testimonialsData.testimonialsData}
+          key={testimonialsTitleData.id}
+        />
+      ),
+      index: testimonialsTitleData.testimonialsTitleData.rowNumber,
+    })
+  }
 
   return (
     <>
@@ -121,74 +288,7 @@ const Layout = ({ children }) => {
         tel={telData.Value}
       />
       {children}
-      <SliderSection
-        superheading={sliderTitleData.Superheading}
-        heading={sliderTitleData.Heading}
-        subheading={sliderTitleData.Subheading}
-        images={sliderImagesData}
-      />
-      <Map
-        lat={generalMapData.Latitude}
-        long={generalMapData.Longitude}
-        zoom={generalMapData.zoomLevel}
-        markers={mapMarkersData}
-        pin={mapPinData.File.localFiles[0].publicURL}
-        mapName="map"
-      />
-      {beforeAfterTitleData &&
-        beforeAfterItemsData &&
-        beforeAfterItemsData.beforeAfterItemsData &&
-        beforeAfterItemsData.beforeAfterItemsData.length > 0 && (
-          <BeforeAndAfter
-            superheading={
-              beforeAfterTitleData.beforeAfterTitleData.Superheading
-            }
-            heading={beforeAfterTitleData.beforeAfterTitleData.Heading}
-            subheading={beforeAfterTitleData.beforeAfterTitleData.Subheading}
-            backgroundOverride={
-              beforeAfterTitleData.beforeAfterTitleData.BgColorOverride
-            }
-            images={beforeAfterItemsData.beforeAfterItemsData}
-          />
-        )}
-      <ContactsSection
-        superheading={contactsTitleData?.contactsTitleData.Superheading}
-        heading={contactsTitleData?.contactsTitleData.Heading}
-        bigCardHeading={
-          contactsBigCardTitleData?.contactsBigCardTitleData.Superheading
-        }
-        bgImage={
-          contactsTitleData?.contactsTitleData?.Media?.localFiles[0].publicURL
-        }
-        items={contactItemsData}
-        officeHours={officeHoursData}
-        phone={phoneData.Value}
-        tel={telData.Value}
-      />
-      {imagesTitleData &&
-        imagesTitleData.imagesTitleData &&
-        imageItemsData &&
-        imageItemsData.imageItemsData && (
-          <ImagesSection
-            superheading={imagesTitleData.imagesTitleData.Superheading}
-            heading={imagesTitleData.imagesTitleData.Heading}
-            subheading={imagesTitleData.imagesTitleData.Subheading}
-            images={imageItemsData.imageItemsData}
-          />
-        )}
-
-      {socialFeedTitleData &&
-        socialFeedTitleData.socialFeedTitleData &&
-        socialFeedItemsData &&
-        socialFeedItemsData.socialFeedItemsData &&
-        socialFeedItemsData.socialFeedItemsData.length > 0 && (
-          <SocialFeed
-            superheading={socialFeedTitleData.socialFeedTitleData.Superheading}
-            heading={socialFeedTitleData.socialFeedTitleData.Heading}
-            subheading={socialFeedTitleData.socialFeedTitleData.Subheading}
-            images={socialFeedItemsData.socialFeedItemsData}
-          />
-        )}
+      {globalFooterItems.map(component => component.component)}
 
       <Footer
         logo={whiteLogoData.File.localFiles[0].publicURL}
@@ -295,10 +395,12 @@ const query = graphql`
       table: { eq: "Footer (Global)" }
       data: { Block: { eq: "Slider" } }
     ) {
+      id
       sliderTitleData: data {
         Superheading
         Heading
         Subheading
+        rowNumber
       }
     }
     sliderImagesData: allAirtable(
@@ -322,6 +424,7 @@ const query = graphql`
       table: { eq: "Footer (Global)" }
       data: { Block: { eq: "Contact" } }
     ) {
+      id
       contactsTitleData: data {
         Superheading
         Heading
@@ -331,6 +434,7 @@ const query = graphql`
           }
         }
         AltText
+        rowNumber
       }
     }
     contactsBigCardTitleData: airtable(
@@ -414,14 +518,49 @@ const query = graphql`
         }
       }
     }
+    testimonialsTitleData: airtable(
+      table: { eq: "Footer (Global)" }
+      data: { Block: { eq: "Testimonials" }, isActive: { eq: true } }
+    ) {
+      id
+      testimonialsTitleData: data {
+        rowNumber
+        Superheading
+        Heading
+        Subheading
+      }
+    }
+    testimonialsData: allAirtable(
+      filter: {
+        table: { eq: "Footer (Global)" }
+        data: { Block: { eq: "TestimonialsItem" }, isActive: { eq: true } }
+      }
+    ) {
+      testimonialsData: nodes {
+        id
+        data {
+          rowNumber
+          Heading
+          Subheading
+          Copy
+          Media {
+            localFiles {
+              publicURL
+            }
+          }
+        }
+      }
+    }
     generalMapData: airtable(
       table: { eq: "Footer (Global)" }
       data: { Block: { eq: "Map" } }
     ) {
+      id
       generalMapData: data {
         Latitude
         Longitude
         zoomLevel
+        rowNumber
       }
     }
     mapPinData: airtable(
@@ -455,9 +594,11 @@ const query = graphql`
       table: { eq: "Footer (Global)" }
       data: { Block: { eq: "Images" }, isActive: { eq: true } }
     ) {
+      id
       imagesTitleData: data {
         Heading
         Subheading
+        rowNumber
       }
     }
     imageItemsData: allAirtable(
@@ -483,7 +624,9 @@ const query = graphql`
       table: { eq: "Footer (Global)" }
       data: { Block: { eq: "SocialFeed" }, isActive: { eq: true } }
     ) {
+      id
       socialFeedTitleData: data {
+        rowNumber
         Heading
         Subheading
         Superheading
@@ -622,6 +765,7 @@ const query = graphql`
       table: { eq: "Footer (Global)" }
       data: { Block: { eq: "BeforeAfter" }, isActive: { eq: true } }
     ) {
+      id
       beforeAfterTitleData: data {
         Superheading
         Heading
