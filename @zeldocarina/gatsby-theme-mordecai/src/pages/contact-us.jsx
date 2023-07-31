@@ -10,7 +10,7 @@ import IntroSection from "../components/IntroSection"
 import respond from "../styles/abstracts/mediaqueries"
 import AppContext from "../context/AppContext"
 
-const StyledContactUs = styled.main`
+export const StyledContactUs = styled.main`
   .intro-section {
     text-align: center;
     margin: 0 auto;
@@ -53,27 +53,27 @@ const StyledContactUs = styled.main`
       css`
         max-width: 80%;
         padding-bottom: 0;
-      `
+      `,
     )}
     ${respond(
       834,
       css`
         max-width: 70%;
         padding-bottom: 0;
-      `
+      `,
     )}
     ${respond(
       500,
       css`
         max-width: 95%;
         padding: 13rem 0 4rem 0;
-      `
+      `,
     )}
     ${respond(
       "big-desktop",
       css`
         max-width: 40%;
-      `
+      `,
     )}
   }
 `
@@ -92,7 +92,7 @@ const ContactUs = ({
 
   const parsedPrivacyLabel = new ShortcodesParser(
     contactUsTitleData.privacyLabel,
-    shortcodesData
+    shortcodesData,
   ).parseShortcodes()
 
   return (

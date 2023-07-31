@@ -25,6 +25,8 @@ const AppContext = React.createContext({})
 function ContextProvider(props) {
   const data = useStaticQuery(query)
 
+  const globalShortcodes = data.globalShortcodesData.globalShortcodesData
+
   // Select virtual dom refs
   const navbarRef = React.useRef(null)
   const locationBarRef = React.useRef(null)
@@ -32,10 +34,10 @@ function ContextProvider(props) {
 
   const appVariables = {
     mobileNavbarBreakpoint: setNavbarBreakpoint(
-      data?.businessData?.businessData?.Value || ""
+      data?.businessData?.businessData?.Value || "",
     ),
     isTextJustified: setIsTextJustified(
-      data?.businessData?.businessData?.Value || ""
+      data?.businessData?.businessData?.Value || "",
     ),
   }
 
@@ -179,6 +181,7 @@ function ContextProvider(props) {
         setIsNavbarOpen,
         colors,
         appVariables,
+        globalShortcodes,
       }}
     >
       {props.children}
@@ -412,6 +415,21 @@ const query = graphql`
       siteUrlData: data {
         Value
         Shortcodes
+      }
+    }
+    globalShortcodesData: allAirtable(
+      filter: {
+        table: { eq: "Config" }
+        data: { Shortcodes: { ne: null }, Category: { eq: "Details" } }
+      }
+    ) {
+      globalShortcodesData: nodes {
+        data {
+          Label
+          Shortcodes
+          Value
+          Category
+        }
       }
     }
   }

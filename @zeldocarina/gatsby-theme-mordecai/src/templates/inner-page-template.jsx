@@ -27,7 +27,7 @@ const InnerPageTemplate = ({
   location,
   pageContext,
   data: {
-    pageMetadata: { pageMetadata },
+    pageMetadata,
     pingPongTitleData,
     pingPongItemsData,
     pingPong2TitleData,
@@ -431,10 +431,10 @@ const InnerPageTemplate = ({
   return (
     <Layout>
       <Seo
-        title={`${businessNameData.Value} | ${pageMetadata.SEOTitle}`}
-        description={pageMetadata.Description}
-        mainKeyword={pageMetadata.Main_Keyword}
-        relativeKeywords={pageMetadata.Relative_Keywords}
+        title={`${businessNameData.Value} | ${pageMetadata?.pageMetadata.SEOTitle}`}
+        description={pageMetadata?.pageMetadata.Description}
+        mainKeyword={pageMetadata?.pageMetadata.Main_Keyword}
+        relativeKeywords={pageMetadata?.pageMetadata.Relative_Keywords}
         pathname={location.pathname}
       />
       <StyledInnerPageTemplate>

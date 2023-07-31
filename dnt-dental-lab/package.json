@@ -16,11 +16,15 @@
   "author": "Mattia Rasulo <mattia@monarchy.io>",
   "license": "UNLICENSED",
   "dependencies": {
+    "@zeldocarina/gatsby-helpers": "*",
+    "@zeldocarina/gatsby-theme-mordecai": "*",
     "gatsby": "^5.11.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "sass": "^1.55.0",
-    "@zeldocarina/gatsby-helpers": "*",
-    "@zeldocarina/gatsby-theme-mordecai": "*"
+    "react-places-autocomplete": "^7.3.0",
+    "sass": "^1.55.0"
+  },
+  "devDependencies": {
+    "@types/react-places-autocomplete": "^7.2.9"
   }
 }
