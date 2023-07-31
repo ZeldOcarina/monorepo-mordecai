@@ -73,6 +73,7 @@ const MenuCategoryItems = ({
       onMouseLeave={handleMouseLeave}
       $colors={colors}
       $top={categoryItemTop}
+      className="category-items"
     >
       {children}
     </StyledMenuCategoryItems>

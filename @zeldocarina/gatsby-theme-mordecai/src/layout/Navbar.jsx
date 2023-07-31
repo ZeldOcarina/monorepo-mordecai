@@ -175,6 +175,15 @@ const Wrapper = styled.nav`
   }
 `
 
+const StyledLink = styled(Link)`
+  color: var(--white);
+  text-transform: uppercase;
+
+  &:hover {
+    color: var(--color-primary);
+  }
+`
+
 const Navbar = ({
   innerPage,
   innerLayout,
@@ -221,6 +230,9 @@ const Navbar = ({
             const categoryItems = menuData.menuData.filter(item => {
               return item.data.Parent === category
             })
+
+            console.log(categoryItems)
+
             return (
               <React.Fragment key={i}>
                 {i === Math.floor(menuData.categories.length / 2) && (
@@ -234,11 +246,23 @@ const Navbar = ({
                     }
                   </Link>
                 )}
-                <CategoryItem
-                  category={category}
-                  categoryItems={categoryItems}
-                  isHomePage={isHomePage}
-                />
+                {categoryItems.length > 1 ||
+                categoryItems[0].Child === categoryItems[0].Parent ? (
+                  <CategoryItem
+                    category={category}
+                    categoryItems={categoryItems}
+                    isHomePage={isHomePage}
+                  />
+                ) : (
+                  <StyledLink
+                    to={categoryItems[0].data.Permalink}
+                    className="category-link"
+                    role="button"
+                    tabIndex="0"
+                  >
+                    {categoryItems[0].data.Child}
+                  </StyledLink>
+                )}
               </React.Fragment>
             )
           })}
