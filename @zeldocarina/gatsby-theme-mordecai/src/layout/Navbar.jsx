@@ -9,6 +9,7 @@ import AppContext from "../context/AppContext"
 
 import CategoryItem from "../components/CategoryItem"
 import { LocationContext } from "../context/LocationContext"
+import { buildLink } from "../helpers/helpers"
 
 const mobileMenuActivatorStyles = css`
   display: block;
@@ -180,7 +181,8 @@ const StyledLink = styled(Link)`
   text-transform: uppercase;
 
   &:hover {
-    color: var(--color-primary);
+    color: ${({ $isHomePage }) =>
+      $isHomePage ? `var(--color-primary)` : `var(--color-secondary)`};
   }
 `
 
@@ -232,6 +234,45 @@ const Navbar = ({
             })
 
             console.log(categoryItems)
+            console.log(shortcodesData)
+
+            let navbarItem
+            if (categoryItems.length > 1) {
+              navbarItem = (
+                <CategoryItem
+                  category={category}
+                  categoryItems={categoryItems}
+                  isHomePage={isHomePage}
+                />
+              )
+            } else {
+              if (
+                categoryItems[0].data.Child === categoryItems[0].data.Parent
+              ) {
+                navbarItem = (
+                  <StyledLink
+                    to={buildLink(
+                      categoryItems[0].data.Permalink,
+                      shortcodesData.cityState.value,
+                    )}
+                    className="category-link"
+                    role="button"
+                    tabIndex="0"
+                    $isHomePage={isHomePage}
+                  >
+                    {categoryItems[0].data.Child}
+                  </StyledLink>
+                )
+              } else {
+                navbarItem = (
+                  <CategoryItem
+                    category={category}
+                    categoryItems={categoryItems}
+                    isHomePage={isHomePage}
+                  />
+                )
+              }
+            }
 
             return (
               <React.Fragment key={i}>
@@ -246,23 +287,7 @@ const Navbar = ({
                     }
                   </Link>
                 )}
-                {categoryItems.length > 1 ||
-                categoryItems[0].Child === categoryItems[0].Parent ? (
-                  <CategoryItem
-                    category={category}
-                    categoryItems={categoryItems}
-                    isHomePage={isHomePage}
-                  />
-                ) : (
-                  <StyledLink
-                    to={categoryItems[0].data.Permalink}
-                    className="category-link"
-                    role="button"
-                    tabIndex="0"
-                  >
-                    {categoryItems[0].data.Child}
-                  </StyledLink>
-                )}
+                {navbarItem}
               </React.Fragment>
             )
           })}
