@@ -250,6 +250,8 @@ class GatsbyPrebuilder {
             headers: { Authorization: `Bearer ${process.env.AIRTABLE_API_KEY}` },
         });
 
+        debugger;
+
         const [faviconResponse, colorSecondaryResponse] = await Promise.all([faviconPromise, colorSecondaryPromise]);
 
         const rawFaviconUrl = faviconResponse.data.records[0].fields.File[0].url;

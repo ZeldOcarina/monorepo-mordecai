@@ -108,13 +108,6 @@ const Wrapper = styled.nav`
       color: ${({ $isHomePage }) =>
         $isHomePage ? `var(--body-color)` : `var(--white)`};
     }
-
-    ${respond(
-      "big-desktop",
-      css`
-        font-size: 2.1rem;
-      `,
-    )}
   }
 
   .mobile-menu-activator {
@@ -140,6 +133,10 @@ const Wrapper = styled.nav`
       return $isHomePage
         ? css`
             width: ${$whiteLogoSize ? $whiteLogoSize : "22rem"};
+
+            @media only screen and min-width(2500px) {
+              width: ${$whiteLogoSize ? `${sizeValue}${sizeUnit}` : "35rem"};
+            }
           `
         : css`
             width: ${$whiteLogoSize
@@ -159,12 +156,6 @@ const Wrapper = styled.nav`
       "iphone-5",
       css`
         width: 5rem;
-      `,
-    )}
-    ${respond(
-      "big-desktop",
-      css`
-        width: 32rem;
       `,
     )}
   }

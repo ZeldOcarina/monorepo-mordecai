@@ -30,13 +30,7 @@ const StyledCategoryItem = styled.div`
       `,
     )
   }}
-  ${respond(
-    "big-desktop",
-    css`
-      font-size: 3rem;
-      height: 80%;
-    `,
-  )}
+  
 
   span {
     font-family: var(--heading-font);
