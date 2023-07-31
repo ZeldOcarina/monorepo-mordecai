@@ -230,6 +230,12 @@ const StyledMobileNavbar = styled.div`
       `,
     )}
   }
+
+  .special-link {
+    font-size: 2.3rem;
+    color: var(--white);
+    font-weight: 700;
+  }
 `
 
 const MobileNavbar = ({
@@ -293,6 +299,35 @@ const MobileNavbar = ({
             const categoryItems = menuData.filter(
               item => item.data.Parent === category,
             )
+
+            const isSingleItem = categoryItems.length === 1
+
+            if (isSingleItem)
+              return (
+                <li className="categories-subitems" key={i}>
+                  {categoryItems[0]?.data?.Permalink?.startsWith("/") ? (
+                    <Link
+                      to={buildLink(
+                        categoryItems[0].data.Permalink,
+                        cityState.value,
+                      )}
+                      onClick={closeMenu}
+                      className="special-link"
+                    >
+                      {categoryItems[0].data.Child}
+                    </Link>
+                  ) : (
+                    <a
+                      className="special-link"
+                      href={categoryItems[0].data.Permalink}
+                      onClick={closeMenu}
+                    >
+                      {categoryItems[0].data.Child}
+                    </a>
+                  )}
+                </li>
+              )
+
             return (
               <li className="mobile-navbar__top-li" key={i}>
                 <MultipleAccordion

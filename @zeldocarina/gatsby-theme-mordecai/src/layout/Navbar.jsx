@@ -233,11 +233,8 @@ const Navbar = ({
               return item.data.Parent === category
             })
 
-            console.log(categoryItems)
-            console.log(shortcodesData)
-
             let navbarItem
-            if (categoryItems.length > 1) {
+            if (categoryItems.length > 1)
               navbarItem = (
                 <CategoryItem
                   category={category}
@@ -245,34 +242,31 @@ const Navbar = ({
                   isHomePage={isHomePage}
                 />
               )
-            } else {
-              if (
-                categoryItems[0].data.Child === categoryItems[0].data.Parent
-              ) {
-                navbarItem = (
-                  <StyledLink
-                    to={buildLink(
-                      categoryItems[0].data.Permalink,
-                      shortcodesData.cityState.value,
-                    )}
-                    className="category-link"
-                    role="button"
-                    tabIndex="0"
-                    $isHomePage={isHomePage}
-                  >
-                    {categoryItems[0].data.Child}
-                  </StyledLink>
-                )
-              } else {
-                navbarItem = (
-                  <CategoryItem
-                    category={category}
-                    categoryItems={categoryItems}
-                    isHomePage={isHomePage}
-                  />
-                )
-              }
-            }
+            else if (
+              categoryItems[0].data.Child === categoryItems[0].data.Parent
+            )
+              navbarItem = (
+                <StyledLink
+                  to={buildLink(
+                    categoryItems[0].data.Permalink,
+                    shortcodesData.cityState.value,
+                  )}
+                  className="category-link"
+                  role="button"
+                  tabIndex="0"
+                  $isHomePage={isHomePage}
+                >
+                  {categoryItems[0].data.Child}
+                </StyledLink>
+              )
+            else
+              navbarItem = (
+                <CategoryItem
+                  category={category}
+                  categoryItems={categoryItems}
+                  isHomePage={isHomePage}
+                />
+              )
 
             return (
               <React.Fragment key={i}>
