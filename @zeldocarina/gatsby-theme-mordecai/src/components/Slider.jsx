@@ -58,8 +58,13 @@ const StyledSlider = styled.div`
   }
 
   .slider {
-    height: 80vh;
+    height: 80vh !important;
     transition: all 0.2s ease-in-out;
+
+    .image,
+    .image img {
+      height: 80vh !important;
+    }
 
     &::after {
       content: "";
