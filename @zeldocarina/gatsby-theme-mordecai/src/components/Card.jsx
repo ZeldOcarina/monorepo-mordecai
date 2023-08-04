@@ -14,10 +14,7 @@ const StyledCard = styled.article`
   display: grid;
   gap: var(--big-gutter);
   grid-auto-rows: max-content;
-  ${({ $isTextJustified }) => {
-    if ($isTextJustified) return "text-align: justify;"
-    return "text-align: left;"
-  }}
+  text-align: justify;
 
   .title-container {
     display: grid;
