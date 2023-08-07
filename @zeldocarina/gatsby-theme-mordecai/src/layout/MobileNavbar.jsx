@@ -333,6 +333,7 @@ const MobileNavbar = ({
                 <MultipleAccordion
                   key={i}
                   summary={category}
+                  textColor={"var(--body-color)"}
                   details={
                     <ul className="categories-subitems">
                       {categoryItems.map((item, i) => {

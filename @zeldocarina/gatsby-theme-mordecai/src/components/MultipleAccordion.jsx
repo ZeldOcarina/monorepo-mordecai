@@ -7,6 +7,7 @@ import AccordionDetails from "@material-ui/core/AccordionDetails"
 
 import openAccordionIcon from "../images/open-accordion.svg"
 import closeAccordionIcon from "../images/close-accordion.svg"
+import { IoChevronDownOutline, IoChevronForwardOutline } from "react-icons/io5"
 import respond from "../styles/abstracts/mediaqueries"
 
 const StyledMultipleAccordion = styled.div`
@@ -16,7 +17,7 @@ const StyledMultipleAccordion = styled.div`
     box-shadow: none;
 
     &__summary {
-      color: var(--body-color);
+      color: ${({ $textColor }) => $textColor || "var(--body-color)"};
       text-transform: uppercase;
       font-weight: 700;
       transition: all 0.3s ease;
@@ -28,7 +29,7 @@ const StyledMultipleAccordion = styled.div`
 
     &__details {
       font-size: 1.6rem;
-      color: var(--body-color);
+      color: ${({ $textColor }) => $textColor || "var(--body-color)"};
       text-align: right;
       display: block;
 
@@ -36,21 +37,30 @@ const StyledMultipleAccordion = styled.div`
         "big-desktop",
         css`
           font-size: 2.6rem;
-        `
+        `,
       )}
     }
   }
 
   .icon {
-    margin-left: 1rem;
-    width: 7px;
   }
 
   .close-icon {
-    margin-left: 1rem;
-    width: 10px;
-    filter: brightness(0);
   }
+`
+
+const StyledChevronDown = styled(IoChevronDownOutline)`
+  color: ${({ $textColor }) => $textColor || "var(--body-color)"};
+  margin-left: 1rem;
+  width: 20px;
+  transform: translateY(28%);
+`
+
+const StyledChevronForward = styled(IoChevronForwardOutline)`
+  color: ${({ $textColor }) => $textColor || "var(--body-color)"};
+  margin-left: 1rem;
+  width: 20px;
+  transform: translateY(30%);
 `
 
 const MultipleAccordion = ({
@@ -59,6 +69,7 @@ const MultipleAccordion = ({
   accordionsState,
   setAccordionsState,
   index,
+  textColor,
 }) => {
   function handleAccordionChange(_, expanded) {
     setAccordionsState(oldAccordionState => {
@@ -75,7 +86,10 @@ const MultipleAccordion = ({
     typeof window !== "undefined" && (accordionsState[index]?.isOpen || false)
 
   return (
-    <StyledMultipleAccordion className="multiple-accordion">
+    <StyledMultipleAccordion
+      className="multiple-accordion"
+      $textColor={textColor}
+    >
       <Accordion
         className="accordion"
         onChange={handleAccordionChange}
@@ -90,9 +104,17 @@ const MultipleAccordion = ({
         >
           {summary}{" "}
           {accordionsState[index]?.isOpen ? (
-            <img src={closeAccordionIcon} className="close-icon" alt="close" />
+            <StyledChevronDown
+              className="close-icon"
+              alt="close"
+              $textColor={textColor}
+            />
           ) : (
-            <img src={openAccordionIcon} className="icon" alt="open" />
+            <StyledChevronForward
+              className="icon"
+              alt="open"
+              $textColor={textColor}
+            />
           )}
         </AccordionSummary>
         <AccordionDetails className="accordion__details">

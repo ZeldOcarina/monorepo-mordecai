@@ -120,7 +120,6 @@ const StyledFooter = styled.footer`
     margin-bottom: var(--big-gutter);
     transform: translateX(-50%);
     width: ${({ $whiteLogoSize }) => {
-      console.log($whiteLogoSize)
       return `${$whiteLogoSize} !important` || "35rem"
     }};
 

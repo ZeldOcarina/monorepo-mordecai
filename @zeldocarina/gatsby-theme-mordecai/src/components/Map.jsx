@@ -10,19 +10,19 @@ const StyledMap = styled.div`
     1366,
     css`
       height: 60vh;
-    `
+    `,
   )}
   ${respond(
     834,
     css`
       height: 40vh;
-    `
+    `,
   )}
   ${respond(
     768,
     css`
       height: 50vh;
-    `
+    `,
   )}
   @media only screen and (max-height: 428px) {
     height: 60rem;
@@ -31,7 +31,7 @@ const StyledMap = styled.div`
   // border-radius: 20px;
 `
 
-const Map = ({ mapName, lat, long, zoom, markers, pin }) => {
+const Map = ({ mapName, lat, long, zoom, markers, pin, sectionId }) => {
   const mapRef = useRef(null)
 
   useEffect(() => {
@@ -57,7 +57,7 @@ const Map = ({ mapName, lat, long, zoom, markers, pin }) => {
         const mapPin = new google.maps.Marker({
           position: new google.maps.LatLng(
             parseFloat(marker.data.Latitude),
-            parseFloat(marker.data.Longitude)
+            parseFloat(marker.data.Longitude),
           ),
           map,
           title: marker.data.Heading || "Map Pin",
@@ -86,7 +86,7 @@ const Map = ({ mapName, lat, long, zoom, markers, pin }) => {
     loadMap()
   }, [lat, long, markers, zoom, pin])
 
-  return <StyledMap ref={mapRef} id={mapName}></StyledMap>
+  return <StyledMap ref={mapRef} id={sectionId || mapName}></StyledMap>
 }
 
 export default Map

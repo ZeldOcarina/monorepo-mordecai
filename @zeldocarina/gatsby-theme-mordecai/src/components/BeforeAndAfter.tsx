@@ -1,12 +1,24 @@
 import React from "react"
 import styled, { css } from "styled-components"
+
 import IntroSection from "./IntroSection"
 import { ImgComparisonSlider } from "@img-comparison-slider/react"
+
+// @ts-expect-error
 import respond from "../styles/abstracts/mediaqueries"
+
+// @ts-expect-error
+import MarkdownParser from "../helpers/MarkdownParser"
+
+// @ts-expect-error
+import useShortcodes from "../hooks/useShortcodes"
+import { IShortcode } from "../helpers/ShortcodesParser"
 
 //import handle from "../images/icons/handle.svg"
 
-const StyledBeforeAndAfter = styled.section`
+const StyledBeforeAndAfter = styled.section<{
+  $backgroundOverride?: string
+}>`
   background: ${({ $backgroundOverride }) => {
     return $backgroundOverride || "var(--white)"
   }};
@@ -24,19 +36,18 @@ const StyledBeforeAndAfter = styled.section`
         margin-bottom: var(--big-gutter);
       `,
     )}
-    }
+  }
 
-    h2,
-    .heading {
-      ${respond(
-        1024,
-        css`
-          margin: var(--gutter) 0;
-          margin-right: 0;
-          width: 100%;
-        `,
-      )}
-    }
+  h2,
+  .heading {
+    ${respond(
+      1024,
+      css`
+        margin: var(--gutter) 0;
+        margin-right: 0;
+        width: 100%;
+      `,
+    )}
   }
 
   h2,
@@ -158,14 +169,35 @@ const StyledBeforeAndAfter = styled.section`
   }
 `
 
+export interface IBeforeAndAfterImage {
+  id: string
+  data: {
+    AltText: string | null
+    Heading: string | null
+    Media: {
+      localFiles: {
+        publicURL: string
+      }[]
+    }
+    rowNumber: number
+  }
+}
+
+export interface IBeforeAndAfterProps {
+  superheading?: string
+  heading?: string
+  subheading?: string
+  backgroundOverride?: string
+  images: IBeforeAndAfterImage[]
+}
+
 const BeforeAndAfter = ({
   superheading,
   heading,
   subheading,
   backgroundOverride,
   images,
-}) => {
-  //console.log(images)
+}: IBeforeAndAfterProps) => {
   return (
     <StyledBeforeAndAfter
       id="before-and-after"
@@ -174,7 +206,7 @@ const BeforeAndAfter = ({
       <div className="container">
         <IntroSection
           superheading={superheading}
-          heading={heading}
+          heading={heading || ""}
           subheading={subheading}
         />
       </div>
@@ -189,13 +221,13 @@ const BeforeAndAfter = ({
             <article className="slider-container" key={id}>
               <ImgComparisonSlider className="slider">
                 <img
-                  alt={data.AlternativeText}
+                  alt={data.AltText || "mouth with teeth"}
                   slot="first"
                   className="image first"
                   src={beforeImage}
                 />
                 <img
-                  alt={data.AfterAlternativeText}
+                  alt={data.AltText || "mouth with teeth"}
                   slot="second"
                   className="image second"
                   src={afterImage}

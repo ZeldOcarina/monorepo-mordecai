@@ -1,32 +1,56 @@
 import React, { useContext } from "react"
 import { useStaticQuery, graphql } from "gatsby"
+
+// Error checking ignored on .jsx files being imported due to time constraints.
+// @ts-expect-error
 import { buildLink } from "../helpers/helpers"
 
-import AppContext from "../context/AppContext"
+// @ts-expect-error
 import Navbar from "./Navbar"
+// @ts-expect-error
 import MobileNavbar from "./MobileNavbar"
+// @ts-expect-error
 import Footer from "./Footer"
 
+// @ts-expect-error
 import SliderSection from "../components/SliderSection"
-import ContactsSection from "../components/ContactsSection"
-import Map from "../components/Map"
-import DgpStripe from "../components/DgpStripe"
-import BeforeAndAfter from "../components/BeforeAndAfter"
+import ContactsSection, {
+  ContactItem,
+  OfficeHoursItem,
+} from "../components/ContactsSection"
 
+// @ts-expect-error
+import Map from "../components/Map"
+
+// @ts-expect-error
+import DgpStripe from "../components/DgpStripe"
+import BeforeAndAfter, {
+  IBeforeAndAfterImage,
+  IBeforeAndAfterProps,
+} from "../components/BeforeAndAfter"
+
+// @ts-expect-error
 import ImagesSection from "../components/ImagesSection"
+
+// @ts-expect-error
 import SocialFeed from "../components/SocialFeed"
+
+// @ts-expect-error
 import LocationBanner from "./LocationBanner"
+
+// @ts-expect-error
 import TestimonialsSlider from "../components/TestimonialsSlider"
 
-function organizeMenu(categoriesData, cityState) {
-  const categories = new Set()
-  const organizedMenuData = {}
+// TODO: Add types for the organize menu function
+function organizeMenu(categoriesData: any, cityState: any) {
+  const categories = new Set<string>()
+  const organizedMenuData: any = {}
 
-  const sortedCategoriesData = categoriesData.sort((a, b) => {
+  const sortedCategoriesData = categoriesData.sort((a: any, b: any) => {
     return a.data.rowNumber - b.data.rowNumber
   })
 
-  sortedCategoriesData.forEach(category => {
+  sortedCategoriesData.forEach((category: any) => {
     //if (category.data.Parent === "Home") return
     if (category.data.Parent && category.data.Permalink)
       categories.add(category.data.Parent)
@@ -37,11 +61,11 @@ function organizeMenu(categoriesData, cityState) {
   //   console.log({ category })
   // })
 
-  categories.forEach(category => {
+  categories.forEach((category: any) => {
     organizedMenuData[category] = []
   })
 
-  sortedCategoriesData.forEach(navItem => {
+  sortedCategoriesData.forEach((navItem: any) => {
     //if (navItem.data.Parent === "Home") return
     if (!organizedMenuData[navItem.data.Parent]) return
     organizedMenuData[navItem.data.Parent].push({
@@ -53,34 +77,36 @@ function organizeMenu(categoriesData, cityState) {
 
   const noLogoCategoriesData = categoriesData.filter(
     //item => item.data.Parent !== "Home"
-    item => item,
+    (item: any) => item,
   )
 
   return { categories: [...categories], menuData: noLogoCategoriesData }
 }
 
-const Layout = ({ children }) => {
+const Layout = ({ children }: React.PropsWithChildren) => {
   const {
-    whiteLogoData: { whiteLogoData },
+    whiteLogoData,
     whiteLogoSizeData,
-    addressData: { addressData },
+    addressData,
     allAddressedData: { allAddressedData },
-    cityData: { cityData },
-    stateData: { stateData },
-    cityStateData: { cityStateData },
-    zipCodeData: { zipCodeData },
+    cityData,
+    stateData,
+    cityStateData,
+    zipCodeData,
     categoriesData: { categoriesData },
-    phoneData: { phoneData },
-    telData: { telData },
-    darkLogoData: { darkLogoData },
+    phoneData,
+    telData,
+    darkLogoData,
     sliderTitleData,
     sliderImagesData,
     contactsTitleData,
-    contactsBigCardTitleData,
+    card1Data,
+    bigCardData,
+    card3Data,
     officeHoursData: { officeHoursData },
     contactItemsData,
     generalMapData,
-    mapPinData: { mapPinData },
+    mapPinData,
     mapMarkersData,
     imagesTitleData,
     imageItemsData,
@@ -90,23 +116,43 @@ const Layout = ({ children }) => {
     auxLinksData: { auxLinksData },
     socialLinksData: { socialLinksData },
     dgpStripeData,
-    businessNameData: { businessNameData },
+    businessNameData,
     beforeAfterTitleData,
     beforeAfterItemsData,
     testimonialsTitleData,
     testimonialsData,
-  } = useStaticQuery(query)
+  }: Queries.LayoutQueryQuery = useStaticQuery(query)
 
-  const organizedMenuData = organizeMenu(categoriesData, cityStateData.Value)
+  const whiteLogo =
+    (whiteLogoData?.whiteLogoData?.File?.localFiles &&
+      whiteLogoData.whiteLogoData.File.localFiles.at(0)?.publicURL) ||
+    undefined
+  const darkLogo =
+    (darkLogoData?.darkLogoData?.File?.localFiles &&
+      darkLogoData.darkLogoData.File.localFiles[0]?.publicURL) ||
+    undefined
+  const mapPin =
+    mapPinData?.mapPinData?.File?.localFiles?.at(0)?.publicURL || undefined
 
-  const globalFooterItems = []
+  const cityStateValue = cityStateData?.cityStateData?.Value || ""
+  const phoneValue = phoneData?.phoneData?.Value || ""
+  const telDataValue = telData?.telData?.Value || ""
+  const businessName = businessNameData?.businessNameData?.Value || ""
+
+  const organizedMenuData = organizeMenu(categoriesData, cityStateValue)
+
+  const globalFooterItems: {
+    component: JSX.Element
+    index: number
+  }[] = []
 
   if (
     sliderTitleData &&
     sliderTitleData.sliderTitleData &&
     sliderImagesData &&
     sliderImagesData.sliderImagesData &&
-    sliderImagesData.sliderImagesData.length > 0
+    sliderImagesData.sliderImagesData.length > 0 &&
+    sliderTitleData.sliderTitleData.rowNumber
   ) {
     globalFooterItems.push({
       component: (
@@ -130,7 +176,8 @@ const Layout = ({ children }) => {
     generalMapData.generalMapData.zoomLevel &&
     mapMarkersData &&
     mapMarkersData.mapMarkersData &&
-    mapMarkersData.mapMarkersData.length > 0
+    mapMarkersData.mapMarkersData.length > 0 &&
+    generalMapData.generalMapData.rowNumber
   ) {
     globalFooterItems.push({
       component: (
@@ -139,10 +186,10 @@ const Layout = ({ children }) => {
           long={generalMapData.generalMapData.Longitude}
           zoom={generalMapData.generalMapData.zoomLevel}
           markers={mapMarkersData.mapMarkersData}
-          pin={mapPinData.File.localFiles[0].publicURL}
+          pin={mapPin}
           mapName="map"
           key={generalMapData.id}
-          id="map"
+          sectionId="map"
         />
       ),
       index: generalMapData.generalMapData.rowNumber,
@@ -154,23 +201,56 @@ const Layout = ({ children }) => {
     contactsTitleData.contactsTitleData &&
     contactItemsData &&
     contactItemsData.contactItemsData &&
-    contactItemsData.contactItemsData.length > 0
+    contactItemsData.contactItemsData.length > 0 &&
+    card1Data &&
+    card1Data.card1Data &&
+    card1Data.card1Data.Heading &&
+    bigCardData &&
+    bigCardData.bigCardData &&
+    contactsTitleData.contactsTitleData.rowNumber
   )
     globalFooterItems.push({
       component: (
         <ContactsSection
-          superheading={contactsTitleData?.contactsTitleData.Superheading}
-          heading={contactsTitleData?.contactsTitleData.Heading}
-          bigCardHeading={
-            contactsBigCardTitleData?.contactsBigCardTitleData.Superheading
+          bgColorOverride={
+            contactsTitleData.contactsTitleData.BgColorOverride || undefined
           }
           bgImage={
-            contactsTitleData?.contactsTitleData?.Media?.localFiles[0].publicURL
+            (contactsTitleData &&
+              contactsTitleData.contactsTitleData &&
+              contactsTitleData.contactsTitleData.Media &&
+              contactsTitleData.contactsTitleData.Media.localFiles &&
+              contactsTitleData.contactsTitleData.Media.localFiles[0]
+                ?.publicURL) ||
+            undefined
           }
-          items={contactItemsData.contactItemsData}
-          officeHours={officeHoursData}
-          phone={phoneData.Value}
-          tel={telData.Value}
+          textColorOverride={
+            contactsTitleData?.contactsTitleData?.TextColorOverride || undefined
+          }
+          card1Data={{
+            heading: card1Data.card1Data.Heading,
+            bgColorOverride: card1Data.card1Data.BgColorOverride || undefined,
+            textColorOverride:
+              card1Data.card1Data.TextColorOverride || undefined,
+          }}
+          bigCardData={{
+            heading: bigCardData.bigCardData.Heading || undefined,
+            bgColorOverride:
+              bigCardData.bigCardData.BgColorOverride || undefined,
+            textColorOverride:
+              bigCardData.bigCardData.TextColorOverride || undefined,
+            buttonLabel: bigCardData.bigCardData.ButtonLabel || undefined,
+            buttonLink: bigCardData.bigCardData.ButtonLink || undefined,
+          }}
+          card3Data={{
+            bgColorOverride: card3Data?.card3Data?.BgColorOverride || undefined,
+            textColorOverride:
+              card3Data?.card3Data?.TextColorOverride || undefined,
+          }}
+          items={contactItemsData.contactItemsData.slice() as ContactItem[]}
+          officeHours={officeHoursData.slice() as OfficeHoursItem[]}
+          phone={phoneValue}
+          tel={telDataValue}
           key={contactsTitleData.id}
         />
       ),
@@ -179,20 +259,31 @@ const Layout = ({ children }) => {
 
   if (
     beforeAfterTitleData &&
+    beforeAfterTitleData.beforeAfterTitleData &&
     beforeAfterItemsData &&
     beforeAfterItemsData.beforeAfterItemsData &&
-    beforeAfterItemsData.beforeAfterItemsData.length > 0
+    beforeAfterItemsData.beforeAfterItemsData.length > 0 &&
+    beforeAfterTitleData.beforeAfterTitleData.rowNumber
   ) {
     globalFooterItems.push({
       component: (
         <BeforeAndAfter
-          superheading={beforeAfterTitleData.beforeAfterTitleData.Superheading}
-          heading={beforeAfterTitleData.beforeAfterTitleData.Heading}
-          subheading={beforeAfterTitleData.beforeAfterTitleData.Subheading}
-          backgroundOverride={
-            beforeAfterTitleData.beforeAfterTitleData.BgColorOverride
+          superheading={
+            beforeAfterTitleData.beforeAfterTitleData.Superheading || undefined
           }
-          images={beforeAfterItemsData.beforeAfterItemsData}
+          heading={
+            beforeAfterTitleData.beforeAfterTitleData.Heading || undefined
+          }
+          subheading={
+            beforeAfterTitleData.beforeAfterTitleData.Subheading || undefined
+          }
+          backgroundOverride={
+            beforeAfterTitleData.beforeAfterTitleData.BgColorOverride ||
+            undefined
+          }
+          images={
+            beforeAfterItemsData.beforeAfterItemsData.slice() as IBeforeAndAfterImage[]
+          }
           key={beforeAfterTitleData.id}
         />
       ),
@@ -204,11 +295,13 @@ const Layout = ({ children }) => {
     imagesTitleData &&
     imagesTitleData.imagesTitleData &&
     imageItemsData &&
-    imageItemsData.imageItemsData
+    imageItemsData.imageItemsData &&
+    imagesTitleData.imagesTitleData.rowNumber
   ) {
     globalFooterItems.push({
       component: (
         <ImagesSection
+          // @ts-ignore
           superheading={imagesTitleData.imagesTitleData.Superheading}
           heading={imagesTitleData.imagesTitleData.Heading}
           subheading={imagesTitleData.imagesTitleData.Subheading}
@@ -225,7 +318,8 @@ const Layout = ({ children }) => {
     socialFeedTitleData.socialFeedTitleData &&
     socialFeedItemsData &&
     socialFeedItemsData.socialFeedItemsData &&
-    socialFeedItemsData.socialFeedItemsData.length > 0
+    socialFeedItemsData.socialFeedItemsData.length > 0 &&
+    socialFeedTitleData.socialFeedTitleData.rowNumber
   ) {
     globalFooterItems.push({
       component: (
@@ -243,9 +337,11 @@ const Layout = ({ children }) => {
 
   if (
     testimonialsTitleData &&
+    testimonialsTitleData.testimonialsTitleData &&
     testimonialsData &&
     testimonialsData.testimonialsData &&
-    testimonialsData.testimonialsData.length > 0
+    testimonialsData.testimonialsData.length > 0 &&
+    testimonialsTitleData.testimonialsTitleData.rowNumber
   ) {
     globalFooterItems.push({
       component: (
@@ -256,6 +352,9 @@ const Layout = ({ children }) => {
           heading="Hear what our customers have to say"
           subheading={testimonialsTitleData.testimonialsTitleData.Subheading}
           testimonials={testimonialsData.testimonialsData}
+          bgColorOverride={
+            testimonialsTitleData.testimonialsTitleData.BgColorOverride
+          }
           key={testimonialsTitleData.id}
         />
       ),
@@ -266,46 +365,72 @@ const Layout = ({ children }) => {
   return (
     <>
       <LocationBanner
-        phone={phoneData.Value}
-        tel={telData.Value}
-        address={addressData.Value}
-        city={cityData.Value}
-        state={stateData.Value}
-        zip={zipCodeData.Value}
+        phone={phoneValue}
+        tel={telDataValue}
+        address={
+          (addressData &&
+            addressData.addressData &&
+            addressData.addressData.Value) ||
+          ""
+        }
+        city={(cityData && cityData.cityData && cityData.cityData.Value) || ""}
+        state={
+          (stateData && stateData.stateData && stateData.stateData.Value) || ""
+        }
+        zip={
+          (zipCodeData &&
+            zipCodeData.zipCodeData &&
+            zipCodeData.zipCodeData.Value) ||
+          ""
+        }
         auxLinks={auxLinksData}
-        cityState={cityStateData.Value}
+        cityState={cityStateValue}
       />
       <Navbar
         menuData={organizedMenuData}
-        logo={whiteLogoData.File.localFiles[0].publicURL}
+        logo={whiteLogo}
         whiteLogoSize={
-          whiteLogoSizeData
-            ? whiteLogoSizeData.whiteLogoSizeData.Value
-            : undefined
+          (whiteLogoSizeData &&
+            whiteLogoSizeData.whiteLogoSizeData &&
+            whiteLogoSizeData.whiteLogoSizeData.Value) ||
+          undefined
         }
-        darkLogo={darkLogoData.File.localFiles[0].publicURL}
-        phone={phoneData.Value}
-        tel={telData.Value}
+        darkLogo={darkLogo}
+        phone={phoneValue}
+        tel={telDataValue}
       />
       {children}
       {globalFooterItems.map(component => component.component)}
 
       <Footer
-        logo={whiteLogoData.File.localFiles[0].publicURL}
+        logo={whiteLogo}
         whiteLogoSize={
-          whiteLogoSizeData
-            ? whiteLogoSizeData.whiteLogoSizeData.Value
-            : undefined
+          (whiteLogoSizeData &&
+            whiteLogoSizeData.whiteLogoSizeData &&
+            whiteLogoSizeData.whiteLogoSizeData.Value) ||
+          undefined
         }
         addresses={allAddressedData}
-        mainAddress={addressData.Value}
-        city={cityData.Value}
-        zip={zipCodeData.Value}
-        state={stateData.Value}
+        mainAddress={
+          (addressData &&
+            addressData.addressData &&
+            addressData.addressData.Value) ||
+          ""
+        }
+        city={(cityData && cityData.cityData && cityData.cityData.Value) || ""}
+        zip={
+          (zipCodeData &&
+            zipCodeData.zipCodeData &&
+            zipCodeData.zipCodeData.Value) ||
+          ""
+        }
+        state={
+          (stateData && stateData.stateData && stateData.stateData.Value) || ""
+        }
         socialLinks={socialLinksData}
-        businessName={businessNameData.Value}
-        phoneNumber={phoneData.Value}
-        tel={telData.Value}
+        businessName={businessName}
+        phoneNumber={phoneValue}
+        tel={telDataValue}
         quickLinks={quickLinksData}
       />
       {dgpStripeData && dgpStripeData.dgpStripeData && (
@@ -318,16 +443,16 @@ const Layout = ({ children }) => {
 
       <MobileNavbar
         menuData={organizedMenuData}
-        logo={whiteLogoData.File.localFiles[0].publicURL}
-        phone={phoneData.Value}
-        tel={telData.Value}
+        logo={whiteLogo}
+        phone={phoneValue}
+        tel={telDataValue}
       />
     </>
   )
 }
 
 const query = graphql`
-  {
+  query LayoutQuery {
     categoriesData: allAirtable(
       filter: {
         table: { eq: "Menu" }
@@ -427,6 +552,8 @@ const query = graphql`
       id
       contactsTitleData: data {
         Superheading
+        BgColorOverride
+        TextColorOverride
         Heading
         Media {
           localFiles {
@@ -480,12 +607,8 @@ const query = graphql`
     ) {
       card1Data: data {
         Heading
-        Media {
-          localFiles {
-            publicURL
-          }
-        }
-        AltText
+        BgColorOverride
+        TextColorOverride
       }
     }
     card3Data: airtable(
@@ -493,13 +616,8 @@ const query = graphql`
       data: { Block: { eq: "Card3" } }
     ) {
       card3Data: data {
-        Heading
-        Media {
-          localFiles {
-            publicURL
-          }
-        }
-        AltText
+        BgColorOverride
+        TextColorOverride
       }
     }
     bigCardData: airtable(
@@ -508,14 +626,10 @@ const query = graphql`
     ) {
       bigCardData: data {
         Heading
-        AltText
+        BgColorOverride
+        TextColorOverride
         ButtonLabel
         ButtonLink
-        Media {
-          localFiles {
-            publicURL
-          }
-        }
       }
     }
     testimonialsTitleData: airtable(
@@ -528,6 +642,7 @@ const query = graphql`
         Superheading
         Heading
         Subheading
+        BgColorOverride
       }
     }
     testimonialsData: allAirtable(
@@ -596,6 +711,7 @@ const query = graphql`
     ) {
       id
       imagesTitleData: data {
+        Superheading
         Heading
         Subheading
         rowNumber

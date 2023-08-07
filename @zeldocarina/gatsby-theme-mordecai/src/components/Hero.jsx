@@ -58,7 +58,8 @@ const StyledHero = styled.header`
 
     .heading,
     .subheading {
-      color: var(--white);
+      color: ${({ $textColorOverride }) =>
+        $textColorOverride || "var(--white)"};
     }
     &::after {
       display: none;
@@ -95,6 +96,7 @@ const Hero = ({
   overlay,
   isVideo,
   mimeType,
+  textColorOverride,
 }) => {
   const heroRef = useRef(null)
   const [isHomePage, setIsHomePage] = useState(false)
@@ -163,6 +165,7 @@ const Hero = ({
       $heroSize={heroSize}
       ref={heroRef}
       $backgroundColor={heroBackground}
+      $textColorOverride={textColorOverride}
     >
       <div className="text-content">
         <IntroSection

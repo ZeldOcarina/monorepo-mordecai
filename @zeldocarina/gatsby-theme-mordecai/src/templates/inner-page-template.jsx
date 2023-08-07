@@ -78,6 +78,7 @@ const InnerPageTemplate = ({
           overlay={heroData.heroData.Overlay}
           isVideo={heroData.heroData.Media.raw[0].type.startsWith("video")}
           mimeType={heroData.heroData.Media.raw[0].type}
+          textColorOverride={heroData.heroData.TextColorOverride}
         />
       ),
       index: heroData.heroData.rowNumber,
@@ -461,6 +462,7 @@ export const query = graphql`
     ) {
       heroData: data {
         AltText
+        TextColorOverride
         Media {
           raw {
             type

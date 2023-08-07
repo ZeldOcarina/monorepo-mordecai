@@ -14,7 +14,10 @@ import respond from "../styles/abstracts/mediaqueries"
 import { FaQuoteRight } from "react-icons/fa"
 
 const StyledTestimonialsSlider = styled.section`
-  background-color: var(--color-secondary);
+  background-color: ${({ $bgColorOverride }) => {
+    return $bgColorOverride || "var(--color-secondary)"
+  }};
+
   --swiper-pagination-color: var(--color-tertiary);
   --swiper-pagination-bullet-opacity: 1;
 
@@ -289,9 +292,10 @@ const TestimonialsSlider = ({
   heading,
   subheading,
   testimonials,
+  bgColorOverride,
 }) => {
   return (
-    <StyledTestimonialsSlider>
+    <StyledTestimonialsSlider $bgColorOverride={bgColorOverride}>
       <div className="container top-container">
         <IntroSection
           superheading={superheading}

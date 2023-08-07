@@ -1,12 +1,20 @@
 import React, { useContext } from "react"
 import styled, { css } from "styled-components"
-import respond from "../styles/abstracts/mediaqueries"
-import PropTypes from "prop-types"
 
-import AppContext from "../context/AppContext"
+// @ts-expect-error
+import respond from "../styles/abstracts/mediaqueries"
+
 import ShortcodesParser from "../helpers/ShortcodesParser"
 
-const StyledIntroSection = styled.div`
+// @ts-expect-error
+import useShortcodes from "../hooks/useShortcodes"
+
+const StyledIntroSection = styled.div<{
+  $padding?: number
+  $noPaddingTop?: boolean
+  $isText100wide?: boolean
+  $theme?: string
+}>`
   position: relative;
   text-align: left;
   margin: 0 0 10rem 0;
@@ -147,13 +155,23 @@ const StyledIntroSection = styled.div`
   }
 `
 
-function setIsText100Wide(businessName) {
+function setIsText100Wide(businessName: string) {
   switch (businessName) {
     case "Aviara Centers":
       return true
     default:
       return false
   }
+}
+
+interface IIntroSectionProps {
+  superheading?: string
+  heading: string
+  subheading?: string
+  padding?: number
+  theme?: string
+  noPaddingTop?: boolean
+  makeHeadingH1?: boolean
 }
 
 const IntroSection = ({
@@ -164,25 +182,22 @@ const IntroSection = ({
   theme,
   noPaddingTop,
   makeHeadingH1,
-}) => {
-  const { shortcodesData } = useContext(AppContext)
+}: IIntroSectionProps) => {
+  const shortcodes = useShortcodes()
 
-  const {
-    business: { value: businessName },
-  } = shortcodesData
+  console.log(superheading)
 
-  const parsedSuperheading = new ShortcodesParser(
-    superheading,
-    shortcodesData,
-  ).parseShortcodes()
+  const parsedSuperheading = superheading
+    ? new ShortcodesParser(superheading, shortcodes).parseShortcodes()
+    : ""
+
   const parsedHeading = new ShortcodesParser(
     heading,
-    shortcodesData,
+    shortcodes,
   ).parseShortcodes()
-  const parsedSubheading = new ShortcodesParser(
-    subheading,
-    shortcodesData,
-  ).parseShortcodes()
+  const parsedSubheading = subheading
+    ? new ShortcodesParser(subheading, shortcodes).parseShortcodes()
+    : ""
 
   return (
     <StyledIntroSection
@@ -190,7 +205,7 @@ const IntroSection = ({
       $theme={theme}
       $noPaddingTop={noPaddingTop}
       className="intro-section"
-      $isText100wide={setIsText100Wide(businessName)}
+      $isText100wide={setIsText100Wide("")}
     >
       {superheading && <h3 className="superheading">{parsedSuperheading}</h3>}
       {makeHeadingH1 ? (
@@ -201,15 +216,6 @@ const IntroSection = ({
       {subheading && <p className="subheading">{parsedSubheading}</p>}
     </StyledIntroSection>
   )
-}
-
-IntroSection.propTypes = {
-  superheading: PropTypes.string,
-  heading: PropTypes.string,
-  subheading: PropTypes.string,
-  padding: PropTypes.number,
-  theme: PropTypes.string,
-  makeHeadingH1: PropTypes.bool,
 }
 
 export default IntroSection

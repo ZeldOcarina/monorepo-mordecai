@@ -46,18 +46,17 @@ const Seo = ({
 
   const { shortcodesData } = useContext(AppContext)
 
-  const parsedRelativeKeywords = new ShortcodesParser(
-    relativeKeywords,
-    shortcodesData,
-  ).parseShortcodes()
-  const parsedDescription = new ShortcodesParser(
-    description,
-    shortcodesData,
-  ).parseShortcodes()
-  const parsedTitle = new ShortcodesParser(
-    title,
-    shortcodesData,
-  ).parseShortcodes()
+  console.log(relativeKeywords)
+
+  const parsedRelativeKeywords = relativeKeywords
+    ? new ShortcodesParser(relativeKeywords, shortcodesData).parseShortcodes()
+    : ""
+  const parsedDescription = description
+    ? new ShortcodesParser(description, shortcodesData).parseShortcodes()
+    : ""
+  const parsedTitle = title
+    ? new ShortcodesParser(title, shortcodesData).parseShortcodes()
+    : ""
 
   return (
     <Helmet htmlAttributes={{ lang: language || "en" }}>

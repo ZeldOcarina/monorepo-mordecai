@@ -1,19 +1,33 @@
 import React, { useState, useEffect, useContext } from "react"
 import styled, { css } from "styled-components"
 import { Link } from "gatsby"
+
 import ShortcodesParser from "../helpers/ShortcodesParser"
 
+import ContactsCard from "./ContactsCard"
+
+// @ts-expect-error
 import MultipleAccordion from "./MultipleAccordion"
 
+// @ts-expect-error
 import respond from "../styles/abstracts/mediaqueries"
+
+// @ts-expect-error
 import AppContext from "../context/AppContext"
 
-const StyledContactsSection = styled.section`
+import isExternalUrl from "../helpers/isExternalUrl/isExternalUrl"
+
+const StyledContactsSection = styled.section<{
+  $bgImage?: string
+  $bgColorOverride?: string
+}>`
   padding-top: 0;
   padding-bottom: 0;
   position: relative;
   z-index: 1;
-  background: ${({ bgImage }) => `url(${bgImage})`};
+  background: ${({ $bgImage }) => `url(${$bgImage})`};
+  background-color: ${({ $bgColorOverride }) =>
+    $bgColorOverride ? $bgColorOverride : "initial"};
   background-attachment: fixed;
   background-position: top left;
   background-repeat: no-repeat;
@@ -25,7 +39,7 @@ const StyledContactsSection = styled.section`
     css`
       height: auto;
       padding: var(--section-gutter) 0;
-    `
+    `,
   )}
 
   .intro-section {
@@ -53,20 +67,20 @@ const StyledContactsSection = styled.section`
       1194,
       css`
         max-width: 100%;
-      `
+      `,
     )}
     ${respond(
       500,
       css`
         margin: 0 auto;
         padding: 0;
-      `
+      `,
     )}
     ${respond(
       400,
       css`
         max-width: 95% !important;
-      `
+      `,
     )}
   }
 
@@ -86,45 +100,30 @@ const StyledContactsSection = styled.section`
         grid-template-rows: auto;
         width: 70%;
         margin: 0 auto;
-      `
+      `,
     )}
     ${respond(
       500,
       css`
         width: 100%;
-      `
+      `,
     )}
     ${respond(
       "big-desktop",
       css`
         column-gap: 10rem;
-      `
+      `,
     )}
   }
 
   .card {
-    background-color: var(--white);
-    padding: 5rem;
-    border-radius: 15px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-
-    ${respond(
-      400,
-      css`
-        padding: 2rem;
-      `
-    )}
-
     .accordion__details {
       text-align: left;
       ${respond(
         500,
         css`
           text-align: left;
-        `
+        `,
       )}
     }
 
@@ -151,6 +150,7 @@ const StyledContactsSection = styled.section`
       text-transform: uppercase;
       font-weight: 700;
     }
+
     h6 {
       font-weight: 700;
       color: var(--body-color);
@@ -158,7 +158,6 @@ const StyledContactsSection = styled.section`
       margin-bottom: var(--gutter);
       text-transform: uppercase;
     }
-    color: var(--body-color);
 
     &--center {
       box-sizing: border-box;
@@ -168,7 +167,7 @@ const StyledContactsSection = styled.section`
         css`
           padding-top: 5rem;
           transform: scale(0) translateY(0);
-        `
+        `,
       )}
 
       ${respond(
@@ -176,7 +175,7 @@ const StyledContactsSection = styled.section`
         css`
           /* transform: translateY(-30%);
           padding-top: 16.5rem; */
-        `
+        `,
       )}
     }
   }
@@ -202,7 +201,7 @@ const StyledContactsSection = styled.section`
       "big-desktop",
       css`
         border-radius: 60px;
-      `
+      `,
     )}
   }
 
@@ -214,13 +213,13 @@ const StyledContactsSection = styled.section`
       1194,
       css`
         transform: scale(1);
-      `
+      `,
     )}
     ${respond(
       "big-desktop",
       css`
         transform: scaleX(1.2) scaleY(1.5);
-      `
+      `,
     )}
 
     &__content {
@@ -242,7 +241,7 @@ const StyledContactsSection = styled.section`
           .phone-number {
             font-size: 4rem;
           }
-        `
+        `,
       )}
       ${respond(
         500,
@@ -251,7 +250,7 @@ const StyledContactsSection = styled.section`
           flex-direction: column;
           align-items: center;
           justify-content: center;
-        `
+        `,
       )}
 
       .button {
@@ -259,22 +258,86 @@ const StyledContactsSection = styled.section`
           360,
           css`
             margin-bottom: auto;
-          `
+          `,
         )}
       }
     }
   }
 `
 
+export interface ContactItem {
+  id: string
+  data: {
+    ButtonLabel?: string
+    ButtonLink?: string
+    Copy?: string
+    Heading?: string
+  }
+}
+
+interface AccordionStateItem extends ContactItem {
+  isOpen: boolean
+}
+
+export interface OfficeHoursItem {
+  data: { Label: string; Value: string }
+  id: string
+}
+
+interface IContactsSectionProps extends React.PropsWithChildren {
+  officeHours: OfficeHoursItem[]
+  items: ContactItem[]
+  phone: string
+  tel: string
+  bgImage?: string
+  bgColorOverride?: string
+  textColorOverride?: string
+  card1Data: {
+    bgColorOverride?: string
+    textColorOverride?: string
+    heading?: string
+  }
+  bigCardData: {
+    bgColorOverride?: string
+    textColorOverride?: string
+    heading?: string
+    buttonLabel?: string
+    buttonLink?: string
+  }
+  card3Data: {
+    bgColorOverride?: string
+    textColorOverride?: string
+  }
+}
+
 const ContactsSection = ({
-  bigCardHeading,
   officeHours,
   items,
   phone,
   tel,
   bgImage,
-}) => {
-  const [accordionsState, setAccordionsState] = useState([])
+  bgColorOverride,
+  textColorOverride,
+  card1Data: {
+    bgColorOverride: card1BgColorOverride,
+    textColorOverride: card1TextColorOverride,
+    heading: card1Heading,
+  },
+  bigCardData: {
+    bgColorOverride: bigCardBgColorOverride,
+    textColorOverride: bigCardTextColorOverride,
+    heading: bigCardHeading,
+    buttonLabel: bigCardButtonLabel,
+    buttonLink: bigCardButtonLink,
+  },
+  card3Data: {
+    bgColorOverride: card3BgColorOverride,
+    textColorOverride: card3TextColorOverride,
+  },
+}: IContactsSectionProps) => {
+  const [accordionsState, setAccordionsState] = useState<AccordionStateItem[]>(
+    [],
+  )
 
   useEffect(() => {
     const initialAccordionsState = items.map((item, i) => {
@@ -287,54 +350,105 @@ const ContactsSection = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const { isiPad, shortcodesData } = useContext(AppContext)
+  const { isiPad, shortcodesData }: { isiPad: boolean; shortcodesData: any } =
+    useContext(AppContext)
+
+  const card1TextColor = card1TextColorOverride || textColorOverride
+  const bigCardTextColor = bigCardTextColorOverride || textColorOverride
 
   return (
-    <StyledContactsSection bgImage={bgImage}>
+    <StyledContactsSection
+      $bgImage={bgImage}
+      $bgColorOverride={bgColorOverride}
+    >
       <div className="container">
         <div className="cards-container">
-          <div className="card">
-            <h6>OFFICE HOURS</h6>
+          <ContactsCard color={card1TextColor} bgColor={card1BgColorOverride}>
+            <h6
+              style={{
+                color: card1TextColor,
+              }}
+            >
+              {card1Heading}
+            </h6>
             <div className="schedule">
               {officeHours.map(({ id, data }) => {
                 return (
-                  <p key={id}>
+                  <p
+                    key={id}
+                    style={{
+                      color: card1TextColor,
+                    }}
+                  >
                     <span>{data.Label}</span> <span>{data.Value}</span>
                   </p>
                 )
               })}
             </div>
-          </div>
-          <div
+          </ContactsCard>
+          <ContactsCard
             className={isiPad ? "card big-card" : "card big-card card--center"}
+            bgColor={bigCardBgColorOverride}
+            color={bigCardTextColorOverride || textColorOverride}
           >
             <div className="big-card__content">
-              <h4>
-                {new ShortcodesParser(
-                  bigCardHeading,
-                  shortcodesData
-                ).parseShortcodes()}
+              <h4
+                style={{
+                  color: bigCardTextColor,
+                }}
+              >
+                {bigCardHeading
+                  ? new ShortcodesParser(
+                      bigCardHeading,
+                      shortcodesData,
+                    ).parseShortcodes()
+                  : ""}
               </h4>
               <p>
-                <a className="phone-number" href={`tel:${tel}`}>
+                <a
+                  style={{
+                    color: bigCardTextColor,
+                  }}
+                  className="phone-number"
+                  href={`tel:${tel}`}
+                >
                   {phone}
                 </a>
-                <Link to="/contact-us" className="button">
-                  REQUEST APPOINTMENT
-                </Link>
+                {isExternalUrl(bigCardButtonLink || "/contact-us") ? (
+                  <a
+                    href={bigCardButtonLink}
+                    className="button"
+                    style={{
+                      color: bigCardTextColor,
+                    }}
+                  >
+                    {bigCardButtonLabel || "REQUEST APPOINTMENT"}
+                  </a>
+                ) : (
+                  <Link
+                    to={bigCardButtonLink || "/contact-us"}
+                    className="button"
+                  >
+                    {bigCardButtonLabel || "REQUEST APPOINTMENT"}
+                  </Link>
+                )}
               </p>
             </div>
-          </div>
-          <div className="card">
+          </ContactsCard>
+          <ContactsCard
+            bgColor={card3BgColorOverride}
+            color={card3TextColorOverride || textColorOverride}
+          >
             <div className="items-container">
               {accordionsState?.map((item, i) => {
                 return (
                   <MultipleAccordion
+                    textColor={card3TextColorOverride || textColorOverride}
                     key={item.id}
                     summary={item.data.Heading}
                     details={new ShortcodesParser(
-                      item.data.Copy,
-                      shortcodesData
+                      item.data.Copy || "",
+                      shortcodesData,
                     ).parseShortcodes()}
                     accordionsState={accordionsState}
                     setAccordionsState={setAccordionsState}
@@ -343,7 +457,7 @@ const ContactsSection = ({
                 )
               })}
             </div>
-          </div>
+          </ContactsCard>
         </div>
       </div>
     </StyledContactsSection>
