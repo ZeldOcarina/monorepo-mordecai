@@ -531,8 +531,9 @@ const query = graphql`
     sliderImagesData: allAirtable(
       filter: {
         table: { eq: "Footer (Global)" }
-        data: { Block: { eq: "SliderItem" } }
+        data: { Block: { eq: "SliderItem" }, isActive: { eq: true } }
       }
+      sort: { data: { rowNumber: ASC } }
     ) {
       sliderImagesData: nodes {
         id

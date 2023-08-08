@@ -185,8 +185,6 @@ const IntroSection = ({
 }: IIntroSectionProps) => {
   const shortcodes = useShortcodes()
 
-  console.log(superheading)
-
   const parsedSuperheading = superheading
     ? new ShortcodesParser(superheading, shortcodes).parseShortcodes()
     : ""

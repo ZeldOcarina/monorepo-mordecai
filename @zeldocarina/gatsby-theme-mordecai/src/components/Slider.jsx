@@ -103,6 +103,7 @@ const StyledSlider = styled.div`
 `
 
 const Slider = ({ images }) => {
+  console.log(images)
   const { isBigDesktop, colors } = useContext(AppContext)
 
   // console.log(colors)
@@ -123,6 +124,7 @@ const Slider = ({ images }) => {
           autoplay={{ delay: 4000, disableOnInteraction: true }}
         >
           {images.map(image => {
+            if (!image.data.Media) return
             return (
               <SwiperSlide key={image.id}>
                 <img
