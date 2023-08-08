@@ -1,6 +1,43 @@
+import { RuleSet } from "styled-components"
+
 const BASE_PIXELS = 16
 
-function respond(breakpoint, css) {
+type Breakpoint =
+  | "iphone-5"
+  | "small-phone"
+  | "iphone-12-mini"
+  | "iphone-12"
+  | "iphone-8-plus"
+  | "iphone-12-pro-max"
+  | "phone-port"
+  | "iphone-5-land"
+  | "nexus-7"
+  | "iphone-8-land"
+  | "iphone-8-plus-land"
+  | "ipad-port"
+  | "iphone-12-mini-land"
+  | "ipad-pro-10-port"
+  | "ipad-pro-11-port"
+  | "iphone-12-land"
+  | "phone-land"
+  | "tab-port"
+  | "iphone-12-pro-land"
+  | "nexus-7-land"
+  | "tab-land"
+  | "ipad-pro-12-port"
+  | "ipad-pro-10.5-land"
+  | "ipad-pro-11-land"
+  | "laptop-s"
+  | "ipad-pro-12.9-land"
+  | "notebook"
+  | "macbook-air"
+  | "laptop"
+  | "big-laptop"
+  | "big-desktop"
+  | "4k-tv"
+  | number
+
+function respond(breakpoint: Breakpoint, css: string | RuleSet<object>): string {
   switch (breakpoint) {
     case "iphone-5":
       return `@media only screen and (max-width: ${320 / BASE_PIXELS}em) {
@@ -130,14 +167,12 @@ function respond(breakpoint, css) {
       return `@media only screen and (min-width: ${3800 / BASE_PIXELS}em) {
                 ${css}
               }`
-    case "no-hover":
-      return `@media (hover: none) and (pointer: coarse) {
+    default:
+      return `@media only screen and (max-width: ${
+        breakpoint / BASE_PIXELS
+      }em) {
                 ${css}
               }`
-    default:
-      return `@media only screen and (max-width: ${breakpoint / BASE_PIXELS}em) {
-        ${css}
-      }`
   }
 }
 

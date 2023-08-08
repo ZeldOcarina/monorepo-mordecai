@@ -1,10 +1,9 @@
 import React, { useContext } from "react"
 import { useStaticQuery, graphql } from "gatsby"
 
-// Error checking ignored on .jsx files being imported due to time constraints.
-// @ts-expect-error
 import { buildLink } from "../helpers/helpers"
 
+// Error checking ignored on .jsx files being imported due to time constraints.
 // @ts-expect-error
 import Navbar from "./Navbar"
 // @ts-expect-error
@@ -26,7 +25,6 @@ import Map from "../components/Map"
 import DgpStripe from "../components/DgpStripe"
 import BeforeAndAfter, {
   IBeforeAndAfterImage,
-  IBeforeAndAfterProps,
 } from "../components/BeforeAndAfter"
 
 // @ts-expect-error
