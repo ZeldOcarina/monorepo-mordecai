@@ -8,8 +8,11 @@ import StyledForm from "./formStyles"
 
 import FormHandler from "./FormHandler"
 import PuffLoader from "react-spinners/PuffLoader"
+import MarkdownParser from "../../helpers/MarkdownParser"
+import useShortcodes from "../../hooks/useShortcodes"
 
 const Form = ({ title, cta, services, servicesTitle, privacyLabel }) => {
+  const shortcodes = useShortcodes()
   const initialState = {
     first_name: { value: "", error: "" },
     last_name: { value: "", error: "" },
@@ -24,6 +27,11 @@ const Form = ({ title, cta, services, servicesTitle, privacyLabel }) => {
   const [submitted, setIsSubmitted] = useState(false)
   const [loading, setLoading] = useState(false)
   const [formState, setFormState] = useState(initialState)
+
+  const parsedPrivacyLabel = new MarkdownParser({
+    inputMarkdown: privacyLabel,
+    shortcodes,
+  }).parseHtml()
 
   // useEffect(() => {
   //   console.log(formState)
@@ -205,7 +213,7 @@ const Form = ({ title, cta, services, servicesTitle, privacyLabel }) => {
           required
         />
         <label htmlFor="privacy_accepted" className="checkbox-label">
-          {privacyLabel}
+          {parsedPrivacyLabel}
         </label>
       </div>
       <button className="submit-btn" type="submit" disabled={submitted}>

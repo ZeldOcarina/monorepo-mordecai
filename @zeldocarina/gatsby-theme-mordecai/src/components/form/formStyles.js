@@ -7,6 +7,12 @@ position: relative;
       font-size: 1.6rem;
       line-height: 1.3;
       color: var(--grey);
+
+      p {
+        color: var(--grey);
+        text-align: left;
+        margin-bottom: 0;
+      }
   }
 
   .iti__flag {

@@ -19,4 +19,6 @@ export const DEFAULT_VALUES = {
   postBlurb: "",
   createdDate: "",
   Post: "",
+  Relative_Keywords: "",
+  Description: ""
 };
