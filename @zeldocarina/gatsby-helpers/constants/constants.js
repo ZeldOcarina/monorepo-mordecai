@@ -20,5 +20,6 @@ export const DEFAULT_VALUES = {
   createdDate: "",
   Post: "",
   Relative_Keywords: "",
-  Description: ""
+  Description: "",
+  unmapped: false
 };

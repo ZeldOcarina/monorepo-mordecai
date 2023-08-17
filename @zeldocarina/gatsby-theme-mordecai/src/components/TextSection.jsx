@@ -7,6 +7,7 @@ import AppContext from "../context/AppContext"
 
 import { parseMarkdown } from "../helpers/helpers"
 import respond from "../styles/abstracts/mediaqueries"
+import useShortcodes from "../hooks/useShortcodes"
 
 function setBackgroundColor({ backgroundOverride }) {
   if (backgroundOverride) return backgroundOverride
@@ -173,29 +174,11 @@ const TextSection = ({
   backgroundOverride,
 }) => {
   const imageRef = useRef(null)
-  const {
-    phoneData: { phoneData },
-    telData: { telData },
-    businessNameData: { businessNameData },
-    addressData: { addressData },
-    zipcodeData: { zipcodeData },
-    cityData: { cityData },
-    stateData: { stateData },
-    businessEmailData: { businessEmailData },
-    siteUrlData: { siteUrlData },
-  } = useStaticQuery(query)
+  const shortcodes = useShortcodes()
 
   const parsedMarkdown = parseMarkdown({
     inputMarkdown: copy,
-    businessName: businessNameData.Value,
-    businessAddress: addressData.Value,
-    zipCode: zipcodeData.Value,
-    city: cityData.Value,
-    state: stateData.Value,
-    businessEmail: businessEmailData.Value,
-    tel: telData.Value,
-    phone: phoneData.Value,
-    siteUrl: siteUrlData.Value,
+    shortcodes,
   })
 
   const [imageHeight, setImageHeight] = React.useState(0)
@@ -251,82 +234,5 @@ const TextSection = ({
     </StyledTextSection>
   )
 }
-
-const query = graphql`
-  query {
-    phoneData: airtable(
-      table: { eq: "Config" }
-      data: { Label: { eq: "Phone" } }
-    ) {
-      phoneData: data {
-        Value
-      }
-    }
-    telData: airtable(
-      table: { eq: "Config" }
-      data: { Label: { eq: "Tel:" } }
-    ) {
-      telData: data {
-        Value
-      }
-    }
-    businessNameData: airtable(
-      table: { eq: "Config" }
-      data: { Label: { eq: "Business Name" } }
-    ) {
-      businessNameData: data {
-        Value
-      }
-    }
-    addressData: airtable(
-      table: { eq: "Config" }
-      data: { Label: { eq: "Address" } }
-    ) {
-      addressData: data {
-        Value
-      }
-    }
-    zipcodeData: airtable(
-      table: { eq: "Config" }
-      data: { Label: { eq: "Zipcode" } }
-    ) {
-      zipcodeData: data {
-        Value
-      }
-    }
-    cityData: airtable(
-      table: { eq: "Config" }
-      data: { Label: { eq: "City" } }
-    ) {
-      cityData: data {
-        Value
-      }
-    }
-    stateData: airtable(
-      table: { eq: "Config" }
-      data: { Label: { eq: "State" } }
-    ) {
-      stateData: data {
-        Value
-      }
-    }
-    businessEmailData: airtable(
-      table: { eq: "Config" }
-      data: { Label: { eq: "Email" } }
-    ) {
-      businessEmailData: data {
-        Value
-      }
-    }
-    siteUrlData: airtable(
-      table: { eq: "Config" }
-      data: { Label: { eq: "Web URL" } }
-    ) {
-      siteUrlData: data {
-        Value
-      }
-    }
-  }
-`
 
 export default TextSection
