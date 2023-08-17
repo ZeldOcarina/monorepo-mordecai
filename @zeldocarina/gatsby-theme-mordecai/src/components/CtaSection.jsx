@@ -11,6 +11,7 @@ import BackgroundImage from "./BackgroundImage"
 
 import { hexToRGB, parseMarkdown } from "../helpers/helpers"
 import { ctaButton } from "../styles/utils/components"
+import useShortcodes from "../hooks/useShortcodes"
 
 const StyledCtaSection = styled.section`
   padding: 18rem 0;
@@ -179,7 +180,8 @@ const CtaSection = ({
   textColorOverride,
   image,
 }) => {
-  const { colors, shortcodesData, businessPhoneData } = useContext(AppContext)
+  const { colors } = useContext(AppContext)
+  const shortcodes = useShortcodes()
 
   function setBackgroundColor() {
     if (bgColorOverride) {
@@ -214,15 +216,7 @@ const CtaSection = ({
           <CopySection columns={1} theme={backgroundImage ? "light" : "dark"}>
             {parseMarkdown({
               inputMarkdown: copy,
-              businessName: shortcodesData.business.value,
-              businessAddress: shortcodesData.address.value,
-              zipCode: shortcodesData.zipcode.value,
-              city: shortcodesData.city.value,
-              state: shortcodesData.state.value,
-              phone: businessPhoneData.phone,
-              tel: businessPhoneData.tel,
-              businessEmail: shortcodesData.businessEmail.value,
-              siteUrl: shortcodesData.siteUrl.value,
+              shortcodes,
             })}
           </CopySection>
           <div className="buttons-container">
