@@ -1,7 +1,6 @@
 import React, { useContext } from "react"
 import styled, { css } from "styled-components"
 
-// @ts-expect-error
 import respond from "../styles/abstracts/mediaqueries"
 
 import ShortcodesParser from "../helpers/ShortcodesParser"
@@ -14,6 +13,7 @@ const StyledIntroSection = styled.div<{
   $noPaddingTop?: boolean
   $isText100wide?: boolean
   $theme?: string
+  $hrColor?: string
 }>`
   position: relative;
   text-align: left;
@@ -24,10 +24,12 @@ const StyledIntroSection = styled.div<{
   ${({ $noPaddingTop }) => $noPaddingTop && "padding-top: 0;"}
   max-width: ${({ $isText100wide }) => ($isText100wide ? "100%" : "65%")};
 
-  ${(respond(500),
-  css`
-    max-width: 100%;
-  `)}
+  ${respond(
+    500,
+    css`
+      max-width: 100%;
+    `,
+  )}
 
   ${respond(
     "iphone-12-mini-land",
@@ -151,7 +153,8 @@ const StyledIntroSection = styled.div<{
     left: 0;
     height: 10px;
     width: 100px;
-    background-color: var(--color-tertiary);
+    background-color: ${({ $hrColor }) =>
+      $hrColor ? $hrColor : "var(--color-tertiary)"};
   }
 `
 
@@ -172,6 +175,7 @@ interface IIntroSectionProps {
   theme?: string
   noPaddingTop?: boolean
   makeHeadingH1?: boolean
+  hrColor?: string
 }
 
 const IntroSection = ({
@@ -182,6 +186,7 @@ const IntroSection = ({
   theme,
   noPaddingTop,
   makeHeadingH1,
+  hrColor,
 }: IIntroSectionProps) => {
   const shortcodes = useShortcodes()
 
@@ -204,6 +209,7 @@ const IntroSection = ({
       $noPaddingTop={noPaddingTop}
       className="intro-section"
       $isText100wide={setIsText100Wide("")}
+      $hrColor={hrColor}
     >
       {superheading && <h3 className="superheading">{parsedSuperheading}</h3>}
       {makeHeadingH1 ? (

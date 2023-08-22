@@ -400,7 +400,13 @@ const InnerPageTemplate = ({
     pageComponents.push({
       component: (
         <ButtonsStripe
-          label={ctaButtonData.ctaButtonData.ButtonLabel}
+          buttonLabel={ctaButtonData.ctaButtonData.ButtonLabel}
+          buttonLink={ctaButtonData.ctaButtonData.ButtonLink}
+          superheading={ctaButtonData.ctaButtonData.Superheading}
+          heading={ctaButtonData.ctaButtonData.Heading}
+          subheading={ctaButtonData.ctaButtonData.Subheading}
+          backgroundOverride={ctaButtonData.ctaButtonData.BgColorOverride}
+          textColorOverride={ctaButtonData.ctaButtonData.TextColorOverride}
           key={uuidv4()}
           offer={pageContext.offer}
         />
@@ -868,8 +874,14 @@ export const query = graphql`
       data: { Block: { eq: "CTAButton" }, isActive: { eq: true } }
     ) {
       ctaButtonData: data {
+        Superheading
+        Heading
+        Subheading
+        ButtonLink
         ButtonLabel
         rowNumber
+        BgColorOverride
+        TextColorOverride
       }
       id
     }
