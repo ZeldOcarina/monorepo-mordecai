@@ -9,7 +9,7 @@ import Layout from "../layout/Layout"
 
 import Anchor from "../components/Anchor"
 import Hero from "../components/Hero"
-import HomeHero from "../components/HomeHero"
+
 import PingPong from "../components/PingPong"
 import CardsSection from "../components/CardsSection"
 import TextSection from "../components/TextSection"
@@ -42,7 +42,7 @@ const InnerPageTemplate = ({
     ctaData,
     cta2Data,
     heroData,
-    homeHeroData,
+
     anchorItemsData,
     textData,
     faqTitleData,
@@ -84,32 +84,6 @@ const InnerPageTemplate = ({
         />
       ),
       index: heroData.heroData.rowNumber,
-    })
-  if (
-    homeHeroData &&
-    homeHeroData.homeHeroData &&
-    homeHeroData.homeHeroData.Media &&
-    homeHeroData.homeHeroData.Media.localFiles.length > 0
-  )
-    pageComponents.push({
-      component: (
-        <HomeHero
-          key={uuidv4()}
-          image={homeHeroData.homeHeroData.Media.localFiles[0].publicURL}
-          mobileImage={homeHeroData.homeHeroData.Media.localFiles[1]?.publicURL}
-          altText={homeHeroData.homeHeroData.AltText}
-          superheading={homeHeroData.homeHeroData.Superheading}
-          heading={homeHeroData.homeHeroData.Heading}
-          subheading={homeHeroData.homeHeroData.Subheading}
-          overlay={homeHeroData.homeHeroData.Overlay}
-          isVideo={homeHeroData.homeHeroData.Media.raw[0].type.startsWith(
-            "video",
-          )}
-          mimeType={homeHeroData.homeHeroData.Media.raw[0].type}
-          textColorOverride={homeHeroData.homeHeroData.TextColorOverride}
-        />
-      ),
-      index: homeHeroData.homeHeroData.rowNumber,
     })
   if (
     anchorItemsData &&
@@ -513,29 +487,7 @@ export const query = graphql`
       }
       id
     }
-    homeHeroData: airtable(
-      table: { eq: $pageTitle }
-      data: { Block: { eq: "HomeHero" }, isActive: { eq: true } }
-    ) {
-      homeHeroData: data {
-        AltText
-        TextColorOverride
-        Media {
-          raw {
-            type
-          }
-          localFiles {
-            publicURL
-          }
-        }
-        Superheading
-        Heading
-        Subheading
-        Overlay
-        rowNumber
-      }
-      id
-    }
+
     anchorItemsData: allAirtable(
       filter: {
         table: { eq: $pageTitle }

@@ -32,6 +32,8 @@ const Seo = ({
     dentalOfferButtonHoverColorData: { dentalOfferButtonHoverColorData },
     mobileMenuColorData: { mobileMenuColorData },
     mobileMenuCategoryColorData: { mobileMenuCategoryColorData },
+    navbarContainerColorData: { navbarContainerColorData },
+    navbarLinksColorData: { navbarLinksColorData },
     blackData: { blackData },
     whiteData: { whiteData },
     superheadingFontData: { superheadingFontData },
@@ -77,6 +79,9 @@ const Seo = ({
           --grey: ${greyData.Value};
           --grey500: ${grey500Data.Value};
           --super-light-grey: ${superLightGreyData.Value};
+          --navbar-container-color: ${navbarContainerColorData.Value};
+          --navbar-links-color: ${navbarLinksColorData.Value};
+          --navbar-links-hover-color: ${navbarLinksColorData.Shortcodes};
           --black: ${blackData.Value};
           --white: ${whiteData.Value};
           --superheading-font: ${superheadingFontData.Value};
@@ -291,6 +296,23 @@ const query = graphql`
       data: { Label: { eq: "dentalOfferButtonColor" } }
     ) {
       dentalOfferButtonHoverColorData: data {
+        Shortcodes
+      }
+    }
+    navbarContainerColorData: airtable(
+      table: { eq: "Config" }
+      data: { Label: { eq: "navbarContainerColor" } }
+    ) {
+      navbarContainerColorData: data {
+        Value
+      }
+    }
+    navbarLinksColorData: airtable(
+      table: { eq: "Config" }
+      data: { Label: { eq: "navbarLinksColor" } }
+    ) {
+      navbarLinksColorData: data {
+        Value
         Shortcodes
       }
     }

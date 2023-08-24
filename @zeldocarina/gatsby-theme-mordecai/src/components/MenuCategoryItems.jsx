@@ -29,7 +29,7 @@ const StyledMenuCategoryItems = styled.div`
     color: var(--color-primary);
     &:hover {
       cursor: pointer;
-      color: var(--color-secondary);
+      color: var(--navbar-links-hover-color);
     }
 
     ${respond(

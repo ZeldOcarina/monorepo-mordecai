@@ -33,13 +33,13 @@ const Wrapper = styled.nav`
   background-color: transparent;
   position: relative;
   top: 0;
-  color: var(--white);
+  color: var(--navbar-links-color);
   padding: 2rem 0;
 
   ${({ $isHomePage }) => {
     if (!$isHomePage) {
       return css`
-        background-color: var(--color-primary);
+        background-color: var(--navbar-container-color);
       `
     }
   }}
@@ -100,13 +100,12 @@ const Wrapper = styled.nav`
     display: flex;
     align-items: center;
     gap: 0.8rem;
-    color: var(--white);
     cursor: pointer;
     font-family: var(--heading-font);
+    color: var(--navbar-links-color);
 
     &:hover {
-      color: ${({ $isHomePage }) =>
-        $isHomePage ? `var(--body-color)` : `var(--white)`};
+      color: var(--navbar-links-hover-color);
     }
   }
 
@@ -168,12 +167,11 @@ const Wrapper = styled.nav`
 `
 
 const StyledLink = styled(Link)`
-  color: var(--white);
+  color: var(--navbar-links-color);
   text-transform: uppercase;
 
   &:hover {
-    color: ${({ $isHomePage }) =>
-      $isHomePage ? `var(--color-primary)` : `var(--color-secondary)`};
+    color: var(--navbar-links-hover-color);
   }
 `
 

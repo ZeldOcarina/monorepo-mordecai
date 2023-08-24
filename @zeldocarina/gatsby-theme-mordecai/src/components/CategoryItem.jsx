@@ -33,18 +33,19 @@ const StyledCategoryItem = styled.div`
   
 
   span {
+    color: var(--navbar-links-color);
     font-family: var(--heading-font);
+
     &:hover {
-      color: ${({ $isHomePage }) =>
-        $isHomePage ? `var(--color-primary)` : `var(--color-secondary)`};
+      //color: var(--navbar-links-hover-color);
     }
   }
 
   .category-link {
-    color: var(--white);
+    color: var(--navbar-links-color);
 
     &:hover {
-      color: var(--color-secondary);
+      color: var(--navbar-links-hover-color);
     }
   }
 `
