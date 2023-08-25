@@ -8,8 +8,8 @@ import AppContext from "../context/AppContext"
 const StyledLocationBanner = styled.div`
   position: relative;
   z-index: 1000;
-  background-color: var(--location-bar-bg-bolor);
-  color: var(--white);
+  background-color: var(--location-bar-bg-color);
+  color: var(--location-bar-text-color);
   padding: 0.5rem 0;
   font-size: 1.6rem;
 
@@ -17,19 +17,19 @@ const StyledLocationBanner = styled.div`
     1024,
     css`
       font-size: 1.4rem;
-    `
+    `,
   )}
   ${respond(
     926,
     css`
       display: none;
-    `
+    `,
   )}
   ${respond(
     "big-desktop",
     css`
       font-size: 2.2rem;
-    `
+    `,
   )}
 
   .content-container {
@@ -42,7 +42,7 @@ const StyledLocationBanner = styled.div`
       1500,
       css`
         max-width: 95%;
-      `
+      `,
     )}
   }
 

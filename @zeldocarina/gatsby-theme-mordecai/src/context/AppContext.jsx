@@ -98,6 +98,8 @@ function ContextProvider(props) {
     colorTertiary: data.colorTertiaryData.colorTertiaryData.Value,
     grey: data.greyData.greyData.Value,
     grey500: data.grey500Data.grey500Data.Value,
+    navbarContainerColor:
+      data.navbarContainerColorData.navbarContainerColorData.Value,
     locationBannerBgColor:
       data.locationBarBgColorData.locationBarBgColorData.Value,
     appointmentButtonColor:
@@ -260,6 +262,14 @@ const query = graphql`
       data: { Label: { eq: "locationBarBgColor" } }
     ) {
       locationBarBgColorData: data {
+        Value
+      }
+    }
+    navbarContainerColorData: airtable(
+      table: { eq: "Config" }
+      data: { Label: { eq: "navbarContainerColor" } }
+    ) {
+      navbarContainerColorData: data {
         Value
       }
     }

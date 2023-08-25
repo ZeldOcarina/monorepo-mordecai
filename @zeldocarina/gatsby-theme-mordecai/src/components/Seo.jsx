@@ -25,9 +25,12 @@ const Seo = ({
     greyData: { greyData },
     grey500Data: { grey500Data },
     locationBarBgColorData: { locationBarBgColorData },
+    locationBarTextColorData: { locationBarTextColorData },
     superLightGreyData: { superLightGreyData },
     appointmentButtonColorData: { appointmentButtonColorData },
     appointmentButtonHoverColorData: { appointmentButtonHoverColorData },
+    appointmentButtonTextColorData: { appointmentButtonTextColorData },
+    dentalOfferButtonTextColorData: { dentalOfferButtonTextColorData },
     dentalOfferButtonColorData: { dentalOfferButtonColorData },
     dentalOfferButtonHoverColorData: { dentalOfferButtonHoverColorData },
     mobileMenuColorData: { mobileMenuColorData },
@@ -82,6 +85,12 @@ const Seo = ({
           --navbar-container-color: ${navbarContainerColorData.Value};
           --navbar-links-color: ${navbarLinksColorData.Value};
           --navbar-links-hover-color: ${navbarLinksColorData.Shortcodes};
+          --appointment-button-text-color: ${
+            appointmentButtonTextColorData.Value
+          };
+          --dental-offer-button-text-color: ${
+            dentalOfferButtonTextColorData.Value
+          };
           --black: ${blackData.Value};
           --white: ${whiteData.Value};
           --superheading-font: ${superheadingFontData.Value};
@@ -102,7 +111,8 @@ const Seo = ({
           --dental-offer-button-hover-color: ${
             dentalOfferButtonHoverColorData.Shortcodes
           };
-          --location-bar-bg-bolor: ${locationBarBgColorData.Value};
+          --location-bar-bg-color: ${locationBarBgColorData.Value};
+          --location-bar-text-color: ${locationBarTextColorData.Value}
           --mobile-menu-color: ${mobileMenuColorData.Value};    
           --mobile-menu-category-color: ${mobileMenuCategoryColorData.Value};
         }
@@ -251,6 +261,14 @@ const query = graphql`
         Value
       }
     }
+    locationBarTextColorData: airtable(
+      table: { eq: "Config" }
+      data: { Label: { eq: "locationBarTextColor" } }
+    ) {
+      locationBarTextColorData: data {
+        Value
+      }
+    }
     appointmentButtonColorData: airtable(
       table: { eq: "Config" }
       data: { Label: { eq: "appointmentButtonColor" } }
@@ -272,6 +290,22 @@ const query = graphql`
       data: { Label: { eq: "dentalOfferButtonColor" } }
     ) {
       dentalOfferButtonColorData: data {
+        Value
+      }
+    }
+    appointmentButtonTextColorData: airtable(
+      table: { eq: "Config" }
+      data: { Label: { eq: "appointmentButtonTextColor" } }
+    ) {
+      appointmentButtonTextColorData: data {
+        Value
+      }
+    }
+    dentalOfferButtonTextColorData: airtable(
+      table: { eq: "Config" }
+      data: { Label: { eq: "dentalOfferButtonTextColor" } }
+    ) {
+      dentalOfferButtonTextColorData: data {
         Value
       }
     }

@@ -77,7 +77,12 @@ const StyledHero = styled.header`
       if (!$isHomePage) return "none"
       return css`linear-gradient(
       to bottom,
-      ${hexToRGB($colors.colorSecondary, 1)} 0%,
+      ${hexToRGB(
+        $colors.navbarContainerColor
+          ? $colors.navbarContainerColor
+          : $colors.colorSecondary,
+        1,
+      )} 0%,
       transparent 25%,
       transparent 70%,
       ${$backgroundColor} 100%

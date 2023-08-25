@@ -110,6 +110,7 @@ type AirtableData = {
   readonly Menu: Maybe<Scalars['String']>;
   readonly MobileExternalMedia: Maybe<Scalars['String']>;
   readonly MobileMedia: Maybe<AirtableField>;
+  readonly Notes: Maybe<Scalars['String']>;
   readonly Overlay: Maybe<Scalars['String']>;
   readonly Page_Title: Maybe<Scalars['String']>;
   readonly Parent: Maybe<Scalars['String']>;
@@ -204,6 +205,7 @@ type AirtableDataFieldSelector = {
   readonly Menu: InputMaybe<FieldSelectorEnum>;
   readonly MobileExternalMedia: InputMaybe<FieldSelectorEnum>;
   readonly MobileMedia: InputMaybe<AirtableFieldFieldSelector>;
+  readonly Notes: InputMaybe<FieldSelectorEnum>;
   readonly Overlay: InputMaybe<FieldSelectorEnum>;
   readonly Page_Title: InputMaybe<FieldSelectorEnum>;
   readonly Parent: InputMaybe<FieldSelectorEnum>;
@@ -266,6 +268,7 @@ type AirtableDataFilterInput = {
   readonly Menu: InputMaybe<StringQueryOperatorInput>;
   readonly MobileExternalMedia: InputMaybe<StringQueryOperatorInput>;
   readonly MobileMedia: InputMaybe<AirtableFieldFilterInput>;
+  readonly Notes: InputMaybe<StringQueryOperatorInput>;
   readonly Overlay: InputMaybe<StringQueryOperatorInput>;
   readonly Page_Title: InputMaybe<StringQueryOperatorInput>;
   readonly Parent: InputMaybe<StringQueryOperatorInput>;
@@ -328,6 +331,7 @@ type AirtableDataSortInput = {
   readonly Menu: InputMaybe<SortOrderEnum>;
   readonly MobileExternalMedia: InputMaybe<SortOrderEnum>;
   readonly MobileMedia: InputMaybe<AirtableFieldSortInput>;
+  readonly Notes: InputMaybe<SortOrderEnum>;
   readonly Overlay: InputMaybe<SortOrderEnum>;
   readonly Page_Title: InputMaybe<SortOrderEnum>;
   readonly Parent: InputMaybe<SortOrderEnum>;

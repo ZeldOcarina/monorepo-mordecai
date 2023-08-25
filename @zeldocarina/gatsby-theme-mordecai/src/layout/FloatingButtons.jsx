@@ -109,7 +109,7 @@ const FloatingButtons = ({ phone, tel }) => {
       <FloatingButton
         bgColor={hexToRGB(colors.appointmentButtonColor, 0.8)}
         hoverBgColor={hexToRGB(colors.appointmentButtonHoverColor, 0.8)}
-        color="var(--white)"
+        color="var(--appointment-button-text-color)"
         url={
           appointmentButtonUrlData?.appointmentButtonUrlData.Value ||
           "/contact-us"
@@ -125,7 +125,7 @@ const FloatingButtons = ({ phone, tel }) => {
         }
         bgColor={hexToRGB(colors.dentalOfferButtonColor, 0.8)}
         hoverBgColor={hexToRGB(colors.dentalOfferButtonHoverColor, 0.8)}
-        color="var(--white)"
+        color="var(--dental-offer-button-text-color)"
         state={
           dentalOfferButtonUrlData &&
           dentalOfferButtonUrlData.dentalOfferButtonUrlData.Value
