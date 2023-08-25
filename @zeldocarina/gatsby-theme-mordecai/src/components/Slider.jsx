@@ -3,6 +3,7 @@ import styled, { css } from "styled-components"
 import { Swiper, SwiperSlide } from "swiper/react"
 import { Pagination, Autoplay, Navigation } from "swiper/modules"
 import respond from "../styles/abstracts/mediaqueries"
+import { GatsbyImage, getImage } from "gatsby-plugin-image"
 
 import Gradient from "./Gradient"
 import AppContext from "../context/AppContext"
@@ -103,8 +104,9 @@ const StyledSlider = styled.div`
 `
 
 const Slider = ({ images }) => {
-  const { isBigDesktop, colors } = useContext(AppContext)
+  const { isBigDesktop, colors, isMobile } = useContext(AppContext)
 
+  console.log(isMobile)
   return (
     <>
       <StyledSlider $colors={colors}>
@@ -124,11 +126,19 @@ const Slider = ({ images }) => {
             if (!image.data.Media) return
             return (
               <SwiperSlide key={image.id}>
-                <img
-                  src={image?.data?.Media?.localFiles[0]?.publicURL}
-                  alt={image.data.AltText}
-                  className="image"
-                />
+                {isMobile && image.data.Media.localFiles.at(1) ? (
+                  <GatsbyImage
+                    image={getImage(image.data.Media.localFiles[1])}
+                    alt={image.data.AltText || "presentation"}
+                    className="image"
+                  />
+                ) : (
+                  <GatsbyImage
+                    image={getImage(image.data.Media.localFiles[0])}
+                    alt={image.data.AltText || "presentation"}
+                    className="image"
+                  />
+                )}
               </SwiperSlide>
             )
           })}

@@ -565,6 +565,9 @@ const query = graphql`
         data {
           Media {
             localFiles {
+              childImageSharp {
+                gatsbyImageData
+              }
               publicURL
             }
           }
