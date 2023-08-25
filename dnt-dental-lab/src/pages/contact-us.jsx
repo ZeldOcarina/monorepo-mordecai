@@ -21,6 +21,12 @@ const StyledNewText = styled.div`
       margin-bottom: var(--gutter);
       text-align: left;
     }
+
+    .intro-section {
+      &::after {
+        transform: translateX(-50%) translateY(0);
+      }
+    }
   }
 `
 
