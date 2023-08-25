@@ -375,6 +375,10 @@ const Layout = ({ children }: React.PropsWithChildren) => {
     })
   }
 
+  const sortedFooterItems = globalFooterItems.sort((a, b) => {
+    return a.index - b.index
+  })
+
   return (
     <>
       <LocationBanner
@@ -417,7 +421,7 @@ const Layout = ({ children }: React.PropsWithChildren) => {
         tel={telDataValue}
       />
       {children}
-      {globalFooterItems.map(component => component.component)}
+      {sortedFooterItems.map(component => component.component)}
 
       <Footer
         logo={whiteLogo}
