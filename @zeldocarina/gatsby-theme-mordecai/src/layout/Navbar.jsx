@@ -13,7 +13,7 @@ import { buildLink } from "../helpers/helpers"
 
 const mobileMenuActivatorStyles = css`
   display: block;
-  color: var(--color-tertiary);
+  color: var(--mobile-menu-activator-color);
   width: 4rem;
   height: auto;
   position: static;
@@ -80,6 +80,27 @@ const Wrapper = styled.nav`
     align-items: center;
     height: 100%;
     gap: var(--big-gutter);
+
+    ${({ $mobileNavbarBreakpoint }) => {
+      return css`
+        @media only screen and (max-width: ${$mobileNavbarBreakpoint}px) {
+          display: none;
+        }
+      `
+    }}
+  }
+
+  .mobile-logo {
+    display: none;
+    width: 9rem;
+
+    ${({ $mobileNavbarBreakpoint }) => {
+      return css`
+        @media only screen and (max-width: ${$mobileNavbarBreakpoint}px) {
+          display: block;
+        }
+      `
+    }}
   }
 
   .social-icons {
@@ -114,7 +135,6 @@ const Wrapper = styled.nav`
 
     ${({ $mobileNavbarBreakpoint }) => {
       return css`
-        ${respond("no-hover", mobileMenuActivatorStyles)}
         ${respond($mobileNavbarBreakpoint, mobileMenuActivatorStyles)}
       `
     }}
@@ -275,6 +295,12 @@ const Navbar = ({
             )
           })}
         </div>
+        <img
+          className="mobile-logo"
+          src={logo}
+          alt={`${shortcodesData.business.value} Logo`}
+        />
+
         <GiHamburgerMenu
           className="mobile-menu-activator"
           onClick={() => {

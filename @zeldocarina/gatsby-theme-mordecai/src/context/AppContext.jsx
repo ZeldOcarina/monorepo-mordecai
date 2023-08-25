@@ -6,6 +6,8 @@ function setNavbarBreakpoint(businessName) {
   switch (businessName) {
     case "ICO Dental":
       return 1728
+    case "DNT Dental Lab":
+      return 1250
     default:
       return 1366
   }

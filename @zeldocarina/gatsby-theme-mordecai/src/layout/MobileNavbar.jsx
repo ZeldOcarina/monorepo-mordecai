@@ -181,7 +181,7 @@ const StyledMobileNavbar = styled.div`
   }
 
   .logo {
-    width: 30rem;
+    width: 10rem;
 
     img {
       width: 100%;

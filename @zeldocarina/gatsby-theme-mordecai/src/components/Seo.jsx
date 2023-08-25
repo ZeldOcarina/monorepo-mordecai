@@ -35,6 +35,7 @@ const Seo = ({
     dentalOfferButtonHoverColorData: { dentalOfferButtonHoverColorData },
     mobileMenuColorData: { mobileMenuColorData },
     mobileMenuCategoryColorData: { mobileMenuCategoryColorData },
+    mobileMenuActivatorColorData: { mobileMenuActivatorColorData },
     navbarContainerColorData: { navbarContainerColorData },
     navbarLinksColorData: { navbarLinksColorData },
     blackData: { blackData },
@@ -115,6 +116,7 @@ const Seo = ({
           --location-bar-text-color: ${locationBarTextColorData.Value}
           --mobile-menu-color: ${mobileMenuColorData.Value};    
           --mobile-menu-category-color: ${mobileMenuCategoryColorData.Value};
+          --mobile-menu-activator-color: ${mobileMenuActivatorColorData.Value};
         }
       `}</style>
       <meta name="description" content={parsedDescription} />
@@ -322,6 +324,14 @@ const query = graphql`
       data: { Label: { eq: "mobileMenuCategoryColor" } }
     ) {
       mobileMenuCategoryColorData: data {
+        Value
+      }
+    }
+    mobileMenuActivatorColorData: airtable(
+      table: { eq: "Config" }
+      data: { Label: { eq: "mobileMenuActivatorColor" } }
+    ) {
+      mobileMenuActivatorColorData: data {
         Value
       }
     }
