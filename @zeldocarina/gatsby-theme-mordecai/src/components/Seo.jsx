@@ -47,12 +47,11 @@ const Seo = ({
     bodyFontWeightData: { bodyFontWeightData },
     superheadingFontWeightData: { superheadingFontWeightData },
     headingFontWeightData: { headingFontWeightData },
+    floatingPhoneColorData: { floatingPhoneColorData },
     subheadingFontWeightData,
   } = useStaticQuery(query)
 
   const { shortcodesData } = useContext(AppContext)
-
-  console.log(relativeKeywords)
 
   const parsedRelativeKeywords = relativeKeywords
     ? new ShortcodesParser(relativeKeywords, shortcodesData).parseShortcodes()
@@ -92,6 +91,7 @@ const Seo = ({
           --dental-offer-button-text-color: ${
             dentalOfferButtonTextColorData.Value
           };
+          --floating-phone-color: ${floatingPhoneColorData.Value};
           --black: ${blackData.Value};
           --white: ${whiteData.Value};
           --superheading-font: ${superheadingFontData.Value};
@@ -308,6 +308,14 @@ const query = graphql`
       data: { Label: { eq: "dentalOfferButtonTextColor" } }
     ) {
       dentalOfferButtonTextColorData: data {
+        Value
+      }
+    }
+    floatingPhoneColorData: airtable(
+      table: { eq: "Config" }
+      data: { Label: { eq: "floatingPhoneColor" } }
+    ) {
+      floatingPhoneColorData: data {
         Value
       }
     }

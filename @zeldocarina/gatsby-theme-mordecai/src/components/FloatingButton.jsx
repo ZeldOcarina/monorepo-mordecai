@@ -2,6 +2,7 @@ import React from "react"
 import styled, { css } from "styled-components"
 import { Link } from "gatsby"
 import respond from "../styles/abstracts/mediaqueries"
+import isExternalUrl from "../helpers/isExternalUrl"
 
 const StyledFloatingButton = styled.div`
   border-top-left-radius: 35px;
@@ -49,8 +50,7 @@ const FloatingButton = ({
   hoverBgColor,
   state,
 }) => {
-  const isNormalLink =
-    url.startsWith("http") || url.startsWith("mailto") || url.startsWith("tel")
+  const isNormalLink = isExternalUrl(url)
 
   const linkComponent = isNormalLink ? (
     <a href={url} className="button">

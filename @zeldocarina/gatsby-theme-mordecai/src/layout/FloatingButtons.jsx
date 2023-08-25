@@ -57,7 +57,7 @@ const StyledFloatingButtons = styled.div`
     font-size: 2rem;
     display: flex;
     align-items: center;
-    color: var(--color-primary);
+    color: var(--floating-phone-color);
 
     ${respond(
       "big-desktop",
@@ -68,13 +68,14 @@ const StyledFloatingButtons = styled.div`
   }
 `
 
-const FloatingButtons = ({ phone, tel }) => {
-  const {
-    appointmentButtonLabelData,
-    appointmentButtonUrlData,
-    dentalOfferButtonLabelData,
-    dentalOfferButtonUrlData,
-  } = useStaticQuery(query)
+const FloatingButtons = ({
+  phone,
+  tel,
+  appointmentButtonUrl,
+  appointmentButtonLabel,
+  dentalOfferButtonUrl,
+  dentalOfferButtonLabel,
+}) => {
   const [isWindowScrolled, setIsWindowScrolled] = useState(false)
 
   const { colors, appVariables } = useContext(AppContext)
@@ -110,31 +111,18 @@ const FloatingButtons = ({ phone, tel }) => {
         bgColor={hexToRGB(colors.appointmentButtonColor, 0.8)}
         hoverBgColor={hexToRGB(colors.appointmentButtonHoverColor, 0.8)}
         color="var(--appointment-button-text-color)"
-        url={
-          appointmentButtonUrlData?.appointmentButtonUrlData.Value ||
-          "/contact-us"
-        }
+        url={appointmentButtonUrl}
       >
-        {appointmentButtonLabelData?.appointmentButtonLabelData.Value ||
-          "APPOINTMENTS"}
+        {appointmentButtonLabel}
       </FloatingButton>
       <FloatingButton
-        url={
-          dentalOfferButtonUrlData?.dentalOfferButtonUrlData.Value ||
-          "/dental-offer"
-        }
+        url={dentalOfferButtonUrl}
         bgColor={hexToRGB(colors.dentalOfferButtonColor, 0.8)}
         hoverBgColor={hexToRGB(colors.dentalOfferButtonHoverColor, 0.8)}
         color="var(--dental-offer-button-text-color)"
-        state={
-          dentalOfferButtonUrlData &&
-          dentalOfferButtonUrlData.dentalOfferButtonUrlData.Value
-            ? null
-            : { fromPage: location.pathname }
-        }
+        state={{ fromPage: location.pathname }}
       >
-        {dentalOfferButtonLabelData?.dentalOfferButtonLabelData.Value ||
-          "DENTAL OFFER"}
+        {dentalOfferButtonLabel}
       </FloatingButton>
       <a className="phone-link" href={`tel:${tel}`}>
         <BsPhoneFill />
@@ -143,54 +131,5 @@ const FloatingButtons = ({ phone, tel }) => {
     </StyledFloatingButtons>
   )
 }
-
-const query = graphql`
-  query FloatingButtons {
-    appointmentButtonLabelData: airtable(
-      table: { eq: "Config" }
-      data: {
-        Category: { eq: "Floating Buttons" }
-        Label: { eq: "appointmentButtonLabel" }
-      }
-    ) {
-      appointmentButtonLabelData: data {
-        Value
-      }
-    }
-    appointmentButtonUrlData: airtable(
-      table: { eq: "Config" }
-      data: {
-        Category: { eq: "Floating Buttons" }
-        Label: { eq: "appointmentButtonUrl" }
-      }
-    ) {
-      appointmentButtonUrlData: data {
-        Value
-      }
-    }
-    dentalOfferButtonLabelData: airtable(
-      table: { eq: "Config" }
-      data: {
-        Category: { eq: "Floating Buttons" }
-        Label: { eq: "dentalOfferButtonLabel" }
-      }
-    ) {
-      dentalOfferButtonLabelData: data {
-        Value
-      }
-    }
-    dentalOfferButtonUrlData: airtable(
-      table: { eq: "Config" }
-      data: {
-        Category: { eq: "Floating Buttons" }
-        Label: { eq: "dentalOfferButtonUrl" }
-      }
-    ) {
-      dentalOfferButtonUrlData: data {
-        Value
-      }
-    }
-  }
-`
 
 export default FloatingButtons

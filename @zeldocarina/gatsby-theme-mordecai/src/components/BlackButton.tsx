@@ -2,6 +2,7 @@ import React, { useContext } from "react"
 import styled from "styled-components"
 import { Link } from "gatsby"
 import { useLocation } from "@reach/router"
+// @ts-expect-error
 import AppContext from "../context/AppContext"
 
 const StyledBlackButton = styled.div`
@@ -19,7 +20,7 @@ const StyledBlackButton = styled.div`
   }
 `
 
-function setDestination(businessName) {
+function setDestination(businessName: string) {
   switch (businessName) {
     case "Aviara Centers":
       return "/los-alamitos-ca/screening-form/"
@@ -28,12 +29,22 @@ function setDestination(businessName) {
   }
 }
 
-const BlackButton = ({ children, onClick }) => {
+interface BlackButtonProps extends React.PropsWithChildren {
+  onClick: React.MouseEventHandler<HTMLDivElement>
+}
+
+const BlackButton = ({ children, onClick }: BlackButtonProps) => {
   const location = useLocation()
-  const appContext = useContext(AppContext)
+
+  // TODO: Type the app context
+  const appContext = useContext<any>(AppContext)
 
   return (
-    <StyledBlackButton className="black-button" onClick={onClick || undefined}>
+    <StyledBlackButton
+      className="black-button"
+      onClick={onClick || undefined}
+      role="button"
+    >
       <Link
         to={setDestination(appContext.shortcodesData.business.value)}
         className="link"

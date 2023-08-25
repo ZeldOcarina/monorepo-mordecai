@@ -7,7 +7,7 @@ import { buildLink } from "../helpers/helpers"
 // @ts-expect-error
 import Navbar from "./Navbar"
 // @ts-expect-error
-import MobileNavbar from "./MobileNavbar"
+import MobileNavbar from "./MobileNavbar/MobileNavbar"
 // @ts-expect-error
 import Footer from "./Footer"
 
@@ -95,6 +95,10 @@ const Layout = ({ children }: React.PropsWithChildren) => {
     phoneData,
     telData,
     darkLogoData,
+    appointmentButtonLabelData,
+    appointmentButtonUrlData,
+    dentalOfferButtonLabelData,
+    dentalOfferButtonUrlData,
     sliderTitleData,
     sliderImagesData,
     contactsTitleData,
@@ -143,6 +147,17 @@ const Layout = ({ children }: React.PropsWithChildren) => {
     component: JSX.Element
     index: number
   }[] = []
+
+  const appointmentButtonUrl =
+    appointmentButtonUrlData?.appointmentButtonUrlData.Value || "/contact-us"
+  const appointmentButtonLabel =
+    appointmentButtonLabelData?.appointmentButtonLabelData.Value ||
+    "APPOINTMENTS"
+  const dentalOfferButtonUrl =
+    dentalOfferButtonUrlData?.dentalOfferButtonUrlData.Value || "/dental-offer"
+  const dentalOfferButtonLabel =
+    dentalOfferButtonLabelData?.dentalOfferButtonLabelData.Value ||
+    "DENTAL OFFER"
 
   if (
     sliderTitleData &&
@@ -387,6 +402,10 @@ const Layout = ({ children }: React.PropsWithChildren) => {
       <Navbar
         menuData={organizedMenuData}
         logo={whiteLogo}
+        appointmentButtonUrl={appointmentButtonUrl}
+        appointmentButtonLabel={appointmentButtonLabel}
+        dentalOfferButtonUrl={dentalOfferButtonUrl}
+        dentalOfferButtonLabel={dentalOfferButtonLabel}
         whiteLogoSize={
           (whiteLogoSizeData &&
             whiteLogoSizeData.whiteLogoSizeData &&
@@ -444,6 +463,10 @@ const Layout = ({ children }: React.PropsWithChildren) => {
         logo={whiteLogo}
         phone={phoneValue}
         tel={telDataValue}
+        appointmentButtonUrl={appointmentButtonUrl}
+        appointmentButtonLabel={appointmentButtonLabel}
+        dentalOfferButtonUrl={dentalOfferButtonUrl}
+        dentalOfferButtonLabel={dentalOfferButtonLabel}
       />
     </>
   )
@@ -907,6 +930,50 @@ const query = graphql`
           }
           rowNumber
         }
+      }
+    }
+    appointmentButtonLabelData: airtable(
+      table: { eq: "Config" }
+      data: {
+        Category: { eq: "Floating Buttons" }
+        Label: { eq: "appointmentButtonLabel" }
+      }
+    ) {
+      appointmentButtonLabelData: data {
+        Value
+      }
+    }
+    appointmentButtonUrlData: airtable(
+      table: { eq: "Config" }
+      data: {
+        Category: { eq: "Floating Buttons" }
+        Label: { eq: "appointmentButtonUrl" }
+      }
+    ) {
+      appointmentButtonUrlData: data {
+        Value
+      }
+    }
+    dentalOfferButtonLabelData: airtable(
+      table: { eq: "Config" }
+      data: {
+        Category: { eq: "Floating Buttons" }
+        Label: { eq: "dentalOfferButtonLabel" }
+      }
+    ) {
+      dentalOfferButtonLabelData: data {
+        Value
+      }
+    }
+    dentalOfferButtonUrlData: airtable(
+      table: { eq: "Config" }
+      data: {
+        Category: { eq: "Floating Buttons" }
+        Label: { eq: "dentalOfferButtonUrl" }
+      }
+    ) {
+      dentalOfferButtonUrlData: data {
+        Value
       }
     }
   }

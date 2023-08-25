@@ -103,10 +103,7 @@ const StyledSlider = styled.div`
 `
 
 const Slider = ({ images }) => {
-  console.log(images)
   const { isBigDesktop, colors } = useContext(AppContext)
-
-  // console.log(colors)
 
   return (
     <>

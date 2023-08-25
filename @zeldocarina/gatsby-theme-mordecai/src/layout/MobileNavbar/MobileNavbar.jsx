@@ -2,13 +2,13 @@ import React, { useState, useEffect, useContext, useLayoutEffect } from "react"
 import styled, { css } from "styled-components"
 import { MdClose } from "react-icons/md"
 import { Link } from "gatsby"
-import { buildLink, hexToRGB } from "../helpers/helpers"
-import BlackButton from "../components/BlackButton"
+import { buildLink, hexToRGB } from "../../helpers/helpers"
 
-import MultipleAccordion from "../components/MultipleAccordion"
+import MobileNavbarButtons from "./MobileNavbarButtons"
+import MultipleAccordion from "../../components/MultipleAccordion"
 
-import respond from "../styles/abstracts/mediaqueries"
-import AppContext from "../context/AppContext"
+import respond from "../../styles/abstracts/mediaqueries"
+import AppContext from "../../context/AppContext"
 
 const StyledMobileNavbar = styled.div`
   width: 100%;
@@ -48,18 +48,13 @@ const StyledMobileNavbar = styled.div`
   .close-menu-icon {
     position: absolute;
     right: 3rem;
-    top: 6rem;
+    top: 3rem;
     width: 5rem;
     height: auto;
-    color: var(--color-secondary);
+    color: var(--mobile-menu-activator-color);
     cursor: pointer;
+    right: 3rem;
 
-    ${respond(
-      768,
-      css`
-        right: 6rem;
-      `,
-    )}
     ${respond(
       "phone-land",
       css`
@@ -149,7 +144,7 @@ const StyledMobileNavbar = styled.div`
     }
 
     &__link {
-      color: #ffffff;
+      color: var(--white);
       font-size: 2.5rem;
 
       ${respond(
@@ -193,44 +188,6 @@ const StyledMobileNavbar = styled.div`
     display: block;
   }
 
-  .buttons {
-    display: grid;
-    grid-template-columns: max-content max-content;
-    gap: 1rem;
-    justify-content: center;
-    justify-items: center;
-    align-items: center;
-    height: max-content;
-  }
-
-  .button {
-    background-color: var(--color-primary);
-    color: var(--white);
-    padding: 1.5rem 2rem;
-    border-radius: 50px;
-    display: flex;
-    align-items: center;
-    height: max-content;
-    border: 1px solid var(--color-primary);
-
-    ${respond(
-      450,
-      css`
-        padding: 1.3rem 1.5rem;
-        font-size: 1.4rem;
-      `,
-    )}
-  }
-
-  .black-button {
-    ${respond(
-      450,
-      css`
-        font-size: 1.4rem;
-      `,
-    )}
-  }
-
   .special-link {
     font-size: 2.3rem;
     color: var(--white);
@@ -243,6 +200,10 @@ const MobileNavbar = ({
   logo,
   tel,
   phone,
+  appointmentButtonUrl,
+  appointmentButtonLabel,
+  dentalOfferButtonUrl,
+  dentalOfferButtonLabel,
 }) => {
   const {
     isMobileMenuOpen,
@@ -285,12 +246,12 @@ const MobileNavbar = ({
         <Link to="/" className="logo" onClick={closeMenu}>
           <img src={logo} alt="logo" />
         </Link>
-        <div className="buttons">
-          <BlackButton onClick={closeMenu}>Dental Offer</BlackButton>
-          <Link to="/contact-us" className="button" onClick={closeMenu}>
-            Appointments
-          </Link>
-        </div>
+        <MobileNavbarButtons
+          appointmentButtonUrl={appointmentButtonUrl}
+          appointmentButtonLabel={appointmentButtonLabel}
+          dentalOfferButtonUrl={dentalOfferButtonUrl}
+          dentalOfferButtonLabel={dentalOfferButtonLabel}
+        />
         <a href={`tel:${tel}`} className="phone">
           {phone}
         </a>

@@ -203,6 +203,10 @@ const Navbar = ({
   phone,
   tel,
   whiteLogoSize,
+  appointmentButtonUrl,
+  appointmentButtonLabel,
+  dentalOfferButtonUrl,
+  dentalOfferButtonLabel,
 }) => {
   const [isHomePage, setIsHomePage] = useState(false)
 
@@ -308,7 +312,14 @@ const Navbar = ({
           }}
         />
       </div>
-      <FloatingButtons phone={phone} tel={tel} />
+      <FloatingButtons
+        phone={phone}
+        tel={tel}
+        appointmentButtonUrl={appointmentButtonUrl}
+        appointmentButtonLabel={appointmentButtonLabel}
+        dentalOfferButtonUrl={dentalOfferButtonUrl}
+        dentalOfferButtonLabel={dentalOfferButtonLabel}
+      />
     </Wrapper>
   )
 }
