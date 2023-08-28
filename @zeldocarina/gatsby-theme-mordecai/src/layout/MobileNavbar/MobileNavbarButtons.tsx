@@ -69,15 +69,14 @@ const Button: React.FC<ButtonProps> = ({ closeMenu, url, label, isBlack }) => {
 
   const commonProps = {
     className: `button${isBlack ? " black-button" : ""}`,
-    onClick: closeMenu,
   }
 
   return isExternal ? (
-    <a href={url} {...commonProps}>
+    <a href={url} {...commonProps} onClick={closeMenu}>
       {label}
     </a>
   ) : (
-    <Link to={url} {...commonProps}>
+    <Link to={url} {...commonProps} onClick={closeMenu}>
       {label}
     </Link>
   )
@@ -97,20 +96,24 @@ const MobileNavbarButtons: React.FC<MobileNavbarButtonsProps> = ({
   appointmentButtonLabel,
   dentalOfferButtonLabel,
   dentalOfferButtonUrl,
-}) => (
-  <StyledMobileNavbarButtons>
-    <Button
-      closeMenu={closeMenu}
-      url={appointmentButtonUrl}
-      label={appointmentButtonLabel}
-    />
-    <Button
-      closeMenu={closeMenu}
-      url={dentalOfferButtonUrl}
-      label={dentalOfferButtonLabel}
-      isBlack
-    />
-  </StyledMobileNavbarButtons>
-)
+}) => {
+  console.log(closeMenu)
+
+  return (
+    <StyledMobileNavbarButtons>
+      <Button
+        closeMenu={closeMenu}
+        url={appointmentButtonUrl}
+        label={appointmentButtonLabel}
+      />
+      <Button
+        closeMenu={closeMenu}
+        url={dentalOfferButtonUrl}
+        label={dentalOfferButtonLabel}
+        isBlack
+      />
+    </StyledMobileNavbarButtons>
+  )
+}
 
 export default MobileNavbarButtons

@@ -251,6 +251,7 @@ const MobileNavbar = ({
           appointmentButtonLabel={appointmentButtonLabel}
           dentalOfferButtonUrl={dentalOfferButtonUrl}
           dentalOfferButtonLabel={dentalOfferButtonLabel}
+          closeMenu={closeMenu}
         />
         <a href={`tel:${tel}`} className="phone">
           {phone}
