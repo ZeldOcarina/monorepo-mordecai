@@ -142,7 +142,7 @@ const submitForm = async (req: VercelRequest, res: VercelResponse) => {
     }
   } finally {
     // Close the connection
-    await mongoose.disconnect()
+    // await mongoose.disconnect()
   }
 }
 
