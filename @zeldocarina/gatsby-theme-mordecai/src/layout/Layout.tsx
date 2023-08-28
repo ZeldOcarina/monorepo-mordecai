@@ -149,14 +149,24 @@ const Layout = ({ children }: React.PropsWithChildren) => {
   }[] = []
 
   const appointmentButtonUrl =
-    appointmentButtonUrlData?.appointmentButtonUrlData.Value || "/contact-us"
+    (appointmentButtonUrlData &&
+      appointmentButtonUrlData.appointmentButtonUrlData &&
+      appointmentButtonUrlData.appointmentButtonUrlData.Value) ||
+    "/contact-us"
   const appointmentButtonLabel =
-    appointmentButtonLabelData?.appointmentButtonLabelData.Value ||
+    (appointmentButtonLabelData &&
+      appointmentButtonLabelData.appointmentButtonLabelData &&
+      appointmentButtonLabelData.appointmentButtonLabelData.Value) ||
     "APPOINTMENTS"
   const dentalOfferButtonUrl =
-    dentalOfferButtonUrlData?.dentalOfferButtonUrlData.Value || "/dental-offer"
+    (dentalOfferButtonUrlData &&
+      dentalOfferButtonUrlData.dentalOfferButtonUrlData &&
+      dentalOfferButtonUrlData.dentalOfferButtonUrlData.Value) ||
+    "/dental-offer"
   const dentalOfferButtonLabel =
-    dentalOfferButtonLabelData?.dentalOfferButtonLabelData.Value ||
+    (dentalOfferButtonLabelData &&
+      dentalOfferButtonLabelData.dentalOfferButtonLabelData &&
+      dentalOfferButtonLabelData.dentalOfferButtonLabelData.Value) ||
     "DENTAL OFFER"
 
   if (

@@ -1,7 +1,7 @@
 import "react-phone-input-2/lib/style.css"
 
-import React, { useEffect, useReducer } from "react"
-import { Script, navigate } from "gatsby"
+import React, { useReducer } from "react"
+import { navigate } from "gatsby"
 import styled from "styled-components"
 
 import PhoneInput, { CountryData } from "react-phone-input-2"
@@ -9,9 +9,7 @@ import PhoneInput, { CountryData } from "react-phone-input-2"
 import useShortcodes from "@zeldocarina/gatsby-theme-mordecai/src/hooks/useShortcodes"
 import MarkdownParser from "@zeldocarina/gatsby-theme-mordecai/src/helpers/MarkdownParser"
 
-import StyledForm from "@zeldocarina/gatsby-theme-mordecai/src/components/form/formStyles"
-
-import FormHandler from "./FormHandler"
+import FormHandler, { ContactFormData } from "./FormHandler"
 import PuffLoader from "react-spinners/PuffLoader"
 import Address from "./Address"
 import formStyles from "@zeldocarina/gatsby-theme-mordecai/src/components/form/formStyles"
@@ -44,17 +42,10 @@ const initialState = {
   address: { value: "", error: "" },
   city: { value: "", error: "" },
   state: { value: "", error: "" },
-  zip: { value: "", error: "" },
+  zip_code: { value: "", error: "" },
   country: { value: "", error: "" },
   email: { value: "", error: "" },
   phone_number: { value: "", country_code: "", error: "" },
-  service: {
-    value: {
-      value: "",
-      label: "",
-    },
-    error: "",
-  },
   message: { value: "", error: "" },
   privacy_accepted: { value: false, error: "" },
   isSubmissionFailed: false,
@@ -72,7 +63,6 @@ export enum ActionKind {
   SET_SUCCESSFUL_SUBMISSION = "SET_SUCCESSFUL_SUBMISSION",
   SET_FORM_ERROR = "SET_FORM_ERROR",
   VALIDATE_FORM = "VALIDATE_FORM",
-  SET_DEFAULT_SERVICE = "SET_DEFAULT_SERVICE",
   ADDRESS_INPUT = "ADDRESS_INPUT",
   PLACE_SELECTED = "PLACE_SELECTED",
 }
@@ -95,17 +85,6 @@ function formReducer(formState: FormState, action: FormAction): FormState {
         ...formState,
         address: {
           value: action.payload,
-          error: "",
-        },
-      }
-    case ActionKind.SET_DEFAULT_SERVICE:
-      return {
-        ...formState,
-        service: {
-          value: {
-            value: "",
-            label: action.payload,
-          },
           error: "",
         },
       }
@@ -311,6 +290,7 @@ const Form = ({ title, cta, privacyLabel, isMapLoaded }: FormProps) => {
           containerClass="input"
           dropdownClass="tel-dropdown"
           onChange={(e, type) => handleInputChange(e, type)}
+          inputStyle={{ fontWeight: 400, fontFamily: "Outfit" }}
         />
         {formState.phone_number.error && (
           <span className="error-message">

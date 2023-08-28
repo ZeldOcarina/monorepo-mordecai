@@ -66,7 +66,7 @@ function Address({ formState, dispatch }) {
           payload: {
             key: "address",
             value: "",
-            error: "Please enter a street number.",
+            error: "Please select an address with a street number.",
           },
         })
       }

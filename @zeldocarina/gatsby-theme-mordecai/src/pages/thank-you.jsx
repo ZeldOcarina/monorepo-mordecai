@@ -14,8 +14,8 @@ const StyledThankYou = styled.main`
   .thank-you-container {
     background-image: linear-gradient(
       to right,
-      ${({ colors }) => hexToRGB(colors.colorPrimary, 0.7)},
-      ${({ colors }) => hexToRGB(colors.colorSecondary, 0.7)}
+      ${({ $colors }) => hexToRGB($colors.colorPrimary, 0.7)},
+      ${({ $colors }) => hexToRGB($colors.colorSecondary, 0.7)}
     );
 
     padding: 0;
@@ -34,7 +34,7 @@ const StyledThankYou = styled.main`
         css`
           padding: var(--section-gutter) 0;
           max-width: 95%;
-        `
+        `,
       )}
     }
 
@@ -71,7 +71,7 @@ const ThankYou = ({
         origin={location.origin}
         pathname={location.pathname}
       />
-      <StyledThankYou colors={appContext.colors}>
+      <StyledThankYou $colors={appContext.colors}>
         <div className="thank-you-container">
           <div className="container">
             <h1>

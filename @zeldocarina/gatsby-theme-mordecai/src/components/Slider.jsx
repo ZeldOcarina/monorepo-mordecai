@@ -1,9 +1,9 @@
 import React, { useContext } from "react"
+
 import styled, { css } from "styled-components"
 import { Swiper, SwiperSlide } from "swiper/react"
 import { Pagination, Autoplay, Navigation } from "swiper/modules"
 import respond from "../styles/abstracts/mediaqueries"
-import { GatsbyImage, getImage } from "gatsby-plugin-image"
 
 import Gradient from "./Gradient"
 import AppContext from "../context/AppContext"
@@ -106,7 +106,6 @@ const StyledSlider = styled.div`
 const Slider = ({ images }) => {
   const { isBigDesktop, colors, isMobile } = useContext(AppContext)
 
-  console.log(isMobile)
   return (
     <>
       <StyledSlider $colors={colors}>
@@ -127,16 +126,19 @@ const Slider = ({ images }) => {
             return (
               <SwiperSlide key={image.id}>
                 {isMobile && image.data.Media.localFiles.at(1) ? (
-                  <GatsbyImage
-                    image={getImage(image.data.Media.localFiles[1])}
+                  <img
+                    src={image.data.Media.localFiles[1].publicURL}
                     alt={image.data.AltText || "presentation"}
+                    loading="lazy"
                     className="image"
                   />
                 ) : (
-                  <GatsbyImage
-                    image={getImage(image.data.Media.localFiles[0])}
+                  <img
+                    src={image.data.Media.localFiles[0].publicURL}
                     alt={image.data.AltText || "presentation"}
                     className="image"
+                    loading="lazy"
+                    lazy="true"
                   />
                 )}
               </SwiperSlide>

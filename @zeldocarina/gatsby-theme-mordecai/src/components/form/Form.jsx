@@ -169,6 +169,7 @@ const Form = ({ title, cta, services, servicesTitle, privacyLabel }) => {
           dropdownClass="tel-dropdown"
           onChange={handleInputChange}
           className={formState?.phone_number?.error ? "error" : ""}
+          inputStyle={{ fontWeight: 400, fontFamily: "Outfit" }}
         />
         {formState.phone_number.error && (
           <span className="error-message">

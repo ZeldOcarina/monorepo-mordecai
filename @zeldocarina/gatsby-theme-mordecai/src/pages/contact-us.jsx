@@ -1,6 +1,6 @@
 import React, { useContext } from "react"
 import styled, { css } from "styled-components"
-import { graphql } from "gatsby"
+import { graphql, useStaticQuery } from "gatsby"
 import ShortcodesParser from "../helpers/ShortcodesParser"
 
 import Layout from "../layout/Layout"
@@ -78,22 +78,23 @@ export const StyledContactUs = styled.main`
   }
 `
 
-const ContactUs = ({
-  location,
-  data: {
-    businessNameData: { businessNameData },
-    contactUsSeoData: { contactUsSeoData },
-    contactUsTitleData: { contactUsTitleData },
-    contactUsServicesTitle: { contactUsServicesTitle },
-    contactUsServiceItems: { contactUsServiceItems },
-  },
-}) => {
+const ContactUs = ({ location }) => {
   const { shortcodesData } = useContext(AppContext)
 
   const parsedPrivacyLabel = new ShortcodesParser(
     contactUsTitleData.privacyLabel,
     shortcodesData,
   ).parseShortcodes()
+
+  const {
+    data: {
+      businessNameData: { businessNameData },
+      contactUsSeoData: { contactUsSeoData },
+      contactUsTitleData: { contactUsTitleData },
+      contactUsServicesTitle: { contactUsServicesTitle },
+      contactUsServiceItems: { contactUsServiceItems },
+    },
+  } = useStaticQuery(query)
 
   return (
     <Layout>
@@ -126,7 +127,7 @@ const ContactUs = ({
   )
 }
 
-export const query = graphql`
+const query = graphql`
   {
     businessNameData: airtable(
       table: { eq: "Config" }
