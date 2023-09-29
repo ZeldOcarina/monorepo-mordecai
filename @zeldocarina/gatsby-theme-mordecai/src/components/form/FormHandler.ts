@@ -1,6 +1,8 @@
 import { PhoneNumberUtil } from "google-libphonenumber"
 import axios from "axios"
 
+const formEndpoint = "/api/submit-form"
+
 interface FormItem {
   error: string
   value: string
@@ -147,8 +149,6 @@ export default class FormHandler {
 
     const completeWebhookData: WebhookToBackend =
       webhookData as WebhookToBackend
-
-    const formEndpoint = "/api/submit-form"
 
     const response = await axios.post(formEndpoint, completeWebhookData)
 

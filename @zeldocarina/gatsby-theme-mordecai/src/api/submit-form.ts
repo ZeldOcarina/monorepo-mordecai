@@ -3,8 +3,6 @@ import * as Sentry from "@sentry/node"
 
 import ILead from "../backend/models/lead-interface"
 
-import mongoose from "mongoose"
-
 import { connect } from "../backend/helpers/mongo-connect"
 
 import axios from "axios"

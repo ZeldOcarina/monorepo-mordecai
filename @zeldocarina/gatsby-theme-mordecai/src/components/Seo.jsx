@@ -113,7 +113,7 @@ const Seo = ({
             dentalOfferButtonHoverColorData.Shortcodes
           };
           --location-bar-bg-color: ${locationBarBgColorData.Value};
-          --location-bar-text-color: ${locationBarTextColorData.Value}
+          --location-bar-text-color: ${locationBarTextColorData.Value};
           --mobile-menu-color: ${mobileMenuColorData.Value};    
           --mobile-menu-category-color: ${mobileMenuCategoryColorData.Value};
           --mobile-menu-activator-color: ${mobileMenuActivatorColorData.Value};

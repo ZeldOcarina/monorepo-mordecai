@@ -1,6 +1,6 @@
 import React, { useContext } from "react"
 import styled, { css } from "styled-components"
-import { graphql, useStaticQuery } from "gatsby"
+import { graphql } from "gatsby"
 import ShortcodesParser from "../helpers/ShortcodesParser"
 
 import Layout from "../layout/Layout"
@@ -10,7 +10,7 @@ import IntroSection from "../components/IntroSection"
 import respond from "../styles/abstracts/mediaqueries"
 import AppContext from "../context/AppContext"
 
-export const StyledContactUs = styled.main`
+const StyledContactUs = styled.main`
   .intro-section {
     text-align: center;
     margin: 0 auto;
@@ -78,7 +78,16 @@ export const StyledContactUs = styled.main`
   }
 `
 
-const ContactUs = ({ location }) => {
+const ContactUs = ({
+  location,
+  data: {
+    businessNameData: { businessNameData },
+    contactUsSeoData: { contactUsSeoData },
+    contactUsTitleData: { contactUsTitleData },
+    contactUsServicesTitle: { contactUsServicesTitle },
+    contactUsServiceItems: { contactUsServiceItems },
+  },
+}) => {
   const { shortcodesData } = useContext(AppContext)
 
   const parsedPrivacyLabel = new ShortcodesParser(
@@ -86,20 +95,14 @@ const ContactUs = ({ location }) => {
     shortcodesData,
   ).parseShortcodes()
 
-  const {
-    data: {
-      businessNameData: { businessNameData },
-      contactUsSeoData: { contactUsSeoData },
-      contactUsTitleData: { contactUsTitleData },
-      contactUsServicesTitle: { contactUsServicesTitle },
-      contactUsServiceItems: { contactUsServiceItems },
-    },
-  } = useStaticQuery(query)
-
   return (
     <Layout>
       <Seo
-        title={`${businessNameData.Value} | ${contactUsSeoData.Page_Title}`}
+        title={`${
+          businessNameData && businessNameData.businessNameData
+            ? businessNameData.businessNameData.Value
+            : ""
+        } | ${contactUsSeoData.Page_Title}`}
         description={contactUsSeoData.description}
         mainKeyword={contactUsSeoData.Main_Keyword}
         relativeKeywords={contactUsSeoData.Relative_Keywords}
@@ -127,7 +130,7 @@ const ContactUs = ({ location }) => {
   )
 }
 
-const query = graphql`
+export const query = graphql`
   {
     businessNameData: airtable(
       table: { eq: "Config" }

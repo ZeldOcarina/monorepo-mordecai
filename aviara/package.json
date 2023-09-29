@@ -1,0 +1,31 @@
+{
+  "name": "aviara",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "develop": "gatsby develop",
+    "prebuild": "NODE_ENV=production node gatsby-prebuild.js",
+    "build": "gatsby build",
+    "start:dev": "npm-run-all -p dev:*",
+    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
+    "start": "NODE_ENV=development node gatsby-prebuild.js && gatsby develop",
+    "serve": "gatsby serve",
+    "clean": "gatsby clean"
+  },
+  "author": "Mattia Rasulo <mattia@monarchy.io>",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "@vercel/node": "^3.0.3",
+    "@zeldocarina/gatsby-helpers": "*",
+    "@zeldocarina/gatsby-theme-mordecai": "*",
+    "gatsby": "^5.11.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-places-autocomplete": "^7.3.0",
+    "sass": "^1.55.0"
+  },
+  "devDependencies": {
+    "@types/react-places-autocomplete": "^7.2.9"
+  }
+}

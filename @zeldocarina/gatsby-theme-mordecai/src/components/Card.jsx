@@ -74,8 +74,6 @@ const StyledCard = styled.article`
 
   .image {
     width: 100%;
-    object-fit: none;
-    object-position: unset;
     max-height: 20rem;
 
     ${respond(

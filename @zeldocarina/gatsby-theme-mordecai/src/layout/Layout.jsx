@@ -1,4 +1,4 @@
-import React, { useContext } from "react"
+import React from "react"
 import { useStaticQuery, graphql } from "gatsby"
 
 import { buildLink } from "../helpers/helpers"
@@ -13,9 +13,11 @@ import Footer from "./Footer"
 
 // @ts-expect-error
 import SliderSection from "../components/SliderSection"
+
 import ContactsSection, {
   ContactItem,
   OfficeHoursItem,
+  //@ts-expect-error
 } from "../components/ContactsSection"
 
 // @ts-expect-error
@@ -23,9 +25,8 @@ import Map from "../components/Map"
 
 // @ts-expect-error
 import DgpStripe from "../components/DgpStripe"
-import BeforeAndAfter, {
-  IBeforeAndAfterImage,
-} from "../components/BeforeAndAfter"
+import BeforeAndAfter from // @ts-expect-error
+"../components/BeforeAndAfter"
 
 // @ts-expect-error
 import ImagesSection from "../components/ImagesSection"
@@ -40,15 +41,15 @@ import LocationBanner from "./LocationBanner"
 import TestimonialsSlider from "../components/TestimonialsSlider"
 
 // TODO: Add types for the organize menu function
-function organizeMenu(categoriesData: any, cityState: any) {
-  const categories = new Set<string>()
-  const organizedMenuData: any = {}
+function organizeMenu(categoriesData, cityState) {
+  const categories = new Set()
+  const organizedMenuData = {}
 
-  const sortedCategoriesData = categoriesData.sort((a: any, b: any) => {
+  const sortedCategoriesData = categoriesData.sort((a, b) => {
     return a.data.rowNumber - b.data.rowNumber
   })
 
-  sortedCategoriesData.forEach((category: any) => {
+  sortedCategoriesData.forEach(category => {
     //if (category.data.Parent === "Home") return
     if (category.data.Parent && category.data.Permalink)
       categories.add(category.data.Parent)
@@ -59,11 +60,11 @@ function organizeMenu(categoriesData: any, cityState: any) {
   //   console.log({ category })
   // })
 
-  categories.forEach((category: any) => {
+  categories.forEach(category => {
     organizedMenuData[category] = []
   })
 
-  sortedCategoriesData.forEach((navItem: any) => {
+  sortedCategoriesData.forEach(navItem => {
     //if (navItem.data.Parent === "Home") return
     if (!organizedMenuData[navItem.data.Parent]) return
     organizedMenuData[navItem.data.Parent].push({
@@ -75,13 +76,14 @@ function organizeMenu(categoriesData: any, cityState: any) {
 
   const noLogoCategoriesData = categoriesData.filter(
     //item => item.data.Parent !== "Home"
-    (item: any) => item,
+    item => item,
   )
 
+  // @ts-expect-error
   return { categories: [...categories], menuData: noLogoCategoriesData }
 }
 
-const Layout = ({ children }: React.PropsWithChildren) => {
+const Layout = ({ children }) => {
   const {
     whiteLogoData,
     whiteLogoSizeData,
@@ -123,7 +125,7 @@ const Layout = ({ children }: React.PropsWithChildren) => {
     beforeAfterItemsData,
     testimonialsTitleData,
     testimonialsData,
-  }: Queries.LayoutQueryQuery = useStaticQuery(query)
+  } = useStaticQuery(query)
 
   const whiteLogo =
     (whiteLogoData?.whiteLogoData?.File?.localFiles &&
@@ -143,10 +145,7 @@ const Layout = ({ children }: React.PropsWithChildren) => {
 
   const organizedMenuData = organizeMenu(categoriesData, cityStateValue)
 
-  const globalFooterItems: {
-    component: JSX.Element
-    index: number
-  }[] = []
+  const globalFooterItems = []
 
   const appointmentButtonUrl =
     (appointmentButtonUrlData &&
@@ -270,8 +269,8 @@ const Layout = ({ children }: React.PropsWithChildren) => {
             textColorOverride:
               card3Data?.card3Data?.TextColorOverride || undefined,
           }}
-          items={contactItemsData.contactItemsData.slice() as ContactItem[]}
-          officeHours={officeHoursData.slice() as OfficeHoursItem[]}
+          items={contactItemsData.contactItemsData.slice()}
+          officeHours={officeHoursData.slice()}
           phone={phoneValue}
           tel={telDataValue}
           key={contactsTitleData.id}
@@ -304,9 +303,7 @@ const Layout = ({ children }: React.PropsWithChildren) => {
             beforeAfterTitleData.beforeAfterTitleData.BgColorOverride ||
             undefined
           }
-          images={
-            beforeAfterItemsData.beforeAfterItemsData.slice() as IBeforeAndAfterImage[]
-          }
+          images={beforeAfterItemsData.beforeAfterItemsData.slice()}
           key={beforeAfterTitleData.id}
         />
       ),

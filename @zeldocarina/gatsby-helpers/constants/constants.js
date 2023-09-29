@@ -21,5 +21,6 @@ export const DEFAULT_VALUES = {
   Post: "",
   Relative_Keywords: "",
   Description: "",
-  unmapped: false
+  unmapped: false,
+  TextColorOverride: ""
 };

@@ -6,21 +6,15 @@ import ShortcodesParser from "../helpers/ShortcodesParser"
 
 import ContactsCard from "./ContactsCard"
 
-// @ts-expect-error
 import MultipleAccordion from "./MultipleAccordion"
 
-// @ts-expect-error
 import respond from "../styles/abstracts/mediaqueries"
 
-// @ts-expect-error
 import AppContext from "../context/AppContext"
 
 import isExternalUrl from "../helpers/isExternalUrl/isExternalUrl"
 
-const StyledContactsSection = styled.section<{
-  $bgImage?: string
-  $bgColorOverride?: string
-}>`
+const StyledContactsSection = styled.section`
   padding-top: 0;
   padding-bottom: 0;
   position: relative;
@@ -265,50 +259,50 @@ const StyledContactsSection = styled.section<{
   }
 `
 
-export interface ContactItem {
-  id: string
-  data: {
-    ButtonLabel?: string
-    ButtonLink?: string
-    Copy?: string
-    Heading?: string
-  }
-}
+// export interface ContactItem {
+//   id: string
+//   data: {
+//     ButtonLabel?: string
+//     ButtonLink?: string
+//     Copy?: string
+//     Heading?: string
+//   }
+// }
 
-interface AccordionStateItem extends ContactItem {
-  isOpen: boolean
-}
+// interface AccordionStateItem extends ContactItem {
+//   isOpen: boolean
+// }
 
-export interface OfficeHoursItem {
-  data: { Label: string; Value: string }
-  id: string
-}
+// export interface OfficeHoursItem {
+//   data: { Label: string; Value: string }
+//   id: string
+// }
 
-interface IContactsSectionProps extends React.PropsWithChildren {
-  officeHours: OfficeHoursItem[]
-  items: ContactItem[]
-  phone: string
-  tel: string
-  bgImage?: string
-  bgColorOverride?: string
-  textColorOverride?: string
-  card1Data: {
-    bgColorOverride?: string
-    textColorOverride?: string
-    heading?: string
-  }
-  bigCardData: {
-    bgColorOverride?: string
-    textColorOverride?: string
-    heading?: string
-    buttonLabel?: string
-    buttonLink?: string
-  }
-  card3Data: {
-    bgColorOverride?: string
-    textColorOverride?: string
-  }
-}
+// interface IContactsSectionProps extends React.PropsWithChildren {
+//   officeHours: OfficeHoursItem[]
+//   items: ContactItem[]
+//   phone: string
+//   tel: string
+//   bgImage?: string
+//   bgColorOverride?: string
+//   textColorOverride?: string
+//   card1Data: {
+//     bgColorOverride?: string
+//     textColorOverride?: string
+//     heading?: string
+//   }
+//   bigCardData: {
+//     bgColorOverride?: string
+//     textColorOverride?: string
+//     heading?: string
+//     buttonLabel?: string
+//     buttonLink?: string
+//   }
+//   card3Data: {
+//     bgColorOverride?: string
+//     textColorOverride?: string
+//   }
+// }
 
 const ContactsSection = ({
   officeHours,
@@ -334,10 +328,8 @@ const ContactsSection = ({
     bgColorOverride: card3BgColorOverride,
     textColorOverride: card3TextColorOverride,
   },
-}: IContactsSectionProps) => {
-  const [accordionsState, setAccordionsState] = useState<AccordionStateItem[]>(
-    [],
-  )
+}) => {
+  const [accordionsState, setAccordionsState] = useState([])
 
   useEffect(() => {
     const initialAccordionsState = items.map((item, i) => {
@@ -350,8 +342,7 @@ const ContactsSection = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const { isiPad, shortcodesData }: { isiPad: boolean; shortcodesData: any } =
-    useContext(AppContext)
+  const { isiPad, shortcodesData } = useContext(AppContext)
 
   const card1TextColor = card1TextColorOverride || textColorOverride
   const bigCardTextColor = bigCardTextColorOverride || textColorOverride

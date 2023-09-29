@@ -5,3 +5,6 @@ setup:
   - project: mordecai
     config: mordecai_dnt-dental-lab
     path: dnt-dental-lab
+  - project: mordecai
+    config: mordecai_aviara
+    path: aviara
