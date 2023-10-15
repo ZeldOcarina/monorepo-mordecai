@@ -49,22 +49,17 @@ const StyledMobileNavbarButtons = styled.div`
   }
 `
 
-interface MobileNavbarButtonsProps {
-  closeMenu: React.MouseEventHandler<any>
-  appointmentButtonUrl: string
-  appointmentButtonLabel: string
-  dentalOfferButtonUrl: string
-  dentalOfferButtonLabel: string
-}
+/**
+ * Button component
+ * ----------------
+ * @param {Object} props - The properties for the Button component.
+ * @param {React.MouseEventHandler<any>} props.closeMenu - Function that closes the menu.
+ * @param {string} props.url - The URL for the button.
+ * @param {string} props.label - The label text for the button.
+ * @param {boolean} [props.isBlack] - Whether the button should be black or not. Optional.
+ */
 
-interface ButtonProps {
-  closeMenu: React.MouseEventHandler<any>
-  url: string
-  label: string
-  isBlack?: boolean
-}
-
-const Button: React.FC<ButtonProps> = ({ closeMenu, url, label, isBlack }) => {
+const Button = ({ closeMenu, url, label, isBlack }) => {
   const isExternal = isExternalUrl(url)
 
   const commonProps = {
@@ -82,23 +77,24 @@ const Button: React.FC<ButtonProps> = ({ closeMenu, url, label, isBlack }) => {
   )
 }
 
-interface MobileNavbarButtonsProps {
-  closeMenu: React.MouseEventHandler<any>
-  appointmentButtonUrl: string
-  appointmentButtonLabel: string
-  dentalOfferButtonUrl: string
-  dentalOfferButtonLabel: string
-}
+/**
+ * MobileNavbarButtons
+ * -------------------
+ * @param {Object} props
+ * @param {React.MouseEventHandler<any>} props.closeMenu
+ * @param {string} props.appointmentButtonUrl
+ * @param {string} props.appointmentButtonLabel
+ * @param {string} props.dentalOfferButtonUrl
+ * @param {string} props.dentalOfferButtonLabel
+ */
 
-const MobileNavbarButtons: React.FC<MobileNavbarButtonsProps> = ({
+const MobileNavbarButtons = ({
   closeMenu,
   appointmentButtonUrl,
   appointmentButtonLabel,
   dentalOfferButtonLabel,
   dentalOfferButtonUrl,
 }) => {
-  console.log(closeMenu)
-
   return (
     <StyledMobileNavbarButtons>
       <Button

@@ -86,7 +86,7 @@ const config = {
       resolve: "gatsby-plugin-google-tagmanager",
       options: {
         id: "{{ GTM_ID }}",
-        includeInDevelopment: false,
+        includeInDevelopment: true,
         defaultDataLayer: { platform: "gatsby" },
         routeChangeEventName: "gatsby-route-change",
         enableWebVitalsTracking: true,

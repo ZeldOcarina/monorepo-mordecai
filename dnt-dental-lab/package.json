@@ -16,9 +16,9 @@
   "author": "Mattia Rasulo <mattia@monarchy.io>",
   "license": "UNLICENSED",
   "dependencies": {
-    "@vercel/node": "^3.0.3",
     "@zeldocarina/gatsby-helpers": "*",
     "@zeldocarina/gatsby-theme-mordecai": "*",
+    "@vercel/node": "^3.0.3",
     "gatsby": "^5.11.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

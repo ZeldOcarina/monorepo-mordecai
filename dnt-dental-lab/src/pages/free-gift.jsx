@@ -1,15 +1,85 @@
 import React, { useContext, useEffect, useState } from "react"
 import { graphql } from "gatsby"
-import ShortcodesParser from "@zeldocarina/gatsby-theme-mordecai/src/helpers/ShortcodesParser"
+import styled, { css } from "styled-components"
 
+import ShortcodesParser from "@zeldocarina/gatsby-theme-mordecai/src/helpers/ShortcodesParser"
 import Layout from "@zeldocarina/gatsby-theme-mordecai/src/layout/Layout"
 import Seo from "@zeldocarina/gatsby-theme-mordecai/src/components/Seo"
 import FreeGiftForm from "../components/free-gift-form/FreeGiftForm"
 import IntroSection from "@zeldocarina/gatsby-theme-mordecai/src/components/IntroSection"
 import AppContext from "@zeldocarina/gatsby-theme-mordecai/src/context/AppContext"
-import { StyledContactUs } from "@zeldocarina/gatsby-theme-mordecai/src/pages/contact-us"
 
 import { Loader } from "@googlemaps/js-api-loader"
+import respond from "@zeldocarina/gatsby-theme-mordecai/src/styles/abstracts/mediaqueries"
+
+const StyledFreeGift = styled.main`
+  .intro-section {
+    text-align: center;
+    margin: 0 auto;
+    padding-top: 0;
+    margin-bottom: 5rem;
+    max-width: 100%;
+
+    &::after {
+      transform: translateX(-50%) translateY(-2rem);
+      left: 50%;
+    }
+
+    .subheading,
+    .heading {
+      text-align: center;
+      margin: var(--gutter) auto;
+    }
+  }
+
+  h1 {
+    text-align: center;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin: 0;
+    color: var(--color-primary);
+  }
+
+  p {
+    text-align: center;
+    margin-bottom: var(--big-gutter);
+    color: var(--white);
+  }
+
+  .form-container {
+    padding-top: 7rem;
+    padding-bottom: 10rem;
+    max-width: 70%;
+
+    ${respond(
+      924,
+      css`
+        max-width: 80%;
+        padding-bottom: 0;
+      `,
+    )}
+    ${respond(
+      834,
+      css`
+        max-width: 70%;
+        padding-bottom: 0;
+      `,
+    )}
+  ${respond(
+      500,
+      css`
+        max-width: 95%;
+        padding: 13rem 0 4rem 0;
+      `,
+    )}
+  ${respond(
+      "big-desktop",
+      css`
+        max-width: 40%;
+      `,
+    )}
+  }
+`
 
 const FreeGift = ({
   location,
@@ -53,7 +123,7 @@ const FreeGift = ({
         origin={location.origin}
         pathname={location.pathname}
       />
-      <StyledContactUs>
+      <StyledFreeGift>
         <div className="container form-container">
           <IntroSection
             superheading={freeGiftTitleData.Superheading}
@@ -66,7 +136,7 @@ const FreeGift = ({
             isMapLoaded={isMapLoaded}
           />
         </div>
-      </StyledContactUs>
+      </StyledFreeGift>
     </Layout>
   )
 }
