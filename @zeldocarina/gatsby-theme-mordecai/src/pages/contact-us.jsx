@@ -10,7 +10,7 @@ import IntroSection from "../components/IntroSection"
 import respond from "../styles/abstracts/mediaqueries"
 import AppContext from "../context/AppContext"
 
-const StyledContactUs = styled.main`
+export const StyledContactUs = styled.main`
   .intro-section {
     text-align: center;
     margin: 0 auto;
