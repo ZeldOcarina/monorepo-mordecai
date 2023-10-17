@@ -46,6 +46,10 @@ const StyledFreeGift = styled.main`
     color: var(--white);
   }
 
+  a {
+    font-weight: 700;
+  }
+
   .form-container {
     padding-top: 7rem;
     padding-bottom: 10rem;

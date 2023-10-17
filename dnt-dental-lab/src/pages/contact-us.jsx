@@ -1,4 +1,4 @@
-import React, { useContext } from "react"
+import React from "react"
 import { graphql } from "gatsby"
 import styled from "styled-components"
 import ShortcodesParser from "@zeldocarina/gatsby-theme-mordecai/src/helpers/ShortcodesParser"
@@ -10,6 +10,7 @@ import IntroSection from "@zeldocarina/gatsby-theme-mordecai/src/components/Intr
 import TextSection from "@zeldocarina/gatsby-theme-mordecai/src/components/TextSection"
 import AppContext from "@zeldocarina/gatsby-theme-mordecai/src/context/AppContext"
 import { StyledContactUs } from "@zeldocarina/gatsby-theme-mordecai/src/pages/contact-us"
+import useShortcodes from "@zeldocarina/gatsby-theme-mordecai/src/hooks/useShortcodes"
 
 const StyledNewText = styled.div`
   .text-section {
@@ -40,11 +41,11 @@ const ContactUs = ({
     contactUsServiceItems: { contactUsServiceItems },
   },
 }) => {
-  const { shortcodesData } = useContext(AppContext)
+  const shortcodes = useShortcodes(AppContext)
 
   const parsedPrivacyLabel = new ShortcodesParser(
     contactUsTitleData.privacyLabel,
-    shortcodesData,
+    shortcodes,
   ).parseShortcodes()
 
   return (
