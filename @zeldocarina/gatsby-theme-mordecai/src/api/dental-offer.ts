@@ -44,9 +44,7 @@ const dentalOfferHandler = async (req: VercelRequest, res: VercelResponse) => {
           process.env.NODE_ENV === "production"
             ? process.env.FRONT_OFFICE_EMAIL
             : "mattia@monarchy.io",
-        cc: process.env.MONARCHY_RECIPIENT_EMAIL
-          ? process.env.MONARCHY_RECIPIENT_EMAIL
-          : undefined,
+        cc: [],
         subject: "We have a new dental offer request from the website!",
         text: `Contact request incoming.\n\n${JSON.stringify(req.body)}`,
         html: leadHtml({

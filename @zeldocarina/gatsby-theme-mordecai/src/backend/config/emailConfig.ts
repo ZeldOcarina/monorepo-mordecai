@@ -2,7 +2,7 @@ import sgMail from "@sendgrid/mail"
 
 interface SendEmailProps {
   to: string
-  cc?: string
+  cc?: string | string[]
   subject: string
   text: string
   html: string
