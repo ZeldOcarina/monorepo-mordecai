@@ -24,7 +24,7 @@ const StyledRecentPosts = styled.section`
       500,
       css`
         grid-template-columns: 1fr;
-      `
+      `,
     )}
   }
 
@@ -71,7 +71,7 @@ const StyledRecentPosts = styled.section`
         css`
           margin: var(--gutter) 0;
           display: block;
-        `
+        `,
       )}
     }
   }
@@ -80,7 +80,7 @@ const StyledRecentPosts = styled.section`
 const RecentPosts = ({ posts }) => {
   const [contentRefs] = useState(
     // Create an array of refs based off the number of posts
-    posts.map(() => createRef())
+    posts.map(() => createRef()),
   )
 
   // Set the height of each content to the height of the tallest content
@@ -99,7 +99,7 @@ const RecentPosts = ({ posts }) => {
       <div className="posts-container">
         <IntroSection
           heading={"Recently Posted"}
-          subheading="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy."
+          subheading="Get the latest news from our blog."
         />
         <div className="posts-grid">
           {posts.map((post, i) => {
@@ -119,7 +119,7 @@ const RecentPosts = ({ posts }) => {
                     className="link"
                     to={buildLink(
                       `/dentistry-blog/${post.data.slug}`,
-                      shortcodesData.cityState.value
+                      shortcodesData.cityState.value,
                     )}
                   >
                     Read More
