@@ -11,8 +11,6 @@ import leadHtml from "../backend/views/leadEmail"
 
 import { connect } from "../backend/helpers/mongo-connect"
 
-import SalesJetConnector from "../backend/helpers/SalesJetConnector"
-
 const dentalOfferHandler = async (req: VercelRequest, res: VercelResponse) => {
   Sentry.init({
     dsn: process.env.SENTRY_DSN,
@@ -57,37 +55,6 @@ const dentalOfferHandler = async (req: VercelRequest, res: VercelResponse) => {
         }),
       })
       servicePromises.push(sendEmailPromise)
-    }
-
-    if (process.env.SALESJET_API_KEY) {
-      const parsedLeadForSalesJet = {
-        email: lead.email,
-        first_name: lead.first_name,
-        last_name: lead.last_name,
-        phone_number: lead.phone_number,
-        message: lead.message,
-        form_conversion: lead.form_conversion,
-        current_page: lead.current_page,
-        utm_campaign: lead.utm_campaign,
-        utm_content: lead.utm_content,
-        utm_id: lead.utm_id,
-        utm_medium: lead.utm_medium,
-        utm_source: lead.utm_source,
-        utm_term: lead.utm_term,
-        dental_offer: lead.dental_offer as unknown as string,
-        service: lead.service,
-      }
-
-      // Connect lead with Sales Jet for marketing purposes
-      const salesJetConnector = new SalesJetConnector({
-        salesJetApiKey: process.env.SALESJET_API_KEY,
-        eventName: "dental_offer",
-        lead: parsedLeadForSalesJet,
-      })
-
-      const salesJetConnectorPromise =
-        salesJetConnector.connectLeadWithSalesJet()
-      servicePromises.push(salesJetConnectorPromise)
     }
 
     await Promise.all(servicePromises)
