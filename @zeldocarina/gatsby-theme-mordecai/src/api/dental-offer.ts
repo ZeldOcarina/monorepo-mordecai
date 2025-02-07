@@ -6,7 +6,7 @@ import ILead from "../backend/models/lead-interface"
 import { isMongoError } from "../backend/helpers/helpers"
 
 import Lead from "../backend/models/lead"
-import sendEmail from "../backend/config/emailConfig"
+import { sendEmail } from "../backend/config/emailConfig"
 import leadHtml from "../backend/views/leadEmail"
 
 import { connect } from "../backend/helpers/mongo-connect"
@@ -42,7 +42,7 @@ const dentalOfferHandler = async (req: VercelRequest, res: VercelResponse) => {
           process.env.NODE_ENV === "production"
             ? process.env.FRONT_OFFICE_EMAIL
             : "mattia@monarchy.io",
-        cc: [],
+        from: "leads@monarchy.io",
         subject: "We have a new dental offer request from the website!",
         text: `Contact request incoming.\n\n${JSON.stringify(req.body)}`,
         html: leadHtml({

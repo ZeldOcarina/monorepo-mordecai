@@ -8,7 +8,7 @@ import { connect } from "../backend/helpers/mongo-connect"
 import axios from "axios"
 
 import Lead from "../backend/models/lead"
-import sendEmail from "../backend/config/emailConfig"
+import { sendEmail } from "../backend/config/emailConfig"
 
 import leadHtml from "../backend/views/leadEmail"
 
@@ -45,7 +45,7 @@ const submitForm = async (req: VercelRequest, res: VercelResponse) => {
           process.env.NODE_ENV === "production"
             ? process.env.FRONT_OFFICE_EMAIL
             : "mattia@monarchy.io",
-        cc: [],
+        from: "leads@monarchy.io",
         subject: "We have a new appointment request from the website!",
         text: `Contact request incoming.\n\n${JSON.stringify(req.body)}`,
         html: leadHtml(
