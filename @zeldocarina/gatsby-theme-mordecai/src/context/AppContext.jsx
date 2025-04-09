@@ -72,6 +72,10 @@ function ContextProvider(props) {
         </a>
       ),
     },
+    phone: {
+      shortcode: data.phoneData.phoneData.Shortcodes,
+      value: data.phoneData.phoneData.Value,
+    },
     cityState: {
       shortcode: data.cityStateData.cityStateData.Shortcodes,
       value: data.cityStateData.cityStateData.Value,

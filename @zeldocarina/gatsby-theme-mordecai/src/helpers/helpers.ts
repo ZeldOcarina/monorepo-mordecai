@@ -31,7 +31,7 @@ export const parseMarkdown = ({
   shortcodes: IFlatShortcode[]
 }) => {
   const markdownParser = new MarkdownParser({ inputMarkdown, shortcodes })
-  const parsedMarkdown = markdownParser.parseHtml()
+  const parsedMarkdown = markdownParser.parseHtml();
   return parsedMarkdown
 }
 

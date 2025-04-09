@@ -18,7 +18,7 @@ export default class ShortcodesParser {
 
   parseShortcodes() {
     if (!this.inputData) return
-    console.log(this.shortcodes)
+
     // Loop the shortcodes object and replace the object.shortcode with object.value
     Object.keys(this.shortcodes).forEach(key => {
       this.inputData = this.inputData.replaceAll(

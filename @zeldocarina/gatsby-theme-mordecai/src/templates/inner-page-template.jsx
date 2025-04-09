@@ -42,7 +42,6 @@ const InnerPageTemplate = ({
     ctaData,
     cta2Data,
     heroData,
-
     anchorItemsData,
     textData,
     faqTitleData,

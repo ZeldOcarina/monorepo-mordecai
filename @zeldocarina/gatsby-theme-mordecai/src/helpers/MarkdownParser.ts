@@ -5,7 +5,7 @@ import parse from "html-react-parser"
 
 export interface IFlatShortcode {
   shortcode: string
-  data: string
+  value: string
 }
 export default class MarkdownParser {
   inputMarkdown: string
@@ -58,7 +58,7 @@ export default class MarkdownParser {
     this.shortcodes.forEach(shortcode => {
       this.parsedMarkdown = this.parsedMarkdown.replaceAll(
         shortcode.shortcode,
-        shortcode.data,
+        shortcode.value,
       )
     })
   }
@@ -66,13 +66,17 @@ export default class MarkdownParser {
   replacePhoneNumbers() {
     // console.log("Replacing phone numbers");
     // console.log(this.shortcodes);
+    debugger
 
-    const tel = this.shortcodes.find(item => item.shortcode === "{{ tel }}")
-      ?.data
-    const phone = this.shortcodes.find(item => item.shortcode === "{{ phone }}")
-      ?.data
+    const tel = this.shortcodes.find(
+      item => item.shortcode === "{{ tel }}",
+    )?.value
+    const phone = this.shortcodes.find(
+      item => item.shortcode === "{{ phone }}",
+    )?.value
 
     if (!tel || !phone) return ""
+
     this.parsedMarkdown = this.parsedMarkdown.replaceAll(
       "{{ tel-component }}",
       `<a href="tel:${tel}">${phone}</a>`,
